@@ -405,7 +405,7 @@ project(':crs-transformation-adapter-test') {
 // https://mvnrepository.com/artifact/org.geotools/gt-shapefile
 //        implementation group: 'org.geotools', name: 'gt-shapefile', version: '19.1'
         // https://mvnrepository.com/artifact/org.mockito/mockito-core
-        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.0'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.24.0'
 
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
