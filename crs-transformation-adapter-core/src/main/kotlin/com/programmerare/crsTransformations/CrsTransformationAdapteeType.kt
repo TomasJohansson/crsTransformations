@@ -25,10 +25,16 @@ enum class CrsTransformationAdapteeType {
     // that a new enum should be added
     
     /**
-     * Maven version for the adaptee library:  
-     * "org.geotools:gt-main:20.0"
+     * DEPRECATED version for the adaptee library !  
      */
+    @Deprecated("Use 'LEAF_GEOTOOLS_20_2' instead since the currently used GeoTools library is version 20.2")
     LEAF_GEOTOOLS_20_0,
+
+    /**
+     * Maven version for the adaptee library:
+     * "org.geotools:gt-main:20.2"
+     */
+    LEAF_GEOTOOLS_20_2,
 
     /**
      * Maven version for the adaptee library:

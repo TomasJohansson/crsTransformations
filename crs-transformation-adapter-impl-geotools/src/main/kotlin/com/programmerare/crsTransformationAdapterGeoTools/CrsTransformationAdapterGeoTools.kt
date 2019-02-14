@@ -1,6 +1,6 @@
 package com.programmerare.crsTransformationAdapterGeoTools
 
-// build.gradle: implementation("org.geotools:gt-main:20.0")
+// build.gradle: implementation("org.geotools:gt-main:20.2")
 import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.coordinate.createFromYNorthingLatitudeAndXEastingLongitude
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
@@ -65,7 +65,7 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     // ----------------------------------------------------------
 
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_20_0
+        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_20_2
     }
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)
