@@ -1,6 +1,7 @@
 package com.programmerare.crsTransformations
 
 /**
+ * 
  * Enumeration type returned from a method in the adapter interface.
  * 
  * The purpose is to make it easier to see from where a result originated
@@ -8,6 +9,13 @@ package com.programmerare.crsTransformations
  * 
  * The names of the leafs in the enumeration includes information
  * about the version number for the adaptee library it represents.
+ * 
+ * The purpose of this enum type is NOT to use it anywhere for specifying which implementation you want to use,
+ * e.g. it is NOT possible to choose an older version of a library such as GeoTools
+ * by using the enum value LEAF_GEOTOOLS_20_0 instead of LEAF_GEOTOOLS_20_2.
+ * The latest version (with the highest version number in the enum name) will be used,
+ * and the older enum is only kept for avoiding to cause compiling problems if someone
+ * would be using it in for example if/switch statements for checking which version is used.
  *
  * @author Tomas Johansson ( http://programmerare.com )
  * The code in the "crs-transformation-adapter-core" project is licensed with MIT.
@@ -25,7 +33,8 @@ enum class CrsTransformationAdapteeType {
     // that a new enum should be added
     
     /**
-     * DEPRECATED version for the adaptee library !  
+     * DEPRECATED version for the adaptee library !
+     * ( this constant was published in release 1.0.0 )
      */
     @Deprecated("Use 'LEAF_GEOTOOLS_20_2' instead since the currently used GeoTools library is version 20.2")
     LEAF_GEOTOOLS_20_0,
