@@ -83,8 +83,15 @@ import java.io.File
  *          database name e.g. "epsg_version_9_5_3"
  *          database user name
  *          database user password
+ *          typeOfFilesToBeGenerated  with one the below currently supported values:
+ *                                      java
+ *                                      kotlin
+ *                                      csharpe
+ *                                      fsharpe
+ *                                      csv
+ *                                      
  *      Example of running the main method:
- *          com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator v9_5_3 dbName dbUser dbPassword
+ *          com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator v9_5_3 dbName dbUser dbPassword java
  *      The resulting output should 12 classes with constants generated into the module "crsConstants"
  *      within the following directory:
  *          .\crsConstants\src\main\java\com\programmerare\crsConstants
@@ -320,7 +327,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         // The other 11 classes (except from the above) was not released.
         // When generating and packaging all 12 classes then the javadoc files (required for deployment at Maven central) become very large.        
         // ------------------------------------------------------------------
-//        generateClassFileWithConstants(CLASS_NAME_STRING_CONSTANTS,  getNameOfJavaPackageForAreaNameNumber(), RenderStrategyAreaNameNumberString())
+        //generateClassFileWithConstants(CLASS_NAME_STRING_CONSTANTS,  getNameOfJavaPackageForAreaNameNumber(), RenderStrategyAreaNameNumberString())  
 //        
 //
 //        generateClassFileWithConstants(CLASS_NAME_INTEGER_CONSTANTS, getNameOfJavaPackageForNumberAreaName(), RenderStrategyNumberAreaNameInteger(), sortByNumber = true)
