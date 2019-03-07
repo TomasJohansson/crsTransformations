@@ -25,14 +25,19 @@ import org.cts.registry.EPSGRegistry;
  * is licensed with LGPLV3+ i.e. the same license as the adaptee library orbisgis/cts.
  */
 class CrsTransformationAdapterOrbisgisCTS : CrsTransformationAdapterBaseLeaf(), CrsTransformationAdapter {
-
-    override protected fun transformHook(
-            inputCoordinate: CrsCoordinate,
-            crsIdentifierForOutputCoordinateSystem: CrsIdentifier
-    ): CrsCoordinate {
-        val crsFactory: CRSFactory = CRSFactory()
+    
+    private val crsFactory: CRSFactory
+    
+    init {
+        crsFactory = CRSFactory()
         val registryManager = crsFactory.registryManager
-        registryManager.addRegistry(EPSGRegistry())
+        registryManager.addRegistry(EPSGRegistry())        
+    }
+    
+    override protected fun transformHook(
+        inputCoordinate: CrsCoordinate,
+        crsIdentifierForOutputCoordinateSystem: CrsIdentifier
+    ): CrsCoordinate {
         val inputCRS = crsFactory.getCRS(inputCoordinate.crsIdentifier.crsCode) // e.g. "EPSG:4326" = WGS84
         val outputCRS = crsFactory.getCRS(crsIdentifierForOutputCoordinateSystem.crsCode) // e.g. "EPSG:3006" = SWEREF99 TM
         val inputCRSgeodetic = inputCRS as GeodeticCRS
