@@ -22,8 +22,8 @@ class CrsTransformationAdapteeTypeTest {
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
-            "cts-1.5.1.jar",
-            CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_1
+            "cts-1.5.2.jar",
+            CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_2
         );
     }
     

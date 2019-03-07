@@ -46,7 +46,7 @@ class CrsTransformationAdapterOrbisgisCTS : CrsTransformationAdapterBaseLeaf(), 
 
     // ----------------------------------------------------------
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_1
+        return CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_2
     }
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)

@@ -257,8 +257,8 @@ project(':crs-transformation-adapter-impl-orbisgis') {
         implementation project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.orbisgis/cts
-        implementation("org.orbisgis:cts:1.5.1") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
-        // test code will detect upgrades with the purpose to update an enum if the file name changes from "cts-1.5.1.jar"
+        implementation("org.orbisgis:cts:1.5.2") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
+        // test code will detect upgrades with the purpose to update an enum if the file name changes from "cts-1.5.2.jar"
     }
     publishing {
         publications {

@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Thus the file defines a list of appropriate WGS84 coordinates which can be transformed back and forth
  * to/from the coordinate system in the first EPSG column.
  */
-@Disabled // you may want to temporary change this line if you want to run the "tests" 
+@Disabled // you may want to temporary change this line if you want to run the "tests"  
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
 class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
@@ -156,7 +156,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForOrbisgis,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_1.5.1" // build.gradle: implementation("org.orbisgis:cts:1.5.1")
+            "_version_1.5.2" // build.gradle: implementation("org.orbisgis:cts:1.5.2")
         );
     }
 
@@ -209,7 +209,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
     @Test // currently not a real test with assertions but printing console output with differences
     @Tag(TestCategory.SideEffectPrintingConsoleOutput)
     void compareResultsForDifferentVersionsOfOrbis() {
-        // filename e.g. "CrsTransformationAdapterOrbisgisCTS_version_1.5.1.csv"
+        // filename e.g. "CrsTransformationAdapterOrbisgisCTS_version_1.5.2.csv"
         compareTheTwoLatestVersion(
                 "Orbis",
                 deltaValueForDifferencesToIgnoreWhenComparingDifferentVersionForSameImplementation,

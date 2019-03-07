@@ -52,10 +52,17 @@ enum class CrsTransformationAdapteeType {
     LEAF_GOOBER_1_1,
 
     /**
-     * Maven version for the adaptee library:  
-     * "org.orbisgis:cts:1.5.1"
+     * DEPRECATED version for the adaptee library !
+     * ( this constant was published in release 1.0.0 )
      */
+    @Deprecated("Use 'LEAF_ORBISGIS_1_5_2' instead since the currently used OrbisGIS/CTS library is version 1.5.2")
     LEAF_ORBISGIS_1_5_1,
+
+    /**
+     * Maven version for the adaptee library:
+     * "org.orbisgis:cts:1.5.2"
+     */
+    LEAF_ORBISGIS_1_5_2,
 
     /**
      * Maven version for the adaptee library:  
