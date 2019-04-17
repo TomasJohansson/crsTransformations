@@ -420,7 +420,7 @@ project(':crs-transformation-adapter-test') {
 
         // https://mvnrepository.com/artifact/com.google.guava/guava
         // https://github.com/google/guava/releases
-        testImplementation group: 'com.google.guava', name: 'guava', version: '27.0.1-jre' // com.google.common.io
+        testImplementation group: 'com.google.guava', name: 'guava', version: '27.1-jre' // com.google.common.io
     }
 }
 
