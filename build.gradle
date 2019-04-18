@@ -117,12 +117,16 @@ subprojects { p->
         from javadoc.destinationDir
     }
 	
-
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         from sourceSets.main.allSource
     }
-	
+
+    // https://solidsoft.wordpress.com/2014/11/13/gradle-tricks-display-dependencies-for-all-subprojects-in-multi-project-build/
+    // https://stackoverflow.com/questions/44266687/how-to-print-out-all-dependencies-in-a-gradle-multi-project-build
+    // gradlew printDependencies > dependencies.txt
+    task printDependencies(type: DependencyReportTask) {}
+    
     if(!p.name.equals("crs-transformation-constants")) {
         dependencies {
             // implementation("org.jetbrains.kotlin:kotlin-runtime:$kotlin_version")
