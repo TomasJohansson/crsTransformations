@@ -43,7 +43,7 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
 
     // ----------------------------------------------------------
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_1_0
+        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_2_0
     }
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)

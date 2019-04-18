@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CrsTransformationAdapteeTypeTest {
     
     @Test
-    
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
@@ -40,8 +39,8 @@ class CrsTransformationAdapteeTypeTest {
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
-            "geopackage-core-3.1.0.jar",
-            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_1_0
+            "geopackage-core-3.2.0.jar",
+            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_2_0
         );
     }
     

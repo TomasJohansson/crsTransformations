@@ -25,6 +25,8 @@ package com.programmerare.crsTransformations
  */
 enum class CrsTransformationAdapteeType {
 
+    // TODO add the tags @since with version number for the constant values in this class
+    
     // After an upgrade, test code should help to remind about updating the enum values.
     // For exampl, there is test code that retrives the name of the jar file for 
     // a class within geotools library, and the testcode verifies for example 
@@ -65,10 +67,17 @@ enum class CrsTransformationAdapteeType {
     LEAF_ORBISGIS_1_5_2,
 
     /**
-     * Maven version for the adaptee library:  
-     * "mil.nga.geopackage:geopackage-core:3.1.0"
+     * DEPRECATED version for the adaptee library !
+     * ( this constant was published in release 1.0.0 )
      */
+    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_2_0' instead since the currently used 'mil.nga.geopackage' library is version 3.2.0")
     LEAF_NGA_GEOPACKAGE_3_1_0,
+
+    /**
+     * Maven version for the adaptee library:
+     * "mil.nga.geopackage:geopackage-core:3.2.0"
+     */    
+    LEAF_NGA_GEOPACKAGE_3_2_0,
 
     /**
      * Maven version for the adaptee library:  
