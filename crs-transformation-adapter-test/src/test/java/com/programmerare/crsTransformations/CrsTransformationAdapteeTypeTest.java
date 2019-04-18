@@ -30,8 +30,8 @@ class CrsTransformationAdapteeTypeTest {
     void geotoolsAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
-            "gt-api-20.2.jar",
-            CrsTransformationAdapteeType.LEAF_GEOTOOLS_20_2
+            "gt-api-20.3.jar",
+            CrsTransformationAdapteeType.LEAF_GEOTOOLS_20_3
         );
     }
 
