@@ -27,9 +27,9 @@ plugins {
     id 'signing'
 }
 
-ext.snapshotSuffixOrEmpty = "" // this value should be equal to "-SNAPSHOT" or "" (for a release)
+ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
-ext.crsTransformationVersion = '1.0.0' + rootProject.snapshotSuffixOrEmpty
+ext.crsTransformationVersion = '1.0.1' + rootProject.snapshotSuffixOrEmpty
 group = rootProject.crsTransformationGroupId
 version = rootProject.crsTransformationVersion
 ext.isReleaseVersion = !rootProject.snapshotSuffixOrEmpty.endsWith("SNAPSHOT")
