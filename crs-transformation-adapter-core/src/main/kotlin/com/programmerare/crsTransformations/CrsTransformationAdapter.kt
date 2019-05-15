@@ -132,7 +132,15 @@ interface CrsTransformationAdapter {
     /**
      * @see CrsTransformationAdapteeType
      */
+    @Deprecated("The type CrsTransformationAdapteeType was only used for getting information about which implementation was used, e.g. an enum with a name revealing the version number. Now instead use the methods getShortNameOfImplementation (existing since before) and the new method CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()")
     fun getAdapteeType() : CrsTransformationAdapteeType
+
+    /**
+     * @return for example "3.2.0"
+     *  and the implementation should try to extract such a version number 
+     *  from the name of a jar file such as "geopackage-core-3.2.0.jar"
+     */
+    fun getVersionOfImplementationAdapteeLibrary() : String
 
     /**
      * @return  true if the implementation is a 'composite'

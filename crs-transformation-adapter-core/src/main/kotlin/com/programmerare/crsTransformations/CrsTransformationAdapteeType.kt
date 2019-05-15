@@ -23,6 +23,7 @@ package com.programmerare.crsTransformations
  * Please find more information in the license file at the root directory of each subproject
  * (e.g. the subprojects "crs-transformation-adapter-impl-geotools" , "crs-transformation-adapter-impl-proj4j" and so on)
  */
+@Deprecated("The type CrsTransformationAdapteeType was only used for getting information about which implementation was used, e.g. an enum with a name revealing the version number. Now instead use the methods getShortNameOfImplementation (existing since before) and the new method CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()")
 enum class CrsTransformationAdapteeType {
 
     // TODO add the tags @since with version number for the constant values in this class

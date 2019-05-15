@@ -2,6 +2,7 @@ package com.programmerare.crsTransformations
 
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
+import com.programmerare.crsTransformations.utils.StringUtility
 
 /**
  * Base class for the 'leaf' adapters.
@@ -64,4 +65,9 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
     override fun getAdapteeType() : CrsTransformationAdapteeType {
         return CrsTransformationAdapteeType.UNSPECIFIED_LEAF
     }
+
+    override fun getVersionOfImplementationAdapteeLibrary(): String {
+        val nameOfJarFile = this.getNameOfJarFileOrEmptyString()
+        return StringUtility.getLastNumericalValueFromString(nameOfJarFile)
+    }    
 }
