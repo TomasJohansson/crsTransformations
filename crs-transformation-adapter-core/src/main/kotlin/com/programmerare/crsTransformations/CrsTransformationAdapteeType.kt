@@ -34,7 +34,7 @@ enum class CrsTransformationAdapteeType {
     // the file name "gt-api-20.0.jar" but if the file name would instead be  
     // for example "gt-api-20.1.jar" then the test would fail to help reminding 
     // that a new enum should be added
-    
+
     /**
      * DEPRECATED version for the adaptee library !
      * ( this constant was published in release 1.0.0 )
@@ -58,7 +58,14 @@ enum class CrsTransformationAdapteeType {
      * Maven version for the adaptee library:
      * "org.geotools:gt-main:21.0"
      */
-    LEAF_GEOTOOLS_21_0,    
+    @Deprecated("Use 'LEAF_GEOTOOLS_21_1' instead since the currently used GeoTools library is version 21.1")
+    LEAF_GEOTOOLS_21_0, // "old"
+
+    /**
+     * Maven version for the adaptee library:
+     * "org.geotools:gt-main:21.1"
+     */
+    LEAF_GEOTOOLS_21_1,    
     //
     
     /**

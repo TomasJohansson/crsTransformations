@@ -45,8 +45,8 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
             "gt-main-21.1.jar",
-            CrsTransformationAdapteeType.LEAF_GEOTOOLS_21_0,
-            "21.0"
+            CrsTransformationAdapteeType.LEAF_GEOTOOLS_21_1,
+            "21.1"
         );
     }
 
