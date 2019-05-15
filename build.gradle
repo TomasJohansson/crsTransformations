@@ -38,9 +38,27 @@ plugins {
 
 // TODO add the tags @since with version number for the constant values in the class CrsTransformationAdapteeType
 // e.g. @since 1.0.0 or @since 1.0.1 
+
+// https://semver.org
+//      Given a version number MAJOR.MINOR.PATCH, increment the:
+//          MAJOR version when you make incompatible API changes,
+//          MINOR version when you add functionality in a backwards-compatible manner, and
+//          PATCH version when you make backwards-compatible bug fixes.
+
+// The next version should be a minor i.e. change from 1.0.0 to 1.1.0
+// because of the added method 'CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()'
+
+// The version number below ("ext.crsTransformationVersion") should be the same as in 
+// the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
+
 ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
-ext.crsTransformationVersion = '1.0.1' + rootProject.snapshotSuffixOrEmpty
+ext.crsTransformationVersion = '1.1.0' + rootProject.snapshotSuffixOrEmpty
+// currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
+// TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
+// for example as below:
+// ext.crsTransformationVersion = "${com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory.Version}"
+// https://discuss.gradle.org/t/access-constant-from-groovy-class-in-gradle-buildfile/10571/3
 
 group = rootProject.crsTransformationGroupId
 version = rootProject.crsTransformationVersion

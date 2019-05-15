@@ -20,7 +20,7 @@ class CrsTransformationAdapteeTypeTest {
 
     // The version below should be the same as the version defined like this in "build.gradle":
     // ext.crsTransformationVersion = '1.0.1'
-    private final static String VersionOfCrsTransformationLibrary = "1.0.1";
+    private final static String VersionOfCrsTransformationLibrary = "1.1.0";
     
     @Test
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
