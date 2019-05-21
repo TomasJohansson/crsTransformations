@@ -487,7 +487,7 @@ project(':crs-transformation-code-generation') {
         
         // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
         // https://github.com/spring-projects/spring-framework/releases
-        implementation("org.springframework:spring-jdbc:5.1.6.RELEASE") // there is a new 5.1.7 version
+        implementation("org.springframework:spring-jdbc:5.1.7.RELEASE")
         
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
