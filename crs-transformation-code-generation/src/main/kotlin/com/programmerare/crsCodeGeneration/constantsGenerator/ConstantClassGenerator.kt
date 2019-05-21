@@ -8,18 +8,18 @@ import java.io.File
 // // .\crsConstants\src\main\java\com\programmerare\crsConstants
 
 // command line execution (according to configuration in build.gradle) example:
-// gradle generateClassesWithEpsgConstants --args="v9_5_4 epsg_version_9_5_4 dbUserName dbUserPassword java"
-// gradle generateClassesWithEpsgConstants --args="v9_5_4 epsg_version_9_5_4 dbUserName dbUserPassword csv"
+// gradle generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 dbUserName dbUserPassword java"
+// gradle generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 dbUserName dbUserPassword csv"
 
 /**
  * Below are step by step instructions for how to generate new constants when a new EPSG version is downloaded.
- * (i.e. constants within "crsConstants" e.g. the file ".\crsConstants\src\main\java\com\programmerare\crsConstants\constantsByAreaNameNumber\v9_3\EpsgCode.java")
+ * (i.e. constants within "crsConstants" e.g. the file ".\crsConstants\src\main\java\com\programmerare\crsConstants\constantsByAreaNameNumber\v9_6_3\EpsgCode.java")
  *
  * 1. Download the latest version of a MySQL/MariaDB file from one of these websites:
  *          http://www.epsg-registry.org
  *          http://www.epsg.org
  *      It may be necessary to register to be able to download the latest file.
- *      The name of the downloaded file might be something like this: "EPSG-MySQL-export-9.5.3.zip"
+ *      The name of the downloaded file might be something like this: "EPSG-MySQL-export-9.6.3.zip"
  * 2. Unzip the content of the downloaded file into some directory.
  *      In the description below it is assumed that you unzipped the content to the directory "C:\temp\EPSG\"
  *      There should now be at least two relevant SQL files in your unzip directory:
@@ -62,7 +62,7 @@ import java.io.File
  *    Note that the creation of a database (and user rights) is currently not described here in detail.
  *      You may for example create the database through a GUI such as DBeaver.
  *      For the next step, it is simply assumed that you have created a database
- *      with the name "epsg_version_9_5_3"
+ *      with the name "epsg_version_9_6_3"
  *      (and please note that dots should be avoided in the name of the database !)
  *      and the database user "myuser" has the password "mypassword"
  *      and has the rights to create tables and insert data to the tables.
@@ -71,16 +71,16 @@ import java.io.File
  *      The commands below have been tested with Windows 10 and an installation of MariaDB version 10.1.34.
  *      Commands from a Windows 10 command prompt (first navigating to the unzip directory):
  *          cd C:\temp\EPSG
- *          mysql --user=myuser --password=mypassword --default-character-set=utf8 epsg_version_9_5_3
+ *          mysql --user=myuser --password=mypassword --default-character-set=utf8 epsg_version_9_6_3
  *      Depending on how your path has been set up you may have to use the full path to the mysql tool e.g. like below:
- *          "C:\Program Files\MariaDB 10.1\bin\mysql" --user=myuser --password=mypassword --default-character-set=utf8 epsg_version_9_5_3
+ *          "C:\Program Files\MariaDB 10.1\bin\mysql" --user=myuser --password=mypassword --default-character-set=utf8 epsg_version_9_6_3
  *      Then run the "source" command two times from within the "mysql" program:
  *          source MySQL_Table_Script.sql
  *          source MySQL_Data_Script_WithTransactions.sql
  * 7. Generate the constants with the main method in ConstantClassGenerator.
  *      The main method requries four parameters in the following order:
- *          version name (this string is used as last part of the package name) e.g. "v9_5_3"
- *          database name e.g. "epsg_version_9_5_3"
+ *          version name (this string is used as last part of the package name) e.g. "v9_6_3"
+ *          database name e.g. "epsg_version_9_6_3"
  *          database user name
  *          database user password
  *          typeOfFilesToBeGenerated  with one the below currently supported values:
@@ -91,14 +91,14 @@ import java.io.File
  *                                      csv
  *                                      
  *      Example of running the main method:
- *          com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator v9_5_3 dbName dbUser dbPassword java
+ *          com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator v9_6_3 dbName dbUser dbPassword java
  *      The resulting output should 12 classes with constants generated into the module "crsConstants"
  *      within the following directory:
  *          .\crsConstants\src\main\java\com\programmerare\crsConstants
  *         Example of the full names for some of those generated classes:
- *              com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_3.EpsgCode
- *              com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_3.EpsgNumber
- *              com.programmerare.crsConstants.constantsByAreaNumberName.v9_5_3.EpsgCode
+ *              com.programmerare.crsConstants.constantsByAreaNameNumber.v9_6_3.EpsgCode
+ *              com.programmerare.crsConstants.constantsByAreaNameNumber.v9_6_3.EpsgNumber
+ *              com.programmerare.crsConstants.constantsByAreaNumberName.v9_6_3.EpsgCode
  *              ....
  *         Six of the twelve classes has the name "EpsgNumber" and the others have the name "EpsgCode"
  *         In each of six packages those two classed are generated.
@@ -107,7 +107,7 @@ import java.io.File
  *         The names of the constants are a concatenation of Area/Name/Number
  *         and the package names reflects the order of the concatenation.
  *         Two examples from the package including "constantsByAreaNameNumber":
- *          (e.g. the package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_3)
+ *          (e.g. the package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_6_3)
  *          class EpsgCode {
  *              ...
  *              public final static String SWEDEN__SWEREF99_TM__3006 = "EPSG:3006";
@@ -125,7 +125,7 @@ import java.io.File
  *              "Name":     "SWEREF99_TM"
  *              "Number":   "3006"
  *          Another example from the package "constantsByNumberAreaName":
- *           (e.g. the package com.programmerare.crsConstants.constantsByNumberAreaName.v9_5_3)
+ *           (e.g. the package com.programmerare.crsConstants.constantsByNumberAreaName.v9_6_3)
  *              class EpsgNumber {
  *                  ...
  *                  public final static int _3006__SWEDEN__SWEREF99_TM = 3006;
@@ -159,7 +159,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
                 println(validationMessage)
                 return
             }
-            // args[0] is the version of EPSG and should be specified with underscores instead of dots e.g. "v9_5_3"
+            // args[0] is the version of EPSG and should be specified with underscores instead of dots e.g. "v9_6_3"
             setEpsgVersion(epsgVersion = args[0])
             setDatabaseInformationForMariaDbConnection(
                     databaseName = args[1],
@@ -197,14 +197,14 @@ class ConstantClassGenerator : CodeGeneratorBase() {
                 return "The method should have five parameters"
             }
             if(!isValidAsVersionPrefix(args[0])) {
-                return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_5_3' "
+                return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_6_3' "
             }
             return ""
         }
 
         private val regularExpressionForVersionSuffix = Regex("""v(\d+|\d+[_\d]*\d+)""")
         /**
-         * @param versionSuffix a string such as "v9_5_3" (for a version 9.5.3)
+         * @param versionSuffix a string such as "v9_6_3" (for a version 9.6.3)
          *  i.e. the "v" as prefix and then some version number with one or more digits,
          *  but instead of the normal dots the separator between major/minor version numbers should be underscore.
          *  The usage of the validated string is that it will be used as the last part of a package name.
@@ -229,12 +229,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
 
         private const val PACKAGE_NAME_PREFIX = "com.programmerare.crsConstants."
 
-        private var _epsgVersion = "v_NotYetDefined" // should be something like "v9_5_4"
+        private var _epsgVersion = "v_NotYetDefined" // should be something like "v9_6_3"
         private fun setEpsgVersion(epsgVersion: String) {
             _epsgVersion = epsgVersion
         }
 
-        // should return something like "v9_5_4" or "v9.5.4" depending on the boolean parameter
+        // should return something like "v9_6_3" or "v9.6.3" depending on the boolean parameter
         private fun getEpsgVersion(useUnderScoresInsteadOfDots: Boolean = true) : String {
             if(useUnderScoresInsteadOfDots) {
                 return _epsgVersion.replace('.','_')
@@ -321,7 +321,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
 
         
         // ------------------------------------------------------------------
-        // The below class (when generating as Java constant) is the only class released in version 9.5.4
+        // The below class (when generating as Java constant) is the only class released in version 9.6.3
         // (with the version name being the EPSG database version)
         generateClassFileWithConstants(CLASS_NAME_INTEGER_CONSTANTS, getNameOfJavaPackageForAreaNameNumber(), RenderStrategyAreaNameNumberInteger())
         // The other 11 classes (except from the above) was not released.
@@ -341,8 +341,8 @@ class ConstantClassGenerator : CodeGeneratorBase() {
     /**
      * @param nameOfJavaPackage the input string the name of a java package but it will be transformed
      *  to the name of a C# namespace if C# constants will be rendered.
-     *  For example java package "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4"
-     *  would be renamed to C# namespace "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_5_4"
+     *  For example java package "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_6_3"
+     *  would be renamed to C# namespace "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_6_3"
      */
     private fun generateClassFileWithConstants(
         nameOfClass: String,
@@ -438,7 +438,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
      * Creates a pipe character separated file (but the file extension "csv" indicates comma as separator)
      * with the following three fields at each row: EpsgNumber|CrsName|AreaName
      * The name of the generated path/file will be something like this:
-     *   ./crsCodeGeneration/src/main/resources/generated/csv_files/crs_number_name_area_v9_5_3.csv
+     *   ./crsCodeGeneration/src/main/resources/generated/csv_files/crs_number_name_area_v9_6_3.csv
      * The reason for generating this file is that it might be reusable to create constants
      * for other programming languages, i.e. very simple to copy this generated file
      * and then split the lines and generate new files with those names as constants

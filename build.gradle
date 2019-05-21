@@ -9,7 +9,8 @@ buildscript {
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.2.0.csv"
     ext.geopackage_version = '3.2.0' // mil.nga.geopackage:geopackage-core:3.2.0
-    ext.geotools_version = '21.1'
+    // ext.geotools_version = '20.3' // in may 2019 version 20.3 was the latest for org.geotools:gt-data while other org.geotools modules had the latest version 21.1 
+    ext.geotools_version = '21.1' // version 21.1 (used by the code generating the EPSG constants) does not currently seem to exist for org.geotools:gt-data
     
 
     repositories {
@@ -507,7 +508,7 @@ project(':crs-transformation-code-generation') {
         // https://sourceforge.net/projects/geotools/
         // Used for shapefile parsing in the code generation module:
         // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
-        implementation("org.geotools:gt-data:$geotools_version"){
+        implementation("org.geotools:gt-data:$geotools_version"){ 
             exclude group: 'javax.media', module: 'jai_core'
         }
         implementation("org.geotools:gt-shapefile:$geotools_version") {
