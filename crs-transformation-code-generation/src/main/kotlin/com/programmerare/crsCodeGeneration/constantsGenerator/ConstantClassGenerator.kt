@@ -5,7 +5,9 @@ import com.programmerare.crsCodeGeneration.utils.JavaPackageToCSharpeNamespaceCo
 import java.io.File
 
 // This class generates constants classes into subfolders of this folder:
-// // .\crsConstants\src\main\java\com\programmerare\crsConstants
+// .\crsConstants\src\main\java\com\programmerare\crsConstants
+// TODO: update/improve the below documentation e.g. regarding the generation of constants (and csv) in other languages than java
+
 
 // command line execution (according to configuration in build.gradle) example:
 // gradlew generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 MyDatabaseUserName MyDatabasePassword java"
@@ -83,7 +85,7 @@ import java.io.File
  *          database name e.g. "epsg_version_9_6_3"
  *          database user name
  *          database user password
- *          typeOfFilesToBeGenerated  with one the below currently supported values:
+ *          typeOfFilesToBeGenerated  with one the below currently supported values: 
  *                                      java
  *                                      kotlin
  *                                      csharpe
