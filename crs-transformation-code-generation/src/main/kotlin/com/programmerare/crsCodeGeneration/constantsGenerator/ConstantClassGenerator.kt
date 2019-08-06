@@ -8,8 +8,8 @@ import java.io.File
 // // .\crsConstants\src\main\java\com\programmerare\crsConstants
 
 // command line execution (according to configuration in build.gradle) example:
-// gradle generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 dbUserName dbUserPassword java"
-// gradle generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 dbUserName dbUserPassword csv"
+// gradlew generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 MyDatabaseUserName MyDatabasePassword java"
+// gradlew generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 MyDatabaseUserName MyDatabasePassword csv"
 
 /**
  * Below are step by step instructions for how to generate new constants when a new EPSG version is downloaded.
