@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StringUtilityTest {
     @Test
     void getLastNumericalValueFromString() {
-        assertNumericalValue("3.2.0", "geopackage-core-3.2.0.jar");
+        assertNumericalValue("3.3.0", "geopackage-core-3.3.0.jar");
         assertNumericalValue("1.5.2", "cts-1.5.2.jar");
         assertNumericalValue("1.1", "coordinate-transformation-library-1.1.jar");
         assertNumericalValue("0.1.0", "proj4j-0.1.0.jar");

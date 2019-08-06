@@ -136,9 +136,9 @@ interface CrsTransformationAdapter {
     fun getAdapteeType() : CrsTransformationAdapteeType
 
     /**
-     * @return for example "3.2.0"
+     * @return for example "3.3.0"
      *  and the implementation should try to extract such a version number 
-     *  from the name of a jar file such as "geopackage-core-3.2.0.jar"
+     *  from the name of a jar file such as "geopackage-core-3.3.0.jar"
      */
     fun getVersionOfImplementationAdapteeLibrary() : String
 

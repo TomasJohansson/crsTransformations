@@ -7,8 +7,8 @@ buildscript {
 	
     // NOTE that if you upgrade implementations such as the below geopackage 
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
-    // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.2.0.csv"
-    ext.geopackage_version = '3.2.0' // mil.nga.geopackage:geopackage-core:3.2.0
+    // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.3.0.csv"
+    ext.geopackage_version = '3.3.0' // mil.nga.geopackage:geopackage-core:3.3.0
     ext.geotools_version = '21.2' //  this version 21.2 (used by the code generating the EPSG constants) does not currently seem to exist for the below org.geotools:gt-data
     // Note that the latest versions above and below are different  // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" 
@@ -393,7 +393,7 @@ project(':crs-transformation-adapter-impl-nga') {
         // https://github.com/ngageoint/GeoPackage
         implementation group: 'mil.nga.geopackage', name: 'geopackage', version: "$geopackage_version" // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
         implementation group: 'mil.nga.geopackage', name: 'geopackage-core', version: "$geopackage_version"
-        // test code will detect upgrades with the purpose to update an enum if the file name changes from "geopackage-core-3.2.0.jar"
+        // test code will detect upgrades with the purpose to update an enum if the file name changes from "geopackage-core-3.3.0.jar"
     }
     publishing {
         publications {
