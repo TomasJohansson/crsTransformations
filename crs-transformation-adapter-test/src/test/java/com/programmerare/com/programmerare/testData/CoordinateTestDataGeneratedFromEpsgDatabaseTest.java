@@ -27,15 +27,15 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The CSV file used in this test:
  *  src/test/resources/generated/CoordinateTestDataGeneratedFromEpsgDatabase.csv
- * The above file ahs been created with the following class:
+ * The above file has been created with the following class:
  *  \crsCodeGeneration\src\main\kotlin\com\programmerare\crsCodeGeneration\coordinateTestDataGenerator\CoordinateTestDataGenerator.kt
  * The relevant columns are the first column (EPSG code) and the last two column with WGS84 coordinates.
  * The WGS84 coordinate defines the "centroid" within an area where some other coordinate
- * system is used (and that other coordinate system is defined byt the EPSG code in the first column)
+ * system is used (and that other coordinate system is defined by the EPSG code in the first column)
  * Thus the file defines a list of appropriate WGS84 coordinates which can be transformed back and forth
  * to/from the coordinate system in the first EPSG column.
  */
-@Disabled // you may want to temporary change this line if you want to run the "tests"     
+@Disabled // you may want to temporary change this line if you want to run the "tests"
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
 class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
@@ -94,8 +94,8 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForGeoTools,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_21.1"  // build.gradle: implementation("org.geotools:gt-main:21.1")
-            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_21.1_.csv
+            "_version_21.2"  // build.gradle: implementation("org.geotools:gt-main:21.2")
+            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_21.2_.csv
         );
         // There are differences in the above generated file (when using version 21.0 instead of 19.1)
         // but when roughly looking at the files with WinMerge the differences seem to be very small.
@@ -176,7 +176,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
     @Test // currently not a real test with assertions but printing console output with differences
     @Tag(TestCategory.SideEffectPrintingConsoleOutput)
     void compareResultsForDifferentVersionsOfGeoTools() {
-        // filename e.g. "CrsTransformationAdapterGeoTools_version_21.0.csv"
+        // filename e.g. "CrsTransformationAdapterGeoTools_version_21.2.csv"
         compareTheTwoLatestVersion(
                 "GeoTools",
                 deltaValueForDifferencesToIgnoreWhenComparingDifferentVersionForSameImplementation,
@@ -247,7 +247,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
     @Test // currently not a real test with assertions but printing console output with differences
     @Tag(TestCategory.SideEffectPrintingConsoleOutput)
     void compareResultsForLatestGeoToolsAndGoober() {
-        // filenames e.g. "CrsTransformationAdapterGeoTools_version_21.0.csv" and "CrsTransformationAdapterGooberCTL_version_1.1.csv"
+        // filenames e.g. "CrsTransformationAdapterGeoTools_version_21.2.csv" and "CrsTransformationAdapterGooberCTL_version_1.1.csv"
         File geoToolsFile = this.getFilesWithRegressionsResultsSortedWithLatesFirst("GeoTools")[0];
         File gooberFile = this.getFilesWithRegressionsResultsSortedWithLatesFirst("Goober")[0];
         compareWithRegressionFileContent(

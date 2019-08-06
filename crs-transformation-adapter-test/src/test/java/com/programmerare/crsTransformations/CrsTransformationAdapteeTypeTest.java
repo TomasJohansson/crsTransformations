@@ -40,13 +40,13 @@ class CrsTransformationAdapteeTypeTest {
     void geotoolsAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         this.verifyExpectedAdapteeVersion(
                 new CrsTransformationAdapterGeoTools(),
-                "21.1"
+                "21.2"
         );        
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
-            "gt-main-21.1.jar",
-            CrsTransformationAdapteeType.LEAF_GEOTOOLS_21_1,
-            "21.1"
+            "gt-main-21.2.jar",
+            CrsTransformationAdapteeType.LEAF_GEOTOOLS_21_2,
+            "21.2"
         );
     }
 
