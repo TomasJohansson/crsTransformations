@@ -1,11 +1,13 @@
 package com.programmerare.crsTransformations;
 
+import com.programmerare.com.programmerare.testData.TestCategory;
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -15,6 +17,13 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
+
+// Regarding the @ParameterizedTest/@CsvFileSource tests in this file:
+// Note that lines beginning with "#" (as two lines in the csv file in this case) are used as comment character.
+// https://github.com/junit-team/junit5/pull/1971
+// https://github.com/junit-team/junit5/issues/1782
+// Quote:
+// > The default comment character in com.univocity.parsers.csv.CsvFormat is #; however, we do not document this feature anywhere for JUnit Jupiter.
 
 public class CrsTransformationAdapterParameterizedTests extends CrsTransformationTestBase {
 
@@ -34,8 +43,9 @@ public class CrsTransformationAdapterParameterizedTests extends CrsTransformatio
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 3, delimiter = ';')
+    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 1, delimiter = ';')
     @DisplayName("Transformation result coordinates should match with coordinates in CSV file")
+    @Tag(TestCategory.SlowTest) // e.g. around 30 seconds 
     void verifyTransformationsCorrespondToCsvFileCoordinates(
         String description,
         double wgs84Lat, double wgs84Lon,
@@ -78,8 +88,9 @@ public class CrsTransformationAdapterParameterizedTests extends CrsTransformatio
     }
     
     @ParameterizedTest
-    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 3, delimiter = ';')
+    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 1, delimiter = ';')
     @DisplayName("Transformation back and forth from WGS84 cordinates to RT90/SWEREF99 projections should result in the same WGS84 coordinates")
+    @Tag(TestCategory.SlowTest) // e.g. around 70 seconds
     void verifyTransformationsBackAndForthFromWgs84ToSwedishProjections(
         String description,
         double wgs84Lat, double wgs84Lon // ignore the rest of columns for this test method
@@ -95,11 +106,11 @@ public class CrsTransformationAdapterParameterizedTests extends CrsTransformatio
             }
         }
     }
-    
 
     @ParameterizedTest
-    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 3, delimiter = ';')
+    @CsvFileSource(resources = testFileWithSomeCoordinatesForSweden, numLinesToSkip = 1, delimiter = ';')
     @DisplayName("The same transformation but with different implementations should produce the same coordinates")
+    @Tag(TestCategory.SlowTest) // e.g. 400 seconds   (read comments at the definition of constant "SlowTest" for information about how to exclude these tests from running)
     void transformToCoordinate_shouldReturnTheSameCoordinate_whenTransformingWithDifferentImplementations(
         String description,
         double wgs84Lat, double wgs84Lon // ignore the rest of columns for this test method
