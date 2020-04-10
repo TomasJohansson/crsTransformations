@@ -6,6 +6,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterWeight;
 import org.junit.jupiter.api.Test;
@@ -75,6 +76,20 @@ class CrsTransformationAdapteeTypeTest {
             "proj4j-0.1.0.jar",
             CrsTransformationAdapteeType.LEAF_PROJ4J_0_1_0,
             "0.1.0"
+        );
+    }
+
+    @Test
+    void proj4jLocationtechAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
+        this.verifyExpectedAdapteeVersion(
+            new CrsTransformationAdapterProj4jLocationtech(),
+            "1.1.1"
+        );
+        verifyExpectedEnumAndJarfileVersion(
+            new CrsTransformationAdapterProj4jLocationtech(),
+            "proj4j-1.1.1.jar",
+            CrsTransformationAdapteeType.LEAF_PROJ4J_LOCATIONTECH_1_1_1,
+            "1.1.1"
         );
     }
 

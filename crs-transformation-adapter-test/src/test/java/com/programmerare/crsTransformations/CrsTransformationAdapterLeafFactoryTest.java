@@ -6,6 +6,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CrsTransformationAdapterLeafFactoryTest {
 
-    public final static int EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS = 5;
+    public final static int EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS = 6;
 
     private static List<String> actualClassNamesForAllKnownImplementations;
     
@@ -35,6 +36,7 @@ public class CrsTransformationAdapterLeafFactoryTest {
             CrsTransformationAdapterGeoPackageNGA.class.getName(),
             CrsTransformationAdapterGeoTools.class.getName(),
             CrsTransformationAdapterOrbisgisCTS.class.getName(),
+            CrsTransformationAdapterProj4jLocationtech.class.getName(),
             CrsTransformationAdapterProj4J.class.getName()
         );        
     }
@@ -108,7 +110,7 @@ public class CrsTransformationAdapterLeafFactoryTest {
     }
 
     @Test
-    void listOfKnownInstances_shouldOnlyContainNonNullObjectsAndTheNumberOfItemsShouldBeAtLeastFive() {
+    void listOfKnownInstances_shouldOnlyContainNonNullObjectsAndTheNumberOfItemsShouldBeAtLeastSix() {
         List<CrsTransformationAdapter> list = CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations();
         assertThat(list.size(), greaterThanOrEqualTo(EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS));
         for (CrsTransformationAdapter crsTransformationAdapter : list) {

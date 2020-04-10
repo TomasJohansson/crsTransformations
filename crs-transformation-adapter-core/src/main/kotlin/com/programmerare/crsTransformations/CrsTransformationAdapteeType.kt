@@ -107,6 +107,12 @@ enum class CrsTransformationAdapteeType {
      */
     LEAF_PROJ4J_0_1_0,
 
+    /**
+     * Maven version for the adaptee library:
+     * "org.locationtech.proj4j:proj4j:1.1.1"
+     */    
+    LEAF_PROJ4J_LOCATIONTECH_1_1_1,
+
     // The above "leafs" are the real "adaptees"
     // and the below composite "adapters" are not true adapters
 

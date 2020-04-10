@@ -7,6 +7,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.CrsTransformationAdapter;
 import com.programmerare.crsTransformations.CrsTransformationResult;
@@ -143,6 +144,22 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             "_version_0.1.0" // build.gradle: implementation("org.osgeo:proj4j:0.1.0")
         );
     }
+
+    @Test
+    @Tag(TestCategory.SlowTest) // e.g. 245 seconds for this test method
+    @Tag(TestCategory.SideEffectFileCreation)
+    void testAllTransformationsInGeneratedCsvFileWithProj4jLocationtech() {
+        // seconds: 245
+        // countOfSuccess: 5320
+        // countOfFailures: 1115
+        TestResult testResultForProj4jLocationtech = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterProj4jLocationtech(), list);
+        handleTestResults(
+            testResultForProj4jLocationtech,
+            DELTA_LIMIT_FOR_SUCCESS,
+            createNewRegressionFile,
+            "_version_1.1.1" // build.gradle: implementation("org.locationtech.proj4j:proj4j:1.1.1")
+        );
+    }    
 
     @Test
     @Tag(TestCategory.SlowTest) // e.g. 384 seconds for this test method while all other (approx 80) tests (except those in this test class) take about one minute

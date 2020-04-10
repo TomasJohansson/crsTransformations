@@ -6,6 +6,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterWeight;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,6 +32,7 @@ abstract class CrsTransformationTestBase {
             new CrsTransformationAdapterGeoTools(),
             new CrsTransformationAdapterGooberCTL(),
             new CrsTransformationAdapterProj4J(),
+            new CrsTransformationAdapterProj4jLocationtech(),
             new CrsTransformationAdapterOrbisgisCTS(),
             new CrsTransformationAdapterGeoPackageNGA()
         );
@@ -43,6 +45,7 @@ abstract class CrsTransformationTestBase {
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoTools(), 51.0),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGooberCTL(), 52.0),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), 53.0),
+                CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), 53.5),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 54.0),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 55.0)
             ))

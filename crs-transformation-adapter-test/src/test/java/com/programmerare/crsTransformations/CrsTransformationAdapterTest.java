@@ -5,6 +5,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterComposite;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactoryTest.EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,8 +29,8 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
     // to make it obvious that some variables ar defined and populated in a base class
 
     @Test
-    void theBaseClass_shouldHaveCreatedFiveLeafAndFourCompositeImplementations() {
-        final int expectedNumberOfLeafs = 5; // will not change often and if/when changed then will be easy to fix
+    void theBaseClass_shouldHaveCreatedSixLeafAndFourCompositeImplementations() {
+        final int expectedNumberOfLeafs = EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS; // will not change often and if/when changed then will be easy to fix
         int expectedNumberOfComposites = 4; // will not change often and if/when changed then will be easy to fix
         assertEquals(expectedNumberOfLeafs, super.crsTransformationAdapterLeafImplementations.size());
         assertEquals(expectedNumberOfComposites, super.crsTransformationAdapterCompositeImplementations.size());
@@ -156,6 +158,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
                 IllegalArgumentException.class.getName(), // Goober implementation throws this
                 "org.opengis.referencing.NoSuchAuthorityCodeException",
                 "org.osgeo.proj4j.UnknownAuthorityCodeException",
+                "org.locationtech.proj4j.UnknownAuthorityCodeException",
                 "org.cts.crs.CRSException",
                 "mil.nga.sf.util.SFException",
                 RuntimeException.class.getName() // composite throws this
@@ -211,6 +214,11 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
             "Proj4J",
             (new CrsTransformationAdapterProj4J()).getShortNameOfImplementation()
         );
+        
+        assertEquals(
+            "Proj4jLocationtech",
+            (new CrsTransformationAdapterProj4jLocationtech()).getShortNameOfImplementation()
+        );
 
         assertEquals(
             "OrbisgisCTS",
@@ -253,7 +261,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         // all leafs should be children 
         final int expectedNumberOfChildrenForTheComposites = super.crsTransformationAdapterLeafImplementations.size();
         assertThat(
-            "Has the number of leaf implementations been reduced?",
+            "Has the number of leaf implementations been changed?",
             expectedNumberOfChildrenForTheComposites, greaterThanOrEqualTo(5) // currently five
         ); 
         for (CrsTransformationAdapter compositeAdapter : super.crsTransformationAdapterCompositeImplementations) {
@@ -288,7 +296,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         final List<CrsTransformationAdapter> crsTransformationAdapterImplementationsExpectingOneResult = new ArrayList<>();
         crsTransformationAdapterImplementationsExpectingOneResult.addAll(super.crsTransformationAdapterLeafImplementations);
         crsTransformationAdapterImplementationsExpectingOneResult.add(CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess());        
-        assertEquals(6, crsTransformationAdapterImplementationsExpectingOneResult.size()); // 5 leafs plus 1 
+        assertEquals(EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS + 1, crsTransformationAdapterImplementationsExpectingOneResult.size()); // 6 leafs plus 1 
         
         for (CrsTransformationAdapter crsTransformationAdapterLeaf : crsTransformationAdapterImplementationsExpectingOneResult) {
             // suffix "Leaf" is not quite true, but in one of the iterations
@@ -326,8 +334,8 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         // the below value is the max difference when comparing the five leaf implementations 
         final double actualMaxDiffXorY = 0.0032574664801359177;
        
-        final int criteriaNumberOfResultsSuccess = 5; // all 5 should succeed
-        final int criteriaNumberOfResultsFailure = 6; // 6 implementations can not succeed since there are not so many implementations
+        final int criteriaNumberOfResultsSuccess = EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS; // all 6 should succeed
+        final int criteriaNumberOfResultsFailure = 1 + EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS; // 7 implementations can not succeed since there are not so many implementations
         final double criteriaMaxDiffFailure = actualMaxDiffXorY - 0.0001; // a little too small requirement for max difference
         final double criteriaMaxDiffSuccess  = actualMaxDiffXorY + 0.0001; // should result in success since the actual number is smaller 
 

@@ -5,6 +5,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.CrsTransformationAdapter;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber;
@@ -21,6 +22,7 @@ abstract class CompositeStrategyTestBase {
     protected static CrsTransformationAdapter adapterGooberCTL;
     protected static CrsTransformationAdapter adapterOrbisgisCTS;
     protected static CrsTransformationAdapter adapterProj4J;
+    protected static CrsTransformationAdapter adapterProj4jLocationtech;
     protected static CrsTransformationAdapter adapterGeoPackageNGA;
 
     protected static List<CrsTransformationAdapter> allAdapters;
@@ -36,6 +38,7 @@ abstract class CompositeStrategyTestBase {
     protected static CrsCoordinate resultCoordinateGooberCTL;
     protected static CrsCoordinate resultCoordinateOrbisgisCTS;
     protected static CrsCoordinate resultCoordinateProj4J;
+    protected static CrsCoordinate resultCoordinateProj4jLocationtech;
     protected static CrsCoordinate resultCoordinateGeoPackageNGA;
 
     @BeforeAll
@@ -44,6 +47,7 @@ abstract class CompositeStrategyTestBase {
         adapterGooberCTL = new CrsTransformationAdapterGooberCTL();
         adapterOrbisgisCTS = new CrsTransformationAdapterOrbisgisCTS();
         adapterProj4J = new CrsTransformationAdapterProj4J();
+        adapterProj4jLocationtech = new CrsTransformationAdapterProj4jLocationtech();
         adapterGeoPackageNGA = new CrsTransformationAdapterGeoPackageNGA();
 
         allAdapters = Arrays.asList(
@@ -53,6 +57,7 @@ abstract class CompositeStrategyTestBase {
             adapterGooberCTL,
             adapterOrbisgisCTS,
             adapterProj4J,
+            adapterProj4jLocationtech,
             adapterGeoPackageNGA
         );
 
@@ -62,12 +67,14 @@ abstract class CompositeStrategyTestBase {
         resultCoordinateGooberCTL = adapterGooberCTL.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
         resultCoordinateOrbisgisCTS = adapterOrbisgisCTS.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
         resultCoordinateProj4J = adapterProj4J.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
+        resultCoordinateProj4jLocationtech = adapterProj4jLocationtech.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
         resultCoordinateGeoPackageNGA = adapterGeoPackageNGA.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
         allCoordinateResultsForTheDifferentImplementations = Arrays.asList(
             resultCoordinateGeoTools,
             resultCoordinateGooberCTL,
             resultCoordinateOrbisgisCTS,
             resultCoordinateProj4J,
+            resultCoordinateProj4jLocationtech,
             resultCoordinateGeoPackageNGA
         );
     }

@@ -57,13 +57,14 @@ object CrsTransformationAdapterLeafFactory {
     }
 
 
-    // Note that the test code verifies that all these hadrcoded class names exist,
+    // Note that the test code verifies that all these hardcoded class names exist,
     // i.e. if they are renamed, it will detected by the test code
     private val classNamesForAllKnownImplementations = listOf(
         "com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL",
         "com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA",
         "com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools",
         "com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS",
+        "com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech",
         "com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J"
     )
 

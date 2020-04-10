@@ -6,6 +6,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
+import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
 import com.programmerare.crsTransformations.CrsTransformationResult;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
@@ -23,14 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTestBase {
 
-    private final static double SMALL_DELTA_VALUE = 0.0000000001;
+    private final static double SMALL_DELTA_VALUE = 0.000000001;
 
     private static double weightForGeoTools = 40;
     private static double weightForGoober = 30;
     private static double weightForOrbis = 20;
     private static double weightForProj4J = 10;
+    private static double weightForProj4jLocationtech = 13;
     private static double weightForGeoPackageNGA = 5;
-    // Note : The sum of the weights do NOT have to be 100 (e.g. above it is 105)
+    // Note : The sum of the weights do NOT have to be 100 (e.g. above it is 118)
     // but the percentage of the weight will become calculated by the implementation
 
     private static CrsCoordinate coordinateWithExpectedWeightedValues;
@@ -47,6 +49,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoTools(), weightForGeoTools),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGooberCTL(), weightForGoober),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), weightForOrbis),
+            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), weightForProj4jLocationtech),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), weightForProj4J),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), weightForGeoPackageNGA)
         );
@@ -60,6 +63,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
         final String classNameGoober = CrsTransformationAdapterGooberCTL.class.getName() ;
         final String classNameOrbis = CrsTransformationAdapterOrbisgisCTS.class.getName() ;
         final String classNameProj4J = CrsTransformationAdapterProj4J.class.getName() ;
+        final String classNameProj4jLocationtech = CrsTransformationAdapterProj4jLocationtech.class.getName() ;
         final String classNameGeoPackageNGA = CrsTransformationAdapterGeoPackageNGA.class.getName() ;
 
         final List<CrsTransformationAdapterWeight> weights = Arrays.asList(
@@ -67,6 +71,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
             CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameGoober, weightForGoober),
             CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameOrbis, weightForOrbis),
             CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameProj4J, weightForProj4J),
+            CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameProj4jLocationtech, weightForProj4jLocationtech),
             CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameGeoPackageNGA, weightForGeoPackageNGA)
         );
 
@@ -134,6 +139,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
                 weightForGoober * resultCoordinateGooberCTL.getYNorthingLatitude() +
                 weightForOrbis * resultCoordinateOrbisgisCTS.getYNorthingLatitude() +
                 weightForProj4J * resultCoordinateProj4J.getYNorthingLatitude() +
+                weightForProj4jLocationtech * resultCoordinateProj4jLocationtech.getYNorthingLatitude() +
                 weightForGeoPackageNGA * resultCoordinateProj4J.getYNorthingLatitude();
 
         final double longitutdeWeightedSum =
@@ -141,9 +147,10 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
                 weightForGoober * resultCoordinateGooberCTL.getXEastingLongitude() +
                 weightForOrbis * resultCoordinateOrbisgisCTS.getXEastingLongitude() +
                 weightForProj4J * resultCoordinateProj4J.getXEastingLongitude() +
+                weightForProj4jLocationtech * resultCoordinateProj4jLocationtech.getXEastingLongitude() +
                 weightForGeoPackageNGA * resultCoordinateProj4J.getXEastingLongitude();
-
-        final double totWeights = weightForGeoTools + weightForGoober + weightForOrbis + weightForProj4J + weightForGeoPackageNGA;
+        
+        final double totWeights = weightForGeoTools + weightForGoober + weightForOrbis + weightForProj4J + weightForProj4jLocationtech + weightForGeoPackageNGA;
         return CrsCoordinateFactory.createFromYNorthingLatitudeAndXEastingLongitude( latitudeWeightedSum/totWeights, longitutdeWeightedSum/totWeights, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
     }
 

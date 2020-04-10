@@ -7,6 +7,7 @@ import com.programmerare.crsTransformations.CrsTransformationResult;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
 import org.junit.jupiter.api.Test;
 
+import static com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactoryTest.EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CrsTransformationAdapterCompositeTest {
@@ -24,7 +25,7 @@ public class CrsTransformationAdapterCompositeTest {
         assertTrue(crsTransformationResultStatistic.isStatisticsAvailable());
 
         final int actualNumberOfResults = crsTransformationResultStatistic.getNumberOfResults();
-        assertEquals(5, actualNumberOfResults); // fragile but will be very easy to detect and fix if/when a new implementation is added to the factory
+        assertEquals(EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS, actualNumberOfResults); // fragile but will be very easy to detect and fix if/when a new implementation is added to the factory
         final double actualMaxDiffXLongitude = crsTransformationResultStatistic.getMaxDifferenceForXEastingLongitude();
         final double actualMaxDiffYLatitude = crsTransformationResultStatistic.getMaxDifferenceForYNorthingLatitude();
         final double actualMaxDiffXorY = Math.max(actualMaxDiffXLongitude, actualMaxDiffYLatitude);

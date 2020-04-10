@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
+
+import static com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactoryTest.EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,7 +32,8 @@ public class CompositeStrategyForAverageValueTest extends CompositeStrategyTestB
         CrsTransformationResult averageResult = averageCompositeAdapter.transform(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
         assertNotNull(averageResult);
         assertTrue(averageResult.isSuccess());
-        assertEquals(super.allCoordinateResultsForTheDifferentImplementations.size(), averageResult.getTransformationResultChildren().size());
+        assertEquals(EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS, super.allCoordinateResultsForTheDifferentImplementations.size());
+        assertEquals(EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS, averageResult.getTransformationResultChildren().size());
 
         CrsCoordinate coordinateReturnedByCompositeAdapter = averageResult.getOutputCoordinate();
 

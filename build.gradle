@@ -338,6 +338,50 @@ project(':crs-transformation-adapter-impl-orbisgis') {
     }
 }
 
+project(':crs-transformation-adapter-impl-proj4jlocationtech') {
+    dependencies {
+        implementation project(':crs-transformation-adapter-core')
+        // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j/
+        implementation("org.locationtech.proj4j:proj4j:1.1.1")
+    }
+    publishing {
+        publications {
+            crstransformationsproj4jlocationtech(MavenPublication) {
+                artifactId = 'crs-transformation-adapter-impl-proj4jlocationtech'
+                from components.java
+                artifact sourcesJar
+                artifact dokkadocJar
+                pom {
+                    // https://central.sonatype.org/pages/requirements.html
+                    // A common and acceptable practice for name is to assemble it from the coordinates using Maven properties:
+                    // <name>${project.groupId}:${project.artifactId}</name>
+                    name = rootProject.crsTransformationGroupId + ":" + artifactId
+
+                    description = 'Coordinate Reference System Transformations adapter implementation using the adaptee third-part library locationtech/proj4j.'
+                    url = rootProject.mavenPomUrl
+                    licenses {
+                        license {
+                            name = 'Apache License 2.0'
+                            url = 'https://github.com/locationtech/proj4j'
+                            comments = 'Apache License 2.0, i.e. the same license as the used adaptee third-part library locationtech/proj4j. The artifact crs-transformation-adapter-impl-proj4jlocationtech is using locationtech/proj4j and the same license Apache License 2.0.'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = rootProject.mavenPomDeveloperName
+                            organizationUrl = rootProject.mavenPomDeveloperOrganizationUrl
+                        }
+                    }
+                    scm {
+                        connection = rootProject.mavenPomScmConnection
+                        developerConnection = rootProject.mavenPomScmDeveloperConnection
+                        url = rootProject.mavenPomScmUrl
+                    }
+                }
+            }
+        }
+    }
+}
 project(':crs-transformation-adapter-impl-proj4j') {
     dependencies {
         implementation project(':crs-transformation-adapter-core')
@@ -436,7 +480,7 @@ project(':crs-transformation-adapter-impl-nga') {
 
 project(':crs-transformation-adapter-test') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core'), project(':crs-transformation-adapter-impl-orbisgis'), project(':crs-transformation-adapter-impl-goober'), project(':crs-transformation-adapter-impl-geotools'), project(':crs-transformation-adapter-impl-proj4j'), project(':crs-transformation-adapter-impl-nga'), project(':crs-transformation-constants')
+        implementation project(':crs-transformation-adapter-core'), project(':crs-transformation-adapter-impl-orbisgis'), project(':crs-transformation-adapter-impl-goober'), project(':crs-transformation-adapter-impl-geotools'), project(':crs-transformation-adapter-impl-proj4j'), project(':crs-transformation-adapter-impl-proj4jlocationtech'), project(':crs-transformation-adapter-impl-nga'), project(':crs-transformation-constants')
         // https://mvnrepository.com/artifact/org.geotools/gt-shapefile
 //        implementation("group:org.geotools:gt-shapefile:19.1")
 //        implementation("group:org.geotools:gt-data:19.1")
