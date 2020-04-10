@@ -23,7 +23,7 @@ buildscript {
         // https://mvnrepository.com/artifact/org.jetbrains.dokka/dokka-gradle-plugin
         // https://github.com/JetBrains/kotlin-examples/blob/master/gradle/dokka-gradle-example/build.gradle
         // gradlew dokkaJavadoc
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.18"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
     }
 }
 
