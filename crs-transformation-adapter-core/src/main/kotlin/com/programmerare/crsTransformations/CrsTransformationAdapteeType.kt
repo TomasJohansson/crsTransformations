@@ -39,32 +39,14 @@ enum class CrsTransformationAdapteeType {
      * DEPRECATED version for the adaptee library !
      * ( this constant was published in release 1.0.0 )
      */
-    @Deprecated("Use 'LEAF_GEOTOOLS_21_0' instead since the currently used GeoTools library is version 21.0")
+    @Deprecated("Use 'LEAF_GEOTOOLS_22_3' instead since the currently used GeoTools library is version 22.3")
     LEAF_GEOTOOLS_20_0,
 
-//    /**
-//     * DEPRECATED version for the adaptee library !
-//     */
-//    @Deprecated("Use 'LEAF_GEOTOOLS_21_0' instead since the currently used GeoTools library is version 21.0")
-//    LEAF_GEOTOOLS_20_2,
-
-//    /**
-//     * DEPRECATED version for the adaptee library !
-//     */
-//    @Deprecated("Use 'LEAF_GEOTOOLS_21_0' instead since the currently used GeoTools library is version 21.0")    
-//    LEAF_GEOTOOLS_20_3,
-
-    @Deprecated("Use 'LEAF_GEOTOOLS_21_2' instead since the currently used GeoTools library is version 21.2")
-    LEAF_GEOTOOLS_21_0, // "old"
-
-    @Deprecated("Use 'LEAF_GEOTOOLS_21_2' instead since the currently used GeoTools library is version 21.2")
-    LEAF_GEOTOOLS_21_1,    
-    
     /**
      * Maven version for the adaptee library:
-     * "org.geotools:gt-main:21.2"
+     * "org.geotools:gt-main:22.3"
      */
-    LEAF_GEOTOOLS_21_2,
+    LEAF_GEOTOOLS_22_3,
     
     /**
      * Maven version for the adaptee library:

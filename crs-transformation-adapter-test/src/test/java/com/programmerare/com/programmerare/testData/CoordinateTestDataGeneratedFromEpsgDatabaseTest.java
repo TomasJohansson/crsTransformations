@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Thus the file defines a list of appropriate WGS84 coordinates which can be transformed back and forth
  * to/from the coordinate system in the first EPSG column.
  */
-@Disabled // you may want to temporary change this line if you want to run the "tests"  
+@Disabled // you may want to temporary change this line if you want to run the "tests" 
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
 class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
@@ -95,8 +95,8 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForGeoTools,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_21.2"  // build.gradle: implementation("org.geotools:gt-main:21.2")
-            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_21.2_.csv
+            "_version_22.3"  // build.gradle: implementation("org.geotools:gt-main:22.3")
+            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_22.3.csv
         );
         // There are differences in the above generated file (when using version 21.0 instead of 19.1)
         // but when roughly looking at the files with WinMerge the differences seem to be very small.
