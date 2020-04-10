@@ -89,17 +89,20 @@ enum class CrsTransformationAdapteeType {
      * DEPRECATED version for the adaptee library !
      * ( this constant was published in release 1.0.0 )
      */
-    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_3_0' instead since the currently used 'mil.nga.geopackage' library is version 3.3.0")
+    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")
     LEAF_NGA_GEOPACKAGE_3_1_0,
 
-    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_3_0' instead since the currently used 'mil.nga.geopackage' library is version 3.3.0")
+    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")
     LEAF_NGA_GEOPACKAGE_3_2_0,
+
+    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")    
+    LEAF_NGA_GEOPACKAGE_3_3_0,
 
     /**
      * Maven version for the adaptee library:
-     * "mil.nga.geopackage:geopackage-core:3.3.0"
-     */    
-    LEAF_NGA_GEOPACKAGE_3_3_0,
+     * "mil.nga.geopackage:geopackage-core:3.5.0"
+     */
+    LEAF_NGA_GEOPACKAGE_3_5_0,    
 
     /**
      * Maven version for the adaptee library:  

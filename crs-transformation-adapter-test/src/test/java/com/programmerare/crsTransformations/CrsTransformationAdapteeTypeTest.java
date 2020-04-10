@@ -55,13 +55,13 @@ class CrsTransformationAdapteeTypeTest {
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         this.verifyExpectedAdapteeVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
-            "3.3.0"
+            "3.5.0"
         );
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
-            "geopackage-core-3.3.0.jar",
-            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_3_0,
-            "3.3.0"
+            "geopackage-core-3.5.0.jar",
+            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_5_0,
+            "3.5.0"
         );
     }
     

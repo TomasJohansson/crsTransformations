@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Thus the file defines a list of appropriate WGS84 coordinates which can be transformed back and forth
  * to/from the coordinate system in the first EPSG column.
  */
-@Disabled // you may want to temporary change this line if you want to run the "tests" 
+@Disabled // you may want to temporary change this line if you want to run the "tests"  
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
 class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
@@ -122,7 +122,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForGeoPackage,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_3.3.0" // build.gradle: compile group: 'mil.nga.geopackage', name: 'geopackage', version: '3.3.0'
+            "_version_3.5.0" // build.gradle: 'mil.nga.geopackage:geopackage:3.5.0'
             // file created: "test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.3.0.csv
         );
         // The above created latest output file "CrsTransformationAdapterGeoPackageNGA_version_3.3.0.csv"
