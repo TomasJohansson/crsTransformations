@@ -30,5 +30,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'groovy_sample.App'
+    mainClassName = 'groovy_sample.CrsTransformation'
 }

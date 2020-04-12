@@ -3,12 +3,12 @@
  */
 package groovy_sample
 
-class App {
+class CrsTransformation {
     String getGreeting() {
         return 'Hello world.'
     }
 
     static void main(String[] args) {
-        println new App().greeting
+        println new CrsTransformation().greeting
     }
 }
