@@ -18,7 +18,7 @@ import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapt
 
 // cd sample_code/scala
 // sbt test
-class CrsTest extends AnyFunSuite {
+class CrsTransformationTest extends AnyFunSuite {
   
   // VERY basic "test" below just to show that the Java and Kotlin types (retrieved with SBT for Scala)
   // can be referred to from this Scala code  
