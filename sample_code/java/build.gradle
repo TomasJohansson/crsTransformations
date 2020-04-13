@@ -18,12 +18,23 @@ repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven {
+        url "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
+    }    
 }
 
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.2-jre'
 
+    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.5.4'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.0.0'
+    
     // Use TestNG framework, also requires calling test.useTestNG() below
     testImplementation 'org.testng:testng:7.0.0'
 }
