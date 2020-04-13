@@ -1,0 +1,23 @@
+<ivy-module version="2.0">
+	<!--
+		https://ant.apache.org/ivy/history/latest-milestone/ivyfile/info.html
+		"organisation" and "module" are required
+	-->
+	<info organisation="com.programmerare" module="libs_for_sample_code" />
+	
+	<dependencies>
+		
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-constants" rev="9.5.4" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="1.0.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="1.0.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-nga" rev="1.0.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4j" rev="1.0.0" />		
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-geotools" rev="1.0.0" />
+        
+        <!-- the purpose of the below elements is to avoid downloading of files such as "crs-transformation-constants-9.5.4-javadoc.jar" and "crs-transformation-constants-9.5.4-sources.jar" -->
+        <exclude type="javadoc" ext="*" conf="*"/>
+        <exclude type="source" ext="*" conf="*"/>
+
+	</dependencies>
+	
+</ivy-module>

@@ -1,0 +1,15 @@
+<ivysettings>
+	<settings defaultResolver="local-chain"/>
+	<resolvers>
+		<ibiblio name="central" root="https://repo1.maven.org/maven2/" m2compatible="true" />
+		<ibiblio name="osgeo" root="https://repo.osgeo.org/repository/release/" m2compatible="true" />
+		<!--
+			The above "osgeo" is also needed to avoid the following problem
+			module not found: org.geotools#gt-main;20.0
+		-->
+		<chain name="local-chain">
+			<resolver ref="central"/>
+			<resolver ref="osgeo"/>
+		</chain>
+	</resolvers>
+</ivysettings>
