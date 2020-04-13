@@ -6,9 +6,10 @@ package java_sample;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 
-public class AppTest {
+public class CrsTransformationTest
+{
     @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
+        CrsTransformation classUnderTest = new CrsTransformation();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }

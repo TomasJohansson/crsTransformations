@@ -3,12 +3,13 @@
  */
 package java_sample;
 
-public class App {
+public class CrsTransformation
+{
     public String getGreeting() {
         return "Hello world.";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        System.out.println(new CrsTransformation().getGreeting());
     }
 }

@@ -30,7 +30,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'java_sample.App'
+    mainClassName = 'java_sample.CrsTransformation'
 }
 
 test {
