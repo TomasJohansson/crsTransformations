@@ -7,8 +7,15 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class CrsTransformationTest {
-    @Test fun testAppHasAGreeting() {
-        val classUnderTest = CrsTransformation()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
-    }
+
+    // TODO maybe add some test here ...
+    // But if you want to see tests then there are many Java tests of the Kotlin code 
+    // in the module "crs-transformation-adapter-test" 
+
+
+
+//    @Test fun testAppHasAGreeting() {
+//        val classUnderTest = CrsTransformation()
+//        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+//    }
 }
