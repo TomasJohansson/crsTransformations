@@ -6,9 +6,9 @@ package kotlin_sample
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
-class AppTest {
+class CrsTransformationTest {
     @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
+        val classUnderTest = CrsTransformation()
         assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
 }

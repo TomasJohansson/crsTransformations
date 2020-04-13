@@ -34,5 +34,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'kotlin_sample.AppKt'
+    mainClassName = 'kotlin_sample.CrsTransformationKt'
 }

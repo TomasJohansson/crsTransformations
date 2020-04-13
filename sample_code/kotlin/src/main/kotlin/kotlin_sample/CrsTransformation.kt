@@ -3,7 +3,7 @@
  */
 package kotlin_sample
 
-class App {
+class CrsTransformation {
     val greeting: String
         get() {
             return "Hello world."
@@ -11,5 +11,5 @@ class App {
 }
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    println(CrsTransformation().greeting)
 }
