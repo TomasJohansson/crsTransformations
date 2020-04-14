@@ -27,13 +27,11 @@
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core -->
-	<!-- not needed but this core should be retrieved as a transitive dependency by the others below
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-core</artifactId>
 		<version>1.0.0</version>
-	</dependency>
-	-->
+	</dependency>	
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
 	<dependency>
@@ -70,15 +68,13 @@
 		<version>1.0.0</version>
 	</dependency>
 
-	
-
-  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -137,6 +133,7 @@
 			<version>1.6.0</version>
 			<configuration>
 				<mainClass>java_sample.CrsTransformation</mainClass>
+				<cleanupDaemonThreads>false</cleanupDaemonThreads> <!-- https://stackoverflow.com/questions/13471519/running-daemon-with-exec-maven-plugin-avoiding-illegalthreadstateexception/25166013#25166013 -->
 			</configuration>
 		</plugin>
 	</plugins>
