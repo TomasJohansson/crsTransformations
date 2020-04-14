@@ -12,7 +12,7 @@ package ${nameOfPackageOrNamespace};
 * Regarding the data itself: Ownership of the EPSG Dataset by IOGP is acknowledged.
 * http://www.epsg.org/TermsOfUse.aspx
 * Some quotes from the above 'Terms of use' URL:
-* " The EPSG database is published by IOGP at no charge. 
+* " The EPSG Facilities are published by IOGP at no charge. 
 *   Distribution for profit is forbidden ... 
 *   Ownership of the EPSG Dataset by IOGP must be acknowledged... "
 */
