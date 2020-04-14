@@ -9,9 +9,9 @@ buildscript {
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.3.0.csv"
     ext.geopackage_version = '3.5.0' // mil.nga.geopackage:geopackage-core:3.5.0
-    ext.geotools_version = '22.3'
+    ext.geotools_version = '23.0' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
-    ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" 
+    ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 
 
     repositories {
         mavenCentral()
@@ -77,6 +77,9 @@ allprojects {
     version = rootProject.crsTransformationVersion
 
     repositories {
+        maven {
+            url "https://repo.osgeo.org/repository/release/"
+        }
         maven {
             url "https://download.osgeo.org/webdav/geotools/"
             // https://github.com/akhikhl/gretty/issues/322			

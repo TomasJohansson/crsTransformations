@@ -65,7 +65,7 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     // ----------------------------------------------------------
 
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_22_3
+        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_0
     }
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)
