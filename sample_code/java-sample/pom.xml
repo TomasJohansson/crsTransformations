@@ -14,11 +14,65 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-constants</artifactId>
+		<version>9.5.4</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core -->
+	<!-- not needed but this core should be retrieved as a transitive dependency by the others below
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-core</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	-->
+	
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-nga</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4j -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-geotools</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-orbisgis -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-orbisgis</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-goober -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-goober</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+
+	
+
+  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -72,4 +126,15 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+	<repositories>
+		<!-- 
+			"osgeo" below is added because of this error message when trying without:
+			Could not find artifact org.geotools:gt-main:jar:20.0 in central (https://repo.maven.apache.org/maven2)
+		 -->
+		<repository>
+		<id>osgeo</id>
+		<url>https://repo.osgeo.org/repository/release/</url>
+		</repository>
+	</repositories>	  
 </project>
