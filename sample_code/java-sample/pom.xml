@@ -125,6 +125,27 @@
         </plugin>
       </plugins>
     </pluginManagement>
+	
+	<!--
+	mvn compile
+	mvn exec:java
+	-->
+	<plugins>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>1.6.0</version>
+			<configuration>
+				<mainClass>java_sample.CrsTransformation</mainClass>
+			</configuration>
+		</plugin>
+	</plugins>
+	<!--
+	https://stackoverflow.com/questions/1089285/maven-run-project
+	http://www.mojohaus.org/exec-maven-plugin/examples/example-exec-using-plugin-dependencies.html
+	https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin
+	-->
+		
   </build>
   
 	<repositories>
