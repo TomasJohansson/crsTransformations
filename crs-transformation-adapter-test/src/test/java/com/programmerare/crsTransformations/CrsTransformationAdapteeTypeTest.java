@@ -23,12 +23,18 @@ class CrsTransformationAdapteeTypeTest {
     // ext.crsTransformationVersion = '1.0.1'
     private final static String VersionOfCrsTransformationLibrary = "1.1.0";
     
+    // Note that the names of CrsTransformationImplementationType and the deprecated CrsTransformationAdapteeType
+    // are almost the same (e.g. "LEAF_ORBISGIS" vs "LEAF_ORBISGIS_1_5_2"), but for the Leaf's the 
+    // version number is included in the deprecated enum.
+    // And as long as the old enums are used, i.e. only deprecated and not removed, they should keep being tested.
+    
     @Test
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
             "cts-1.5.2.jar",
-            CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_2,
+            CrsTransformationImplementationType.LEAF_ORBISGIS,
+            CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_2, // regarding the "duplication" of e.g. "LEAF_ORBISGIS" see comment above before the test methods in this class    
             "1.5.2"
         );
     }
@@ -38,6 +44,7 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
             "gt-main-23.0.jar",
+            CrsTransformationImplementationType.LEAF_GEOTOOLS,
             CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_0,
             "23.0"
         );
@@ -48,6 +55,7 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
             "geopackage-core-3.5.0.jar",
+            CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE,
             CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_5_0,
             "3.5.0"
         );
@@ -58,6 +66,7 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4J(),
             "proj4j-0.1.0.jar",
+            CrsTransformationImplementationType.LEAF_PROJ4J,
             CrsTransformationAdapteeType.LEAF_PROJ4J_0_1_0,
             "0.1.0"
         );
@@ -68,6 +77,7 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4jLocationtech(),
             "proj4j-1.1.1.jar",
+            CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH,
             CrsTransformationAdapteeType.LEAF_PROJ4J_LOCATIONTECH_1_1_1,
             "1.1.1"
         );
@@ -78,6 +88,7 @@ class CrsTransformationAdapteeTypeTest {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGooberCTL(),
             "coordinate-transformation-library-1.1.jar",
+            CrsTransformationImplementationType.LEAF_GOOBER,
             CrsTransformationAdapteeType.LEAF_GOOBER_1_1,
             "1.1"
         );
@@ -85,11 +96,13 @@ class CrsTransformationAdapteeTypeTest {
 
     private void verifyVersionOfCrsTransformationLibraryForComposite(
         CrsTransformationAdapterBase crsTransformationAdapter,
+        CrsTransformationImplementationType expectedCrsTransformationImplementationType, 
         CrsTransformationAdapteeType expectedAdaptee
     ) {
         verifyExpectedEnumAndJarfileVersion(
             crsTransformationAdapter,
             "",
+            expectedCrsTransformationImplementationType,
             expectedAdaptee,
             VersionOfCrsTransformationLibrary
         );
@@ -98,9 +111,14 @@ class CrsTransformationAdapteeTypeTest {
     private void verifyExpectedEnumAndJarfileVersion(
         CrsTransformationAdapterBase crsTransformationAdapter,
         String emptyStringOrExpectedNameOfJarFile,
+        CrsTransformationImplementationType expectedCrsTransformationImplementationType,
         CrsTransformationAdapteeType expectedEnumWithMatchingNameInlcudingVersionNumber,
         String version
     ) {
+        assertEquals(
+            expectedCrsTransformationImplementationType,
+            crsTransformationAdapter.getImplementationType()
+        );        
         assertEquals(
             expectedEnumWithMatchingNameInlcudingVersionNumber, 
             crsTransformationAdapter.getAdapteeType()
@@ -128,12 +146,15 @@ class CrsTransformationAdapteeTypeTest {
             crsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()
         );
     }
+
+    // regarding the below "duplications" of e.g. "COMPOSITE_AVERAGE" see comment above before all the test methods in this class
     
     @Test
     void testCompositeAverage() {
         verifyVersionOfCrsTransformationLibraryForComposite(
             CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage(),
-            CrsTransformationAdapteeType.COMPOSITE_AVERAGE
+            CrsTransformationImplementationType.COMPOSITE_AVERAGE,
+            CrsTransformationAdapteeType.COMPOSITE_AVERAGE // "duplication" with the above row? well see the comment above before all the test methods in this class 
         );
     }
 
@@ -141,6 +162,7 @@ class CrsTransformationAdapteeTypeTest {
     void testCompositeMedian() {
         verifyVersionOfCrsTransformationLibraryForComposite(
             CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian(),
+            CrsTransformationImplementationType.COMPOSITE_MEDIAN,
             CrsTransformationAdapteeType.COMPOSITE_MEDIAN
         );
     }
@@ -149,6 +171,7 @@ class CrsTransformationAdapteeTypeTest {
     void testCompositeFirstSuccess() {
         verifyVersionOfCrsTransformationLibraryForComposite(
             CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess(),
+            CrsTransformationImplementationType.COMPOSITE_FIRST_SUCCESS,
             CrsTransformationAdapteeType.COMPOSITE_FIRST_SUCCESS
         );
     }
@@ -159,8 +182,8 @@ class CrsTransformationAdapteeTypeTest {
             CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(
                 Arrays.asList(CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1))
             ),
+            CrsTransformationImplementationType.COMPOSITE_WEIGHTED_AVERAGE,
             CrsTransformationAdapteeType.COMPOSITE_WEIGHTED_AVERAGE
         );
     }
-
 }

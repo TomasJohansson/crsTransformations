@@ -4,6 +4,7 @@ import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
 import com.programmerare.crsTransformations.CrsTransformationAdapter
+import com.programmerare.crsTransformations.CrsTransformationImplementationType
 import com.programmerare.crsTransformations.CrsTransformationResult
 
 /**
@@ -42,4 +43,6 @@ internal interface CompositeStrategy {
      * The method is not intended for public use from client code.
      */    
     fun _getAdapteeType() : CrsTransformationAdapteeType
+
+    fun _getImplementationType() : CrsTransformationImplementationType
 }

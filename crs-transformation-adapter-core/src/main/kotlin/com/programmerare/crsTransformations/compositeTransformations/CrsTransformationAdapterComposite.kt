@@ -1,11 +1,8 @@
 package com.programmerare.crsTransformations.compositeTransformations
 
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
+import com.programmerare.crsTransformations.*
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
-import com.programmerare.crsTransformations.CrsTransformationAdapter
-import com.programmerare.crsTransformations.CrsTransformationAdapterBase
-import com.programmerare.crsTransformations.CrsTransformationResult
 import java.lang.RuntimeException
 
 /**
@@ -72,6 +69,9 @@ final class CrsTransformationAdapterComposite private constructor(
 
     override fun getAdapteeType() : CrsTransformationAdapteeType {
         return compositeStrategy._getAdapteeType()
+    }
+    override fun getImplementationType() : CrsTransformationImplementationType {
+        return compositeStrategy._getImplementationType()
     }
 
     internal companion object {

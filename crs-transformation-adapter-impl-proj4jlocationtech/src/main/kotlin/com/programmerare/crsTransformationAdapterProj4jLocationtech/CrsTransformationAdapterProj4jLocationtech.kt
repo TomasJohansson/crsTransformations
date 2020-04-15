@@ -6,6 +6,7 @@ import org.locationtech.proj4j.ProjCoordinate
 import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
+import com.programmerare.crsTransformations.CrsTransformationImplementationType
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
 import com.programmerare.crsTransformations.coordinate.createFromXEastingLongitudeAndYNorthingLatitude
@@ -54,6 +55,11 @@ class CrsTransformationAdapterProj4jLocationtech : CrsTransformationAdapterBaseL
     override fun getAdapteeType() : CrsTransformationAdapteeType {
         return CrsTransformationAdapteeType.LEAF_PROJ4J_LOCATIONTECH_1_1_1
     }
+
+    override fun getImplementationType() : CrsTransformationImplementationType {
+        return CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH
+    }
+    
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)
     // Future failure will be a reminder to update the above enum value

@@ -5,6 +5,7 @@ import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.coordinate.createFromYNorthingLatitudeAndXEastingLongitude
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationAdapter
+import com.programmerare.crsTransformations.CrsTransformationImplementationType
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
 import org.locationtech.jts.geom.GeometryFactory // jts-core-...jar
@@ -67,6 +68,11 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     override fun getAdapteeType() : CrsTransformationAdapteeType {
         return CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_0
     }
+
+    override fun getImplementationType() : CrsTransformationImplementationType {
+        return CrsTransformationImplementationType.LEAF_GEOTOOLS
+    }
+    
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)
     // Future failure will be a reminder to update the above enum value

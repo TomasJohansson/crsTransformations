@@ -66,6 +66,10 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
         return CrsTransformationAdapteeType.UNSPECIFIED_LEAF
     }
 
+    override fun getImplementationType() : CrsTransformationImplementationType {
+        return CrsTransformationImplementationType.UNSPECIFIED_LEAF
+    }    
+
     override fun getVersionOfImplementationAdapteeLibrary(): String {
         val nameOfJarFile = this.getNameOfJarFileOrEmptyString()
         return StringUtility.getLastNumericalValueFromString(nameOfJarFile)

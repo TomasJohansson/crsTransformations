@@ -122,6 +122,11 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
         return CrsTransformationAdapteeType.UNSPECIFIED
     }
 
+    override fun getImplementationType() : CrsTransformationImplementationType {
+        // Should be overridden by subclasses
+        return CrsTransformationImplementationType.UNSPECIFIED
+    }    
+
     /**
      * This helper method is protected since it is NOT intended for
      * client code but only for test code purposes.
