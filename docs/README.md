@@ -527,7 +527,7 @@ Screenshots from Intellij IDEA when using intellisense/autocompletion with the c
 ![epsg_dropdown_sweden](images/epsg_dropdown_sweden.png)  
 
 Some examples of constant names in the Java class [com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-constants/src/main/java/com/programmerare/crsConstants/constantsByAreaNameNumber/v9_5_4/EpsgNumber.java):  
-(but please note that version 9.5.4 is **not** the [latest published version of "crs-transformation-constants"](https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants))
+(but please note that version 9.5.4 is **not** the [latest published version of "crs-transformation-constants"](https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-constants))
 ```java
 WORLD__WGS_84__4326  
 WORLD__85_S_TO_85_N__WGS_84__PSEUDO_MERCATOR__3857  
