@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactoryTest.EXPECTED_NUMBER_OF_ADAPTER_LEAF_IMPLEMENTATIONS;
+import static com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterWeight.createFromInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.*;
@@ -229,17 +230,36 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
             "GeoPackageNGA",
             (new CrsTransformationAdapterGeoPackageNGA()).getShortNameOfImplementation()
         );
-
         // The above tests are for the "Leaf" implementations.
-        // Below is a "Composite" created
-        CrsTransformationAdapterComposite compositeAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage();
-        // The class name for the above adapter is "CrsTransformationAdapterComposite"
-        // and the prefix part "CrsTransformationAdapter" is removed from the name
-        // to get the short implementation i.e. just "Composite"
-        assertEquals(
-            "Composite",
-            compositeAdapter.getShortNameOfImplementation()
-        );
+
+        // Further below are four "Composite"'s created in a list, and three of them are trivial to create
+        // but the "weightedAverage" requires more setup code defining the weights, and therefore it is created first below:
+        final CrsTransformationAdapter weightedAverageCrsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(
+            Arrays.asList(
+                createFromInstance(new CrsTransformationAdapterProj4J(), 1.0),
+                createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 1.0),
+                createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1.0),
+                createFromInstance(new CrsTransformationAdapterGeoTools(), 1.0),
+                createFromInstance(new CrsTransformationAdapterGooberCTL(), 2.0)
+            )
+        );        
+        final List<CrsTransformationAdapter> compositeCrsTransformationAdapters = Arrays.asList(
+            weightedAverageCrsTransformationAdapter,
+            // the other three composites are trivial to create and therefore they are created directly below
+            // (i.e. not created first into a variable as the fourth composite "weightedAverage" above)
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian(),
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage(),
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess()
+        );            
+        for (CrsTransformationAdapter compositeAdapter: compositeCrsTransformationAdapters) {
+            // The class name for the above adapter is "CrsTransformationAdapterComposite"
+            // and the prefix part "CrsTransformationAdapter" is removed from the name
+            // to get the short implementation i.e. just "Composite"
+            assertEquals(
+                "Composite",
+                compositeAdapter.getShortNameOfImplementation()
+            );
+        }
     }
 
     @Test
