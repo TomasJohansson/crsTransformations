@@ -13,7 +13,7 @@ import com.programmerare.crsTransformations.coordinate.createFromXEastingLongitu
 // " Proj4J/proj4j "
 // https://github.com/Proj4J/proj4j
 
-// The adaptee library "Proj4J/proj4j" have not been active in the last five years.
+// The adaptee library "Proj4J/proj4j" has not been active in the last five years.
 // As of april 2020, the last commit was in 2015.
 // The library "locationtech/proj4j" seem to become the "replacement" of "Proj4J/proj4j".
 // See also comments in the more recently added file 
