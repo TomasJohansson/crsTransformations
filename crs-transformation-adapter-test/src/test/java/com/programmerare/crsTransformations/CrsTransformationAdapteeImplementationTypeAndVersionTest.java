@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CrsTransformationAdapteeImplementationTypeAndVersionTest
 {
-
     // The version below should be the same as the version defined like this in "build.gradle":
     // ext.crsTransformationVersion = '1.0.1'
     private final static String VersionOfCrsTransformationLibrary = "1.1.0";
@@ -94,6 +93,47 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         );
     }
 
+
+    // regarding the below "duplications" of e.g. "COMPOSITE_AVERAGE" see comment above before all the test methods in this class
+
+    @Test
+    void testCompositeAverage() {
+        verifyVersionOfCrsTransformationLibraryForComposite(
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage(),
+            CrsTransformationImplementationType.COMPOSITE_AVERAGE,
+            CrsTransformationAdapteeType.COMPOSITE_AVERAGE // "duplication" with the above row? well see the comment above before all the test methods in this class 
+        );
+    }
+
+    @Test
+    void testCompositeMedian() {
+        verifyVersionOfCrsTransformationLibraryForComposite(
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian(),
+            CrsTransformationImplementationType.COMPOSITE_MEDIAN,
+            CrsTransformationAdapteeType.COMPOSITE_MEDIAN
+        );
+    }
+
+    @Test
+    void testCompositeFirstSuccess() {
+        verifyVersionOfCrsTransformationLibraryForComposite(
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess(),
+            CrsTransformationImplementationType.COMPOSITE_FIRST_SUCCESS,
+            CrsTransformationAdapteeType.COMPOSITE_FIRST_SUCCESS
+        );
+    }
+
+    @Test
+    void testCompositeWeightedAverage() {
+        verifyVersionOfCrsTransformationLibraryForComposite(
+            CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(
+                Arrays.asList(CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1))
+            ),
+            CrsTransformationImplementationType.COMPOSITE_WEIGHTED_AVERAGE,
+            CrsTransformationAdapteeType.COMPOSITE_WEIGHTED_AVERAGE
+        );
+    }
+    
     private void verifyVersionOfCrsTransformationLibraryForComposite(
         CrsTransformationAdapterBase crsTransformationAdapter,
         CrsTransformationImplementationType expectedCrsTransformationImplementationType, 
@@ -147,43 +187,4 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         );
     }
 
-    // regarding the below "duplications" of e.g. "COMPOSITE_AVERAGE" see comment above before all the test methods in this class
-    
-    @Test
-    void testCompositeAverage() {
-        verifyVersionOfCrsTransformationLibraryForComposite(
-            CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage(),
-            CrsTransformationImplementationType.COMPOSITE_AVERAGE,
-            CrsTransformationAdapteeType.COMPOSITE_AVERAGE // "duplication" with the above row? well see the comment above before all the test methods in this class 
-        );
-    }
-
-    @Test
-    void testCompositeMedian() {
-        verifyVersionOfCrsTransformationLibraryForComposite(
-            CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian(),
-            CrsTransformationImplementationType.COMPOSITE_MEDIAN,
-            CrsTransformationAdapteeType.COMPOSITE_MEDIAN
-        );
-    }
-
-    @Test
-    void testCompositeFirstSuccess() {
-        verifyVersionOfCrsTransformationLibraryForComposite(
-            CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess(),
-            CrsTransformationImplementationType.COMPOSITE_FIRST_SUCCESS,
-            CrsTransformationAdapteeType.COMPOSITE_FIRST_SUCCESS
-        );
-    }
-
-    @Test
-    void testCompositeWeightedAverage() {
-        verifyVersionOfCrsTransformationLibraryForComposite(
-            CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(
-                Arrays.asList(CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1))
-            ),
-            CrsTransformationImplementationType.COMPOSITE_WEIGHTED_AVERAGE,
-            CrsTransformationAdapteeType.COMPOSITE_WEIGHTED_AVERAGE
-        );
-    }
 }
