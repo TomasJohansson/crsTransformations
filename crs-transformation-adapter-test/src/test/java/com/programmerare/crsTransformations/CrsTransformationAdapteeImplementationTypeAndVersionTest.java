@@ -16,8 +16,8 @@ import java.util.Arrays;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// @Deprecated("The type CrsTransformationAdapteeType was only used for getting information about which implementation was used, e.g. an enum with a name revealing the version number. Now instead use the methods getShortNameOfImplementation (existing since before) and the new method CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()")
-class CrsTransformationAdapteeTypeTest {
+class CrsTransformationAdapteeImplementationTypeAndVersionTest
+{
 
     // The version below should be the same as the version defined like this in "build.gradle":
     // ext.crsTransformationVersion = '1.0.1'
