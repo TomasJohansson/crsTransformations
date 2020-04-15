@@ -1,7 +1,7 @@
 package sample
 
 // the package below is from the Java library "crs-transformation-constants"
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 
 // the other "com.programmerare" packages below are from Kotlin libraries ( artifactId's starting with "crs-transformation-adapter-" , https://mvnrepository.com/artifact/com.programmerare.crs-transformation )
 import com.programmerare.crsTransformations.coordinate.{CrsCoordinate, CrsCoordinateFactory}
@@ -49,9 +49,6 @@ object CrsTransformation {
     //  COMPOSITE_AVERAGE : X / Y ===> 674032.3572312444 / 6580821.991747889
     //  COMPOSITE_FIRST_SUCCESS : X / Y ===> 674032.357 / 6580821.991
     //  COMPOSITE_WEIGHTED_AVERAGE : X / Y ===> 674032.3571927036 / 6580821.991623241
-
-    Process finished with exit code 0
-
   }
   
   private lazy val inputCoordinate = CrsCoordinateFactory.latLon(59.330231, 18.059196) //  Implicit/Default CrsIdentifier for latitude/longitude: EpsgNumber.WORLD__WGS_84__4326

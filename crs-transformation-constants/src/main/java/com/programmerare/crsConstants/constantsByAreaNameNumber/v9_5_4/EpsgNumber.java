@@ -16,6 +16,15 @@ package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4;
 *   Distribution for profit is forbidden ... 
 *   Ownership of the EPSG Dataset by IOGP must be acknowledged... "
 */
+
+// The below comments row (and the annotation 'Deprecated')  above the class are manually written.
+// The rest of this file has been generated.
+// This class should be considered as deprecated since at least one more recent version has been published.
+// https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-constants
+// https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
+// Please also note that the EPSG version number (from www.epsg-registry.org) is reflected in the package name, for example as the below row illustrates with version 9.8.9:
+//      package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9;
+@Deprecated
 public class EpsgNumber {
 
     /**

@@ -175,7 +175,7 @@ The following seven artifacts from this code project have been released/distribu
 * crs-transformation-adapter-*impl*-**goober**
     (version 1.0.0, only used for Swedish CRS, see comment below)
 * crs-transformation-*constants*
-    (version **9.5.4**)  
+    (version **9.8.9**)  
 
 The five above libraries which includes "*impl*" in the name are adapter implementations of the above "*core*" library.  
 Those five adapters are using the five adaptee libraries for the coordinate transformations.  
@@ -188,7 +188,7 @@ The above artifact "crs-transformation-*constants*" is actually totally independ
 It is not depending on anything and nothing depends on it.  
 It is a **Java** library (i.e. not even depending on Kotlin) with only one class with a lot of Java constants.  
 (the other six artifacts/libraries are implemented with Kotlin and thus have an implicit dependency to a Kotlin artifact)    
-The constant class has been generated from the [EPSG database](http://www.epsg-registry.org) version 9.5.4 which is the reason for the version number.
+The constant class has been generated from the [EPSG database](http://www.epsg-registry.org) version 9.8.9 which is the reason for the version number.
 
 # Gradle configuration
 The "core" library is not necessary to include since there is an implicit/transitive dependency from all the "impl" libraries to the "core".  
@@ -217,7 +217,7 @@ dependencies {
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.0.0" // include the above geotools repository
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.0.0" // only swedish CRS	
     
-    implementation "com.programmerare.crs-transformation:crs-transformation-constants:9.5.4" // only one class with constants 
+    implementation "com.programmerare.crs-transformation:crs-transformation-constants:9.8.9" // only one class with constants 
     ...
 }
 ```
@@ -271,7 +271,7 @@ pom.xml
             <!-- optional INDEPENDENT artifact with only one class with lots of Java integer constants -->
             <groupId>com.programmerare.crs-transformation</groupId>
             <artifactId>crs-transformation-constants</artifactId>
-            <version>9.5.4</version>
+            <version>9.8.9</version>
         </dependency>
         ...
     </dependencies>        
@@ -304,7 +304,7 @@ fun main(args: Array<String>) {
     val epsgSweRef = 3006
     // alternative to the above hardcoding: use the library "crs-transformation-constants"
     // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
-    // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+    // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 
     val centralStockholmWgs84 = latLon(59.330231, 18.059196, epsgWgs84)
 
@@ -338,7 +338,7 @@ public class SmallJavaExample {
         final int epsgSweRef = 3006;
         // alternative to the above hardcoding: use the library "crs-transformation-constants"
         // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
-        // from the class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+        // from the class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
          
         CrsCoordinate centralStockholmWgs84 = CrsCoordinateFactory.latLon(59.330231, 18.059196, epsgWgs84);
         
@@ -360,7 +360,7 @@ public class SmallJavaExample {
 Another Java example with some more code and comments: 
 ```java
 import java.util.List;
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
 import com.programmerare.crsTransformations.CrsTransformationAdapteeType;
 import com.programmerare.crsTransformations.CrsTransformationAdapter;
 import com.programmerare.crsTransformations.CrsTransformationResult;
@@ -526,7 +526,8 @@ Screenshots from Intellij IDEA when using intellisense/autocompletion with the c
 ![epsg_dropdown_usa](images/epsg_dropdown_usa.png)  
 ![epsg_dropdown_sweden](images/epsg_dropdown_sweden.png)  
 
-Some examples of constant names in the Java class [com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-constants/src/main/java/com/programmerare/crsConstants/constantsByAreaNameNumber/v9_5_4/EpsgNumber.java):
+Some examples of constant names in the Java class [com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-constants/src/main/java/com/programmerare/crsConstants/constantsByAreaNameNumber/v9_5_4/EpsgNumber.java):  
+(but please note that version 9.5.4 is **not** the [latest published version of "crs-transformation-constants"](https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants))
 ```java
 WORLD__WGS_84__4326  
 WORLD__85_S_TO_85_N__WGS_84__PSEUDO_MERCATOR__3857  

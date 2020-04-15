@@ -1,6 +1,6 @@
 package com.programmerare.crsTransformations.coordinate;
 
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier;
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifierFactory;
 import org.junit.jupiter.api.Test;

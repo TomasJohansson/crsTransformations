@@ -5,8 +5,8 @@ object JavaPackageToCSharpeNamespaceConverter {
     private val regexMatchingVersionPart = Regex("""v[_\d]+""")
 
     /**
-     * @param nameOfJavaPackage e.g. "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4"
-     * @return something like "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_5_4"
+     * @param nameOfJavaPackage e.g. "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9"
+     * @return something like "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_8_9"
      */
     fun getAsNameOfCSharpeNameSpace(nameOfJavaPackage: String): String {
         val parts = nameOfJavaPackage.split('.')

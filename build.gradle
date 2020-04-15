@@ -52,8 +52,9 @@ plugins {
 // The version number below ("ext.crsTransformationVersion") should be the same as in 
 // the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
 
-ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
+ext.snapshotSuffixOrEmpty = ""//"-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
+// The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org   
 ext.crsTransformationVersion = '1.1.0' + rootProject.snapshotSuffixOrEmpty
 // currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
 // TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
@@ -129,21 +130,24 @@ subprojects { p->
     }
 
     task dokkadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-        classifier = 'javadoc'
+        classifier 'javadoc'
         from javadoc.destinationDir
     }
 	
     task javadocTask(type: Javadoc) {
-        source = sourceSets.main.allJava
+        source = sourceSets.main.java
     }
     task javadocJar(type: Jar, dependsOn: javadocTask) {
-        classifier = 'javadoc'
+        classifier 'javadoc'
         from javadoc.destinationDir
     }
-	
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
+
+    // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
+    // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.java
+        archiveClassifier = "sources"
+        includeEmptyDirs false
     }
 
     // https://solidsoft.wordpress.com/2014/11/13/gradle-tricks-display-dependencies-for-all-subprojects-in-multi-project-build/
@@ -510,8 +514,8 @@ project(':crs-transformation-adapter-test') {
 
 project(':crs-transformation-code-generation') {
     // command line execution  examples:
-    // gradle generateClassesWithEpsgConstants --args="v9_5_4 epsg_version_9_5_4 dbUserName dbUserPassword java"
-    // gradle generateClassesWithEpsgConstants --args="v9_5_4 epsg_version_9_5_4 dbUserName dbUserPassword csv"
+    // gradle generateClassesWithEpsgConstants --args="v9_8_9 epsg_version_9_8_9 dbUserName dbUserPassword java"
+    // gradle generateClassesWithEpsgConstants --args="v9_8_9 epsg_version_9_8_9 dbUserName dbUserPassword csv"
     task generateClassesWithEpsgConstants(type:JavaExec) {
         main = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator"
         classpath = sourceSets.main.runtimeClasspath
@@ -626,14 +630,21 @@ project(':crs-transformation-adapter-core') {
 }
 
 project(':crs-transformation-constants') {
+    sourceSets {
+        main {
+            java {
+                include "**/v9_8_9/*.java"
+            }
+        }
+    }
     publishing {
         publications {
             crstransformationsconstants(MavenPublication) {
                 artifactId = 'crs-transformation-constants'
-                version = '9.5.4' + rootProject.snapshotSuffixOrEmpty
+                version = '9.8.9' + rootProject.snapshotSuffixOrEmpty
                 from components.java
                 artifact sourcesJar
-                artifact javadocJar // Only Java code in this project. No Kotlin. Therfore not using dokkadoc here
+                artifact javadocJar // Only Java code in this project. No Kotlin. Therefore not using dokkadoc here
                 pom {
                     // https://central.sonatype.org/pages/requirements.html
                     // A common and acceptable practice for name is to assemble it from the coordinates using Maven properties:

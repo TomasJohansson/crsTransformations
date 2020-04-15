@@ -12,7 +12,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "9.5.4"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "9.8.9"
 
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core

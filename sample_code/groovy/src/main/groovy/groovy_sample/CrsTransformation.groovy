@@ -1,7 +1,7 @@
 package groovy_sample
 
 // the package below is from the Java library "crs-transformation-constants"
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 
 // the other "com.programmerare" imports below are from Kotlin libraries ( artifactId's starting with "crs-transformation-adapter-" , https://mvnrepository.com/artifact/com.programmerare.crs-transformation )
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory

@@ -23,7 +23,7 @@
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-constants</artifactId>
-		<version>9.5.4</version>
+		<version>9.8.9</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core -->

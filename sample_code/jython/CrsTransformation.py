@@ -14,9 +14,9 @@ for jar in glob.glob(os.path.join(lib_directory,'*.jar')):
 #   cd sample_code/jython
 #   jython CrsTransformation.py
 
-# "crs-transformation-constants-9.5.4.jar" is one of the jar files that are appended to the path above 
+# "crs-transformation-constants-9.8.9.jar" is one of the jar files that are appended to the path above 
 # in the above iteration. That jar file contains the below imported class "EpsgNumber"
-from com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4 import EpsgNumber
+from com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9 import EpsgNumber
 
 from com.programmerare.crsTransformations.coordinate import CrsCoordinateFactory
 from com.programmerare.crsTransformations.crsIdentifier import CrsIdentifierFactory

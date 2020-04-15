@@ -1,6 +1,6 @@
 package java_sample;
 
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier;

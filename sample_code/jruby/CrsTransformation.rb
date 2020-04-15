@@ -14,9 +14,9 @@ Dir["../ivy_dependencies/lib/*.jar"].each { |jar|
 #   cd sample_code/jruby
 #   jruby CrsTransformation.rb
 
-# "crs-transformation-constants-9.5.4.jar" is one of the jar files that are "required" above 
+# "crs-transformation-constants-9.8.9.jar" is one of the jar files that are "required" above 
 # in the above "each" iteration. That jar file contains the below imported class "EpsgNumber"
-java_import "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber"
+java_import "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber"
 
 java_import "com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory"
 java_import "com.programmerare.crsTransformations.crsIdentifier.CrsIdentifierFactory"

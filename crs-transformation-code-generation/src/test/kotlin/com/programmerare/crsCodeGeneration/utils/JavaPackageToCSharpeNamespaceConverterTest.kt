@@ -7,9 +7,9 @@ internal class JavaPackageToCSharpeNamespaceConverterTest {
     @Test
     fun getAsNameOfCSharpeNameSpace() {
         assertEquals(
-            "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_5_4",
+            "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_8_9",
             JavaPackageToCSharpeNamespaceConverter.getAsNameOfCSharpeNameSpace(
-                "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4"
+                "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9"
             )
         )
     }

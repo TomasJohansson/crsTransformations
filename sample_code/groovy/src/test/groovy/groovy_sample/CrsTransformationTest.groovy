@@ -2,7 +2,7 @@ package groovy_sample
 
 import spock.lang.Shared
 import spock.lang.Specification
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory
 
 class CrsTransformationTest extends Specification {

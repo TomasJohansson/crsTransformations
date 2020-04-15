@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers._
 import org.scalatest.funsuite.AnyFunSuite
 
 // the import below is from the Java library "crs-transformation-constants"
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 
 // the three imports below are from the core Kotlin library "crs-transformation-adapter-core"
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate

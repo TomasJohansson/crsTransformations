@@ -27,7 +27,7 @@ dependencies {
     // Use the latest Groovy version for building this library
     implementation 'org.codehaus.groovy:groovy-all:2.5.10'
     
-    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.5.4'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.8.9'
     // The above "crs-transformation-constants" is a Java library 
     // while the below "crs-transformation-adapter-*" are Kotlin libraries
     implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.0.0' 
