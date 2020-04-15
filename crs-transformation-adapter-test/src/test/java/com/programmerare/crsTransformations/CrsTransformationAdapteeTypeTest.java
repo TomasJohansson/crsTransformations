@@ -25,10 +25,6 @@ class CrsTransformationAdapteeTypeTest {
     
     @Test
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-            new CrsTransformationAdapterOrbisgisCTS(),
-            "1.5.2"
-        );
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
             "cts-1.5.2.jar",
@@ -39,10 +35,6 @@ class CrsTransformationAdapteeTypeTest {
     
     @Test
     void geotoolsAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-                new CrsTransformationAdapterGeoTools(),
-                "23.0"
-        );        
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
             "gt-main-23.0.jar",
@@ -53,10 +45,6 @@ class CrsTransformationAdapteeTypeTest {
 
     @Test
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-            new CrsTransformationAdapterGeoPackageNGA(),
-            "3.5.0"
-        );
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
             "geopackage-core-3.5.0.jar",
@@ -67,10 +55,6 @@ class CrsTransformationAdapteeTypeTest {
     
     @Test
     void proj4jAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-            new CrsTransformationAdapterProj4J(),
-            "0.1.0"
-        );        
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4J(),
             "proj4j-0.1.0.jar",
@@ -81,10 +65,6 @@ class CrsTransformationAdapteeTypeTest {
 
     @Test
     void proj4jLocationtechAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-            new CrsTransformationAdapterProj4jLocationtech(),
-            "1.1.1"
-        );
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4jLocationtech(),
             "proj4j-1.1.1.jar",
@@ -95,10 +75,6 @@ class CrsTransformationAdapteeTypeTest {
 
     @Test
     void gooberAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
-        this.verifyExpectedAdapteeVersion(
-            new CrsTransformationAdapterGooberCTL(),
-            "1.1"
-        );        
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGooberCTL(),
             "coordinate-transformation-library-1.1.jar",
@@ -129,7 +105,7 @@ class CrsTransformationAdapteeTypeTest {
             expectedEnumWithMatchingNameInlcudingVersionNumber, 
             crsTransformationAdapter.getAdapteeType()
         );
-        this.verifyExpectedAdapteeVersion(
+        verifyExpectedAdapteeVersion(
             crsTransformationAdapter,
             version
         );        
