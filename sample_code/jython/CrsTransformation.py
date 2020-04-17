@@ -20,11 +20,13 @@ from com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9 import Epsg
 
 from com.programmerare.crsTransformations.coordinate import CrsCoordinateFactory
 from com.programmerare.crsTransformations.crsIdentifier import CrsIdentifierFactory
+from com.programmerare.crsTransformations import CrsTransformationAdapterLeafFactory
 from com.programmerare.crsTransformations.compositeTransformations import CrsTransformationAdapterCompositeFactory
 from com.programmerare.crsTransformations.compositeTransformations import CrsTransformationAdapterWeight
 from com.programmerare.crsTransformationAdapterGooberCTL import CrsTransformationAdapterGooberCTL
 from com.programmerare.crsTransformationAdapterGeoTools import CrsTransformationAdapterGeoTools
 from com.programmerare.crsTransformationAdapterProj4J import CrsTransformationAdapterProj4J
+from com.programmerare.crsTransformationAdapterProj4jLocationtech import CrsTransformationAdapterProj4jLocationtech
 from com.programmerare.crsTransformationAdapterGeoPackageNGA import CrsTransformationAdapterGeoPackageNGA
 from com.programmerare.crsTransformationAdapterOrbisgisCTS import CrsTransformationAdapterOrbisgisCTS
 
@@ -33,30 +35,51 @@ class CrsTransformation:
         inputCoordinate = CrsCoordinateFactory.latLon(59.330231, 18.059196) #  Implicit/Default CrsIdentifier for latitude/longitude: EpsgNumber.WORLD__WGS_84__4326
         targetCrsIdentifier = CrsIdentifierFactory.createFromEpsgNumber(EpsgNumber.SWEDEN__SWEREF99_TM__3006)        
 
+        print "Implicit/default EpsgNumber for latitude/longitude: %s" % (inputCoordinate.crsIdentifier.epsgNumber) # 4326
+        print "InputCoordinate: %s" % (inputCoordinate)
+        print "TargetCrsIdentifier: %s" % (targetCrsIdentifier)
+        print "Coordinate transformations from EPSG %s to EPSG %s" % (EpsgNumber.WORLD__WGS_84__4326, EpsgNumber.SWEDEN__SWEREF99_TM__3006)
+
         crsTransformationResults = self.__transform(inputCoordinate, targetCrsIdentifier, self.__getAllCrsTransformationAdapters())
+
         for result in crsTransformationResults:
-            nameOfCrsTransformationAdapterImplementation = result.crsTransformationAdapterResultSource.adapteeType
             outputCoordinate = result.outputCoordinate
-            print "%s : X / Y ===> %s / %s" % (nameOfCrsTransformationAdapterImplementation, outputCoordinate.x, outputCoordinate.y)
+            crs = result.crsTransformationAdapterResultSource
+            print "%s  : X / Y ===> %s / %s" % (crs.adapteeType, outputCoordinate.x, outputCoordinate.y)
 
-        # Below is the printed output from the above code in this main method:
-        #   LEAF_PROJ4J_0_1_0 : X / Y ===> 674032.357326 / 6580821.99112
-        #   LEAF_NGA_GEOPACKAGE_3_1_0 : X / Y ===> 674032.357326 / 6580821.99112
-        #   LEAF_ORBISGIS_1_5_1 : X / Y ===> 674032.357326 / 6580821.99112
-        #   LEAF_GOOBER_1_1 : X / Y ===> 674032.357 / 6580821.991
-        #   LEAF_GEOTOOLS_20_0 : X / Y ===> 674032.357177 / 6580821.99437
-        #   COMPOSITE_MEDIAN : X / Y ===> 674032.357326 / 6580821.99112
-        #   COMPOSITE_AVERAGE : X / Y ===> 674032.357231 / 6580821.99175
-        #   COMPOSITE_FIRST_SUCCESS : X / Y ===> 674032.357 / 6580821.991
-        #   COMPOSITE_WEIGHTED_AVERAGE : X / Y ===> 674032.357193 / 6580821.99162
+        print "Short names of all Leaf implementations:"
+        for leaf in CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations():
+            print leaf.shortNameOfImplementation
 
-
+            # Below is the printed output from the above code in this main method:
+            #   Implicit/default EpsgNumber for latitude/longitude: 4326
+            #   InputCoordinate: Coordinate(xEastingLongitude=18.059196, yNorthingLatitude=59.330231, crsIdentifier=CrsIdentifier(crsCode='EPSG:4326', isEpsgCode=true, epsgNumber=4326))
+            #   TargetCrsIdentifier: CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006)
+            #   Coordinate transformations from EPSG 4326 to EPSG 3006
+            #   LEAF_PROJ4J_0_1_0  : X / Y ===> 674032.357326 / 6580821.99112
+            #   LEAF_PROJ4J_LOCATIONTECH_1_1_1  : X / Y ===> 674032.357326 / 6580821.99112
+            #   LEAF_NGA_GEOPACKAGE_3_5_0  : X / Y ===> 674032.357326 / 6580821.99112
+            #   LEAF_ORBISGIS_1_5_2  : X / Y ===> 674032.357326 / 6580821.99112
+            #   LEAF_GOOBER_1_1  : X / Y ===> 674032.357 / 6580821.991
+            #   LEAF_GEOTOOLS_23_0  : X / Y ===> 674032.357177 / 6580821.99437
+            #   COMPOSITE_MEDIAN  : X / Y ===> 674032.357326 / 6580821.99112
+            #   COMPOSITE_AVERAGE  : X / Y ===> 674032.357247 / 6580821.99164
+            #   COMPOSITE_FIRST_SUCCESS  : X / Y ===> 674032.357 / 6580821.991
+            #   COMPOSITE_WEIGHTED_AVERAGE  : X / Y ===> 674032.357212 / 6580821.99155
+            #   Short names of all Leaf implementations:
+            #   GooberCTL
+            #   GeoPackageNGA
+            #   GeoTools
+            #   OrbisgisCTS
+            #   Proj4jLocationtech
+            #   Proj4J
 
     # "private" methods below with two underscores as prefix   https://www.geeksforgeeks.org/private-methods-in-python/
 
     def __weightedAverageCrsTransformationAdapter(self):
         crsTransformationAdapterWeights = [
             CrsTransformationAdapterWeight.createFromInstance(CrsTransformationAdapterProj4J(), 1.0),
+            CrsTransformationAdapterWeight.createFromInstance(CrsTransformationAdapterProj4jLocationtech(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(CrsTransformationAdapterOrbisgisCTS(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(CrsTransformationAdapterGeoPackageNGA(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(CrsTransformationAdapterGeoTools(), 1.0),
@@ -69,6 +92,7 @@ class CrsTransformation:
     def __getAllCrsTransformationAdapters(self): # List<CrsTransformationAdapter>
         return [
             CrsTransformationAdapterProj4J(),
+            CrsTransformationAdapterProj4jLocationtech(),
             CrsTransformationAdapterGeoPackageNGA(),
             CrsTransformationAdapterOrbisgisCTS(),
             CrsTransformationAdapterGooberCTL(),

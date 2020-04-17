@@ -10,27 +10,29 @@ resolvers += "osgeo" at "https://repo.osgeo.org/repository/release/" // https://
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 
-
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
 libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "9.8.9"
 
-
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core
-//libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-core" % "1.0.0"
+//libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-core" % "1.1.0"
 
 // the above "core" library is not needed to include explicitly since it is a transitive dependency from the below adapter implementation libraries
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4j
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-proj4j" % "1.0.0"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-proj4j" % "1.1.0"
+
+// https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4jlocationtech
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-proj4jlocationtech" % "1.1.0"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-nga" % "1.0.0"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-nga" % "1.1.0"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-orbisgis
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-orbisgis" % "1.0.0"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-orbisgis" % "1.1.0"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-goober
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-goober" % "1.0.0"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-goober" % "1.1.0"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-geotools" % "1.0.0"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-impl-geotools" % "1.1.0"
+

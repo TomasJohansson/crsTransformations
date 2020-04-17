@@ -8,11 +8,12 @@
 	<dependencies>
 		
 		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-constants" rev="9.8.9" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="1.0.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="1.0.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-nga" rev="1.0.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4j" rev="1.0.0" />		
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-geotools" rev="1.0.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="1.1.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="1.1.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-nga" rev="1.1.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4j" rev="1.1.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4jlocationtech" rev="1.1.0" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-geotools" rev="1.1.0" />
         
         <!-- the purpose of the below elements is to avoid downloading of files such as "crs-transformation-constants-9.8.9-javadoc.jar" and "crs-transformation-constants-9.8.9-sources.jar" -->
         <exclude type="javadoc" ext="*" conf="*"/>

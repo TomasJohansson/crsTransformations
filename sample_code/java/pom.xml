@@ -30,42 +30,49 @@
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-core</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>	
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-nga</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
-	
+
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4j -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
 
+      <!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4jlocationtech -->
+      <dependency>
+          <groupId>com.programmerare.crs-transformation</groupId>
+          <artifactId>crs-transformation-adapter-impl-proj4jlocationtech</artifactId>
+          <version>1.1.0</version>
+      </dependency>
+      
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-geotools</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-orbisgis -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-orbisgis</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-goober -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-goober</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
 
     <dependency>
@@ -123,6 +130,7 @@
     </pluginManagement>
 	
 	<!--
+	cd sample_code/java
 	mvn compile
 	mvn exec:java
 	-->

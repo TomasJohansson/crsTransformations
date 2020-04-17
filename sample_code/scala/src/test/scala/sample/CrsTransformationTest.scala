@@ -1,5 +1,6 @@
 package sample
 
+import com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactory
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -24,19 +25,22 @@ class CrsTransformationTest extends AnyFunSuite {
     assert(inputCoordinate.getCrsIdentifier.getEpsgNumber === EpsgNumber.WORLD__WGS_84__4326) // 4326 is implicit/default EPSG for latitude/longitude
     assert(targetCrsIdentifier.getEpsgNumber === EpsgNumber.SWEDEN__SWEREF99_TM__3006)
 
-    // The transformations with all 9 crsTransformationAdapters
+    // The transformations with all 10 crsTransformationAdapters
     
-    val expectedNumberOfCrsTransformationAdapters = 9
+    val expectedTotalNumberOfCrsTransformationAdapters = 10
     
-    assertResult(expectedNumberOfCrsTransformationAdapters)(allCrsTransformationAdapters.size)
+    assertResult(expectedTotalNumberOfCrsTransformationAdapters)(allCrsTransformationAdapters.size)
 
     val results = CrsTransformation.transform(inputCoordinate, targetCrsIdentifier, allCrsTransformationAdapters)
-    assertResult(expectedNumberOfCrsTransformationAdapters)(results.size)
+    assertResult(expectedTotalNumberOfCrsTransformationAdapters)(results.size)
     
     results.foreach { result =>
       assertTransformationResult(result)
     }
 
+    val expectedNumberOfLeafCrsTransformationAdapters = 6
+    assertResult(expectedNumberOfLeafCrsTransformationAdapters)(CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations().size)
+    
   }
 
   private lazy val expectedOnputCoordinate: CrsCoordinate = CrsCoordinateFactory.yx(6580822.0, 674032.0, EpsgNumber.SWEDEN__SWEREF99_TM__3006)

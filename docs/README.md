@@ -5,12 +5,20 @@ However, the adapter implementations libraries are licensed in the same way as t
 # Information about this Coordinate Reference System Transformations library
 This Kotlin/Java/JVM project is intended for transforming coordinates between different coordinate reference systems (CRS).  
 The code has been implemented with Kotlin but the tests (and the generated constants in the subproject "crs-transformation-constants") are implemented with Java.  
+There is [sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code) for the following JVM languages (tested with Windows 10 and the language version within parenthesis):  
+* Scala (2.13.1)
+* Groovy (3.0.3)
+* Jython (2.7.2)
+* JRuby (9.2.11)
+* Kotlin (1.3.72)
+* Java (1.8)
+
 The third-part libraries (the adaptee's below) are Java libraries.  
-Versions of Java and Kotlin: **Java 1.8** and **Kotlin 1.3.10**  
+Versions of Java and Kotlin: **Java 1.8** and **Kotlin 1.3.72**  
 
 # Usage
 The methods for transforming coordinates are defined in the interface *CrsTransformationAdapter*.  
-There are nine classes implementing the interface. Five 'leafs' and four 'composites'.  
+There are ten classes implementing the interface. Six 'leafs' and four 'composites'.  
 Each leaf adapter is using some adaptee library for the implementation.  
 The four 'composites' are using the leafs like this:
 * **Median** (transform with many leafs and use the *median* latitude/longitude result as the aggregated result)
@@ -20,17 +28,21 @@ The four 'composites' are using the leafs like this:
   
 Java:
 ```java
-        // The interface with nine implementations as illustrated below
-        CrsTransformationAdapter crsTransformationAdapter; 
+        // The interface with ten implementations as illustrated below
+        CrsTransformationAdapter crsTransformationAdapter;
         // The interface is defined in the library "crs-transformation-adapter-core" with this full name:
         // com.programmerare.crsTransformations.CrsTransformationAdapter        
-        
-        // The five 'Leaf' implementations:
+
+        // The six 'Leaf' implementations:
 
         // Library "crs-transformation-adapter-impl-proj4j", class:
         // com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
         crsTransformationAdapter = new CrsTransformationAdapterProj4J();
 
+        // Library "crs-transformation-adapter-impl-proj4jlocationtech", class:
+        // com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
+        crsTransformationAdapter = new CrsTransformationAdapterProj4jLocationtech();
+        
         // Library "crs-transformation-adapter-impl-orbisgis", class:
         // com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;        
         crsTransformationAdapter = new CrsTransformationAdapterOrbisgisCTS();
@@ -47,28 +59,29 @@ Java:
         // com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;        
         crsTransformationAdapter = new CrsTransformationAdapterGooberCTL();
         // - - - - - - - - - - - -
-        
+
         // The four 'Composite' implementations below are all located in the library
         // "crs-transformation-adapter-core" and the factory class is:
         // com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory
-        
+
         crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian();
-        
+
         crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage();
-        
+
         crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess();
-        
-        // All of the above three factory methods without any parameter will try to use as many of the five 'leaf' 
+
+        // All of the above three factory methods without any parameter will try to use as many of the six 'leaf' 
         // implementations as are available at the class path (e.g. are included as dependencies with Gradle or Maven).
         // All above three factory methods are also overloaded with methods taking 
         // a parameter 'List<CrsTransformationAdapter>' if you prefer to explicit define which 'leafs' to use.
-        
+
         // The fourth 'Composite' below does not have any overloaded method without parameter 
         // but if you want to use a result created as a weighted average then the weights need 
         // to be specified per leaf implementation as in the example below.
 
         crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(Arrays.asList(
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), 1.0),
+            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoTools(), 1.0),
@@ -112,15 +125,15 @@ Java:
         crsCoordinate = latLon(latitude, longitude, epsgNumber);
         crsCoordinate = latLon(latitude, longitude, crsCode);
         crsCoordinate = latLon(latitude, longitude, crsIdentifier);
-        
+
         crsCoordinate = lonLat(longitude, latitude, epsgNumber);
         crsCoordinate = lonLat(longitude, latitude, crsCode);
         crsCoordinate = lonLat(longitude, latitude, crsIdentifier);
-        
+
         crsCoordinate = yx(latitude, longitude, epsgNumber);
         crsCoordinate = yx(latitude, longitude, crsCode);
         crsCoordinate = yx(latitude, longitude, crsIdentifier);
-        
+
         crsCoordinate = xy(longitude, latitude, epsgNumber);
         crsCoordinate = xy(longitude, latitude, crsCode);
         crsCoordinate = xy(longitude, latitude, crsIdentifier);
@@ -141,44 +154,48 @@ Java:
         crsCoordinate = createFromXEastingLongitudeAndYNorthingLatitude(longitude, latitude, crsCode);
         crsCoordinate = createFromXEastingLongitudeAndYNorthingLatitude(longitude, latitude, crsIdentifier);
 
-        
+
         CrsIdentifier targetCrs = CrsIdentifierFactory.createFromEpsgNumber(3006);
+        
+        // Below is one (of ten) implementation of CrsTransformationAdapter created (see further up at this page for the others)  
+        CrsTransformationAdapter crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian();
+        
         CrsTransformationResult crsTransformationResult = crsTransformationAdapter.transform(crsCoordinate, targetCrs);
-        // see more example code further down in this webpage
+        // see also more example code further down in this webpage
 ```
     
 
-# Adaptee libraries used by the adapter libraries in the first release
+# Adaptee libraries used by the adapter libraries in the release 1.1.0
 * https://github.com/Proj4J/proj4j
     (version 0.1.0)
+* https://github.com/locationtech/proj4j
+    (version 1.1.1)
 * https://github.com/orbisgis/cts/
-    (version 1.5.1)
+    (version 1.5.2)
 * https://github.com/ngageoint/geopackage-java
-    (version 3.1.0)
+    (version 3.5.0)
 * https://github.com/geotools/geotools
-    (version 20.0)
+    (version 23.0)
 * https://github.com/goober/coordinate-transformation-library
     (version 1.1)
 
 # Released library versions
-The following seven artifacts from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
+The following eight artifacts (version 1.1.0, "except crs-transformation-constants") from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
+
 * crs-transformation-adapter-**core**
-    (version 1.0.0)
 * crs-transformation-adapter-*impl*-**proj4j**
-    (version 1.0.0)
+* crs-transformation-adapter-*impl*-**proj4jlocationtech**
 * crs-transformation-adapter-*impl*-**orbisgis**
-    (version 1.0.0)
 * crs-transformation-adapter-*impl*-**nga**
-    (version 1.0.0)
 * crs-transformation-adapter-*impl*-**geotools**
-    (version 1.0.0, the adaptee is currently not at Maven Central, see comment below)
+    (the adaptee library is currently not at Maven Central, see comment below)
 * crs-transformation-adapter-*impl*-**goober**
-    (version 1.0.0, only used for Swedish CRS, see comment below)
+    (only used for Swedish CRS, see comment below)
 * crs-transformation-*constants*
     (version **9.8.9**)  
 
-The five above libraries which includes "*impl*" in the name are adapter implementations of the above "*core*" library.  
-Those five adapters are using the five adaptee libraries for the coordinate transformations.  
+The six above libraries which includes "*impl*" in the name are adapter implementations of the above "*core*" library.  
+Those six adapters are using the six adaptee libraries for the coordinate transformations.  
 
 The above '*goober*' library is only useful for transformation between WGS84 (which is a very common global CRS) and the Swedish coordinate reference systems (CRS) SWEREF99 (13 versions e.g. "SWEREF99 TM") and RT90 (6 versions e.g. "RT90 2.5 gon V").   
 
@@ -191,7 +208,7 @@ It is a **Java** library (i.e. not even depending on Kotlin) with only one class
 The constant class has been generated from the [EPSG database](http://www.epsg-registry.org) version 9.8.9 which is the reason for the version number.
 
 # Gradle configuration
-The "core" library is not necessary to include since there is an implicit/transitive dependency from all the "impl" libraries to the "core".  
+The "core" library should not be necessary to include since there is an implicit/transitive dependency from all the "impl" libraries to the "core".  
 The "constants" library is not needed but might be interesting if you want to use constants 
 for the EPSG numbers rather than hardcoding them or define your own integer constants.  
 The "repository" for geotools is only needed if you want to use the library for geotools.
@@ -203,7 +220,7 @@ repositories {
     maven {
         // this repository can be added if you want to use the implementation 
         // "crs-transformation-adapter-impl-geotools" which uses the "geotools" library     
-        url "https://download.osgeo.org/webdav/geotools/"
+        url "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
     }    
     mavenCentral()
 }
@@ -211,11 +228,13 @@ repositories {
 
 dependencies {
     ...
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.0.0"	
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.0.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.0.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.0.0" // include the above geotools repository
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.0.0" // only swedish CRS	
+    // implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0' // this "core" should not be needed to include since the others below have defined dependency of it  
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.0"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.0"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.0"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.1.0"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.1.0" // you should also include the above mentioned geotools repository
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.1.0" // only swedish CRS	
     
     implementation "com.programmerare.crs-transformation:crs-transformation-constants:9.8.9" // only one class with constants 
     ...
@@ -223,14 +242,14 @@ dependencies {
 ```
 
 # Maven configuration
-The comments at the above section with Gradle configuration applies for Maven too, e.g. the core library is not necessary to include explicitly.  
+The comments at the above section with Gradle configuration applies for Maven too, e.g. the core library should not be necessary to include explicitly.  
 
 pom.xml 
 ```xml
     ...
     <properties>
         ...
-        <crsTransformationVersion>1.0.0</crsTransformationVersion>
+        <crsTransformationVersion>1.1.0</crsTransformationVersion>
     </properties>
     ...
     <dependencies>
@@ -238,6 +257,12 @@ pom.xml
         <dependency>
             <groupId>com.programmerare.crs-transformation</groupId>
             <artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
+            <version>${crsTransformationVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.programmerare.crs-transformation</groupId>
+            <artifactId>crs-transformation-adapter-impl-proj4jlocationtech</artifactId>
             <version>${crsTransformationVersion}</version>
         </dependency>
         
@@ -278,9 +303,12 @@ pom.xml
     ...
     <repositories>
         <repository>
-            <!-- osgeo repository for geotools  -->	        
-            <id>osgeo.org</id>
-            <url>https://download.osgeo.org/webdav/geotools/</url>
+        <!--  
+        "osgeo" below is added for geotools because of this error message when trying without:
+        Could not find artifact org.geotools:gt-main:jar:20.0 in central (https://repo.maven.apache.org/maven2)
+        -->	        
+            <id>osgeo</id>
+            <url>https://repo.osgeo.org/repository/release/</url>
         </repository>
     </repositories>
     ...
@@ -288,7 +316,7 @@ pom.xml
 
 # Kotlin example
 
-Below is a small Kotlin example code working with the current version 1.0.0.  
+Below is a small Kotlin example code working with the current version 1.1.0.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).
 
@@ -305,27 +333,29 @@ fun main(args: Array<String>) {
     // alternative to the above hardcoding: use the library "crs-transformation-constants"
     // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
     // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
-
+    
     val centralStockholmWgs84 = latLon(59.330231, 18.059196, epsgWgs84)
 
     val crsTransformationAdapter = createCrsTransformationMedian()
-    // If the Gradle/Maven configuration includes all five adapter implementations, then the 
-    // above created 'Composite' implementation will below use all five 'leaf' implementations 
+    // If the Gradle/Maven configuration includes all six adapter implementations, then the 
+    // above created 'Composite' implementation will below use all six 'leaf' implementations 
     // and return a coordinate with a median longitude and a median latitude
-    val centralStockholmResultSweRef = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef)
-    if (centralStockholmResultSweRef.isSuccess) {
-        println(centralStockholmResultSweRef.outputCoordinate)
+    val centralStockholmResultSweRef99TM = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef)
+    if (centralStockholmResultSweRef99TM.isSuccess) {
+        println(centralStockholmResultSweRef99TM.outputCoordinate)
         // Console output from the above code row: 
-        // Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+        // Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
     }
 }
 ```
 
 # Java examples
-Below is a small Java example code working with the current version 1.0.0.  
+Below is a small Java example code working with the current version 1.1.0.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).  
 ```java
+package smallJavaExample;
+
 import com.programmerare.crsTransformations.CrsTransformationAdapter;
 import com.programmerare.crsTransformations.CrsTransformationResult;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
@@ -339,19 +369,19 @@ public class SmallJavaExample {
         // alternative to the above hardcoding: use the library "crs-transformation-constants"
         // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
         // from the class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
-         
+
         CrsCoordinate centralStockholmWgs84 = CrsCoordinateFactory.latLon(59.330231, 18.059196, epsgWgs84);
-        
+
         CrsTransformationAdapter crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian();
-        // If the Gradle/Maven configuration includes all five adapter implementations, then the 
-        // above created 'Composite' implementation will below use all five 'leaf' implementations 
+        // If the Gradle/Maven configuration includes all six adapter implementations, then the 
+        // above created 'Composite' implementation will below use all six 'leaf' implementations 
         // and return a coordinate with a median longitude and a median latitude
         CrsTransformationResult centralStockholmResultSweRef = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef);
-        
+
         if(centralStockholmResultSweRef.isSuccess()) {
             System.out.println(centralStockholmResultSweRef.getOutputCoordinate());
             // Console output from the above code row: 
-            // Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+            // Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
         }
     }
 }
@@ -359,155 +389,161 @@ public class SmallJavaExample {
 
 Another Java example with some more code and comments: 
 ```java
-import java.util.List;
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType;
-import com.programmerare.crsTransformations.CrsTransformationAdapter;
-import com.programmerare.crsTransformations.CrsTransformationResult;
-import com.programmerare.crsTransformations.CrsTransformationResultStatistic;
+import com.programmerare.crsTransformations.*;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
-...
-    // Some terminology regarding the names used in the below code example:
-    // "CRS" = Coordinate Reference System
-    // "WGS84" is the most frequently used coordinate system (e.g. the coordinates usually used in a GPS)    
-    // "SWEREF99TM" is the official coordinate system used by authorities in Sweden
-    // "EPSG" = "European Petroleum Survey Group" was (but the EPSG name is still often used) 
-    //           an organization defining CRS with integer numbers e.g.  4326 for WGS84 or 3006 for SWEREF99TM
-    int epsgWgs84  = EpsgNumber.WORLD__WGS_84__4326;
-    int epsgSweRef = EpsgNumber.SWEDEN__SWEREF99_TM__3006;
-    // The above "EpsgNumber" class with LOTS OF constants (and more constants classes) have been generated, 
-    // using "FreeMarker" and database downloaded from EPSG ( http://www.epsg.org or http://www.epsg-registry.org ) 
-    
-    CrsCoordinate centralStockholmWgs84 = CrsCoordinateFactory.latLon(59.330231, 18.059196, epsgWgs84);
-    // https://kartor.eniro.se/m/03Yxp
-    // SWEREF99TM coordinates (for WGS84 59.330231, 18.059196) 
-    // according to Eniro (above URL): 6580822, 674032 (northing, easting)
-    
-    CrsTransformationAdapter crsTransformationAdapter; // interface with concrete "leaf" implementation or "composite" implementations
-    // This code example is using a "composite" which will use multiple libraries to do the same transformation and then 
-    // return a coordinate with the median values (median of the northing values and median of the easting values)  
-    crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian();
-    // The above factory will try to use those known objects which implements the interface i.e. the number 
-    // of "leaf" objects will depend on how many you included in for example the maven pom file (five in the above maven example)
-    System.out.println("Number of 'leafs' : " + crsTransformationAdapter.getTransformationAdapterChildren().size());
-    // Console output from the above row:
-    // Number of 'leafs' : 5
 
-    // Transform the WGS84 coordinate to a SWEREF99TM coordinate:
-    CrsCoordinate centralStockholmSweRef = crsTransformationAdapter.transformToCoordinate(centralStockholmWgs84, epsgSweRef);
-    System.out.println("Median Composite Northing: " + centralStockholmSweRef.getNorthing());        
-    System.out.println("Median Composite Easting: " + centralStockholmSweRef.getEasting());      
-    // Console output from the above two rows:
-    //      Median Composite Northing: 6580821.991123579
-    //      Median Composite Easting: 674032.3573261796        
-    // (and these can be compared with the 'Eniro' values above i.e. '6580822, 674032 (northing, easting)' )
-    
-    // The coordinate class provides four methods with different names for the same east-west value and 
-    // four methods for the same name each north-south value, as below:
-    //      Four EQUIVALENT methods:  getEasting  , getX , getLongitude , getXEastingLongitude
-    //      Four EQUIVALENT methods:  getNorthing , getY , getLatitude  , getYNorthingLatitude
-    // Regarding the above alternative methods, depending on the desired semantic in your context, you may want to use:
-    //      x/y for a geocentric or cartesian system
-    //      longitude/latitude for a geodetic or geographic system
-    //      easting/northing for a cartographic or projected system
-    //      xEastingLongitude/yNorthingLatitude for general code handling different types of system
-    
-    // If you want more details for the result you can use the following 'transform' method: 
-    //  (instead of the method 'transformToCoordinate' used above)
-    CrsTransformationResult centralStockholmResultSweRef = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef);
-    if(!centralStockholmResultSweRef.isSuccess()) {
-        System.out.println("No coordinate result");
-    }
-    else {
-        if(centralStockholmResultSweRef.isReliable(
-            4,      //  minimumNumberOfSuccesfulResults, 
-            0.01    // maxDeltaValueForXLongitudeAndYLatitude
-        )) {
-            // at least 4 succesful results and the maximal difference in northing or easting is less than 0.01
-            // (and if you want to know the exact difference you can find it in this code example further down the page)
-            System.out.println("Reliable result"); // according to your chosen parameters to the method 'isReliable'    
+import java.util.List;
+
+public class JavaExample {
+    public static void main(String[] args) {
+        // Some terminology regarding the names used in the below code example:
+        // "CRS" = Coordinate Reference System
+        // "WGS84" is the most frequently used coordinate system (e.g. the coordinates usually used in a GPS)    
+        // "SWEREF99TM" is the official coordinate system used by authorities in Sweden
+        // "EPSG" = "European Petroleum Survey Group" was (but the EPSG name is still often used) 
+        //           an organization defining CRS with integer numbers e.g.  4326 for WGS84 or 3006 for SWEREF99TM
+        int epsgWgs84  = EpsgNumber.WORLD__WGS_84__4326;
+        int epsgSweRef = EpsgNumber.SWEDEN__SWEREF99_TM__3006;
+        // The above "EpsgNumber" class with LOTS OF constants (and more constants classes) have been generated, 
+        // using "FreeMarker" and database downloaded from EPSG ( http://www.epsg.org or http://www.epsg-registry.org ) 
+
+        CrsCoordinate centralStockholmWgs84 = CrsCoordinateFactory.latLon(59.330231, 18.059196, epsgWgs84);
+        // https://kartor.eniro.se/m/03Yxp
+        // SWEREF99TM coordinates (for WGS84 59.330231, 18.059196) 
+        // according to Eniro (above URL): 6580822, 674032 (northing, easting)
+
+        CrsTransformationAdapter crsTransformationAdapter; // interface with concrete "leaf" implementation or "composite" implementations
+        // This code example is using a "composite" which will use multiple libraries to do the same transformation and then 
+        // return a coordinate with the median values (median of the northing values and median of the easting values)  
+        crsTransformationAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian();
+        // The above factory will try to use those known objects which implements the interface i.e. the number 
+        // of "leaf" objects will depend on how many you included in for example the maven pom file (six in the above maven example)
+        System.out.println("Number of 'leafs' : " + crsTransformationAdapter.getTransformationAdapterChildren().size());
+        // Console output from the above row:
+        // Number of 'leafs' : 6
+
+        // Transform the WGS84 coordinate to a SWEREF99TM coordinate:
+        CrsCoordinate centralStockholmSweRef = crsTransformationAdapter.transformToCoordinate(centralStockholmWgs84, epsgSweRef);
+        System.out.println("Median Composite Northing: " + centralStockholmSweRef.getNorthing());
+        System.out.println("Median Composite Easting: " + centralStockholmSweRef.getEasting());
+        // Console output from the above two rows:
+        //        Median Composite Northing: 6580821.991123579
+        //        Median Composite Easting: 674032.3573263118        
+        // (and these can be compared with the 'Eniro' values above i.e. '6580822, 674032 (northing, easting)' )
+
+        // The coordinate class provides four methods with different names for the same east-west value and 
+        // four methods for the same name each north-south value, as below:
+        //      Four EQUIVALENT methods:  getEasting  , getX , getLongitude , getXEastingLongitude
+        //      Four EQUIVALENT methods:  getNorthing , getY , getLatitude  , getYNorthingLatitude
+        // Regarding the above alternative methods, depending on the desired semantic in your context, you may want to use:
+        //      x/y for a geocentric or cartesian system
+        //      longitude/latitude for a geodetic or geographic system
+        //      easting/northing for a cartographic or projected system
+        //      xEastingLongitude/yNorthingLatitude for general code handling different types of system
+
+        // If you want more details for the result you can use the following 'transform' method: 
+        //  (instead of the method 'transformToCoordinate' used above)
+        CrsTransformationResult centralStockholmResultSweRef = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef);
+        if(!centralStockholmResultSweRef.isSuccess()) {
+            System.out.println("No coordinate result");
         }
         else {
-            System.out.println("Not reliable result");
-        }
-        System.out.println(centralStockholmResultSweRef.getOutputCoordinate());
-        // Console output from the above code row:
-        // Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-        
-        // When your code is in a context where you only have the result (but not the adapter object) 
-        // (e.g. in a method receiving the result as a parameter)
-        // you can get back the object which created the result as below:
-        CrsTransformationAdapter crsTransformationAdapterResultSource = centralStockholmResultSweRef.getCrsTransformationAdapterResultSource();
-        CrsTransformationAdapteeType adapteeType = crsTransformationAdapterResultSource.getAdapteeType();
-        System.out.println("adapteeType: " + adapteeType); // console output: COMPOSITE_MEDIAN
-        // The above code row returned an enum which is not really a true adaptee just like the 'composite' is not a true adapter.
-        // However, when iterating (as below) the "leaf" results, 
-        // it might be more interesting to keep track of from where the different values originated
-        List<CrsTransformationResult> transformationResultChildren = centralStockholmResultSweRef.getTransformationResultChildren();
-        for (CrsTransformationResult crsTransformationResultLeaf : transformationResultChildren) {
-            if(!crsTransformationResultLeaf.isSuccess()) continue; // continue with the next 'leaf'
-            
-            CrsTransformationAdapter resultAdapter = crsTransformationResultLeaf.getCrsTransformationAdapterResultSource();
-            System.out.println(resultAdapter.getAdapteeType());
-            // The above code row will output rows like this: "LEAF_GOOBER_1_1" or "LEAF_NGA_GEOPACKAGE_3_1_0" and so on
-            if(!crsTransformationResultLeaf.isReliable(
+            if(centralStockholmResultSweRef.isReliable(
+                4,      //  minimumNumberOfSuccesfulResults, 
+                0.01    // maxDeltaValueForXLongitudeAndYLatitude
+            )) {
+                // at least 4 succesful results and the maximal difference in northing or easting is less than 0.01
+                // (and if you want to know the exact difference you can find it in this code example further down the page)
+                System.out.println("Reliable result"); // according to your chosen parameters to the method 'isReliable'    
+            }
+            else {
+                System.out.println("Not reliable result");
+            }
+            System.out.println(centralStockholmResultSweRef.getOutputCoordinate());
+            // Console output from the above code row:
+            // Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+
+            // When your code is in a context where you only have the result (but not the adapter object) 
+            // (e.g. in a method receiving the result as a parameter)
+            // you can get back the object which created the result as below:
+            CrsTransformationAdapter crsTransformationAdapterResultSource = centralStockholmResultSweRef.getCrsTransformationAdapterResultSource();
+            CrsTransformationImplementationType implementationType = crsTransformationAdapterResultSource.getImplementationType();
+            System.out.println("implementationType: " + implementationType); // console output: COMPOSITE_MEDIAN
+            // The above code row returned an enum which is not a true adapter in the same way as the leafs are.
+            // However, when iterating (as below) the "leaf" results, 
+            // it might be more interesting to keep track of from where the different values originated
+            List<CrsTransformationResult> transformationResultChildren = centralStockholmResultSweRef.getTransformationResultChildren();
+            for (CrsTransformationResult crsTransformationResultLeaf : transformationResultChildren) {
+                if(!crsTransformationResultLeaf.isSuccess()) continue; // continue with the next 'leaf'
+
+                CrsTransformationAdapter resultAdapter = crsTransformationResultLeaf.getCrsTransformationAdapterResultSource();
+                System.out.println(resultAdapter.getImplementationType());
+                // The above code row will output rows like this: "LEAF_GOOBER" or "LEAF_NGA_GEOPACKAGE" and so on
+                if(!crsTransformationResultLeaf.isReliable(
                     2,      //  minimumNumberOfSuccesfulResults, 
                     1000    // maxDeltaValueForXLongitudeAndYLatitude
-            )) {
-                // The above constraint "at least 2 implementations" will fail because now we are dealing with "leafs"
-                // The above delta value constraint has very high tolerance but it does not matter since 
-                // the constraint about the number of implementations will fail
-                System.out.println("Only 'composites' can have more than one result and this is a 'leaf' and thus does not at least two results");
+                )) {
+                    // The above constraint "at least 2 implementations" will fail because now we are dealing with "leafs"
+                    // The above delta value constraint has very high tolerance but it does not matter since 
+                    // the constraint about the number of implementations will fail
+                    System.out.println("Only 'composites' can have more than one result and this is a 'leaf' and thus does not have at least two results");
+                }
+                System.out.println("Adapter long name: " + resultAdapter.getLongNameOfImplementation()); // full class name including package
+                System.out.println("Adapter short name: " + resultAdapter.getShortNameOfImplementation()); // class name suffix i.e. the unique part
+                // The above "long" names will be for example:
+                //      com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS
+                //      com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J
+                // The above "short" names will be for example:
+                //      OrbisgisCTS
+                //      Proj4J
+                System.out.println("implementationType: " + resultAdapter.getImplementationType());
+                // The above row will output for example:
+                //      LEAF_ORBISGIS
+                //      LEAF_PROJ4J
+                System.out.println("version: " + resultAdapter.getVersionOfImplementationAdapteeLibrary());
+                // The above row will output for example (when iterating e.g. Orbis with version 1.5.2 and Proj4j with version 0.1.0) :
+                //      version: 1.5.2
+                //      version: 0.1.0
+                System.out.println("isComposite: " + resultAdapter.isComposite()); // "false" since we are iterating "leaf" results
+                System.out.println("Coordinate result for " + resultAdapter.getImplementationType() + " " + resultAdapter.getVersionOfImplementationAdapteeLibrary() + " : " + crsTransformationResultLeaf.getOutputCoordinate());
+                // The above row will output these rows when doing the iteration:
+                //    Coordinate result for LEAF_GOOBER 1.1 : Coordinate(xEastingLongitude=674032.357, yNorthingLatitude=6580821.991, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                //    Coordinate result for LEAF_NGA_GEOPACKAGE 3.5.0 : Coordinate(xEastingLongitude=674032.357326444, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                //    Coordinate result for LEAF_GEOTOOLS 23.0 : Coordinate(xEastingLongitude=674032.3571771547, yNorthingLatitude=6580821.994371211, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                //    Coordinate result for LEAF_ORBISGIS 1.5.2 : Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991121078, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                //    Coordinate result for LEAF_PROJ4J_LOCATIONTECH 1.1.1 : Coordinate(xEastingLongitude=674032.357326444, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                //    Coordinate result for LEAF_PROJ4J 0.1.0 : Coordinate(xEastingLongitude=674032.357326444, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+                // Note that (further up above) the median value for "x" is 674032.3573263118 for the above 
+                // six x values 674032.357, 674032.3571771547, 674032.3573261796, 674032.357326444, 674032.357326444, 674032.357326444 .
+                // (the average of the two middle values 674032.3573261796 and 674032.357326444 is 674032.3573263118)
+                // That is the same value as was displayed before the iteration of the children/leafs for the median composite.
+                // The same applies for the above "y" i.e. the median is 6580821.991123579
+                // for the six y values 6580821.991, 6580821.991121078, 6580821.991123579, 6580821.991123579, 6580821.991123579, 6580821.994371211
             }
-            System.out.println("Adapter long name: " + resultAdapter.getLongNameOfImplementation()); // full class name including package
-            System.out.println("Adapter short name: " + resultAdapter.getShortNameOfImplementation()); // class name suffix i.e. the unique part
-            // The above "long" names will be for example:
-            //      com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS
-            //      com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J
-            // The above "short" names will be for example:
-            //      OrbisgisCTS
-            //      Proj4J
-            System.out.println("adaptee: " + resultAdapter.getAdapteeType());
-            // The above row will output for example:
-            //      LEAF_ORBISGIS_1_5_1
-            //      LEAF_PROJ4J_0_1_0
-            // (note that the version number is included for the adaptees)
-            System.out.println("isComposite: " + resultAdapter.isComposite()); // "false" since we are iterating "leaf" results
-            System.out.println("Coordinate result for " + resultAdapter.getAdapteeType() + " : " + crsTransformationResultLeaf.getOutputCoordinate());
-            // The above row will output these rows when doing the iteration:
-            //      Coordinate result for LEAF_GOOBER_1_1 : Coordinate(xEastingLongitude=674032.357, yNorthingLatitude=6580821.991, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-            //      Coordinate result for LEAF_NGA_GEOPACKAGE_3_1_0 : Coordinate(xEastingLongitude=674032.357326444, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-            //      Coordinate result for LEAF_GEOTOOLS_20_0 : Coordinate(xEastingLongitude=674032.3571771547, yNorthingLatitude=6580821.994371211, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-            //      Coordinate result for LEAF_ORBISGIS_1_5_1 : Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991121078, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-            //      Coordinate result for LEAF_PROJ4J_0_1_0 : Coordinate(xEastingLongitude=674032.357326444, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-            // Note that the median value for "x" is 674032.3573261796 for the above 
-            // five x values 674032.357 , 674032.357326444 , 674032.3571771547 , 674032.3573261796 , 674032.357326444 . 
-            // That is the same value as was displayed before the iteration of the children/leafs for the median composite.
-            // The same applies for the above "y" i.e. the median is 6580821.991123579
-            // for the five y values 6580821.991 , 6580821.991123579 , 6580821.994371211 , 6580821.991121078 , 6580821.991123579
-        }
-        // The result object also provides convenience methods for the results (which you of course otherwise might calculate by iterating the above results)
-        CrsTransformationResultStatistic crsTransformationResultStatistic = centralStockholmResultSweRef.getCrsTransformationResultStatistic();
-        // Note that the initially created composite was a "median composite" returning the median as the main value, 
-        // but you can also create an average composite and regardless you can access both the median and the average with the aggregated statistics object:
-        System.out.println("average coordinate: " + crsTransformationResultStatistic.getCoordinateAverage());
-        System.out.println("median coordinate: " + crsTransformationResultStatistic.getCoordinateMedian());            
-        // Console output from the above two rows:
-        // average coordinate: Coordinate(xEastingLongitude=674032.3572312444, yNorthingLatitude=6580821.991747889, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
-        // median coordinate: Coordinate(xEastingLongitude=674032.3573261796, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))            
-
-        System.out.println("MaxDifferenceForXEastingLongitude: " + crsTransformationResultStatistic.getMaxDifferenceForXEastingLongitude());
-        System.out.println("MaxDifferenceForYNorthingLatitude: " + crsTransformationResultStatistic.getMaxDifferenceForYNorthingLatitude());
-        // Output from the above two rows:
-        // MaxDifferenceForXEastingLongitude: 3.264440456405282E-4
-        // MaxDifferenceForYNorthingLatitude: 0.0033712107688188553
-        // As you can see in the above iteration, the min and max x values are 674032.357 and 674032.357326444 (and the difference is 0.000326444).
-        // Similarly the min and max y values are 6580821.991 and 6580821.994371211 (and the difference is 0.003371211).
-        // The above two "MaxDifference" methods are used within the implementation of the convenience method 'isReliable' 
-        // (also illustrated in this example further above)
+            // The result object also provides convenience methods for the results (which you of course otherwise might calculate by iterating the above results)
+            CrsTransformationResultStatistic crsTransformationResultStatistic = centralStockholmResultSweRef.getCrsTransformationResultStatistic();
+            // Note that the initially created composite was a "median composite" returning the median as the main value, 
+            // but you can also create an average composite and regardless you can access both the median and the average with the aggregated statistics object:
+            System.out.println("average coordinate: " + crsTransformationResultStatistic.getCoordinateAverage());
+            System.out.println("median coordinate: " + crsTransformationResultStatistic.getCoordinateMedian());
+            // Console output from the above two rows:
+            //    average coordinate: Coordinate(xEastingLongitude=674032.357247111, yNorthingLatitude=6580821.991643838, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+            //    median coordinate: Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))            
+            System.out.println("MaxDifferenceForXEastingLongitude: " + crsTransformationResultStatistic.getMaxDifferenceForXEastingLongitude());
+            System.out.println("MaxDifferenceForYNorthingLatitude: " + crsTransformationResultStatistic.getMaxDifferenceForYNorthingLatitude());
+            // Output from the above two rows:
+            //    MaxDifferenceForXEastingLongitude: 3.264440456405282E-4
+            //    MaxDifferenceForYNorthingLatitude: 0.0033712107688188553
+            // As you can see in the above iteration, the min and max x values are 674032.357 and 674032.357326444 (and the difference is 0.000326444).
+            // Similarly the min and max y values are 6580821.991 and 6580821.994371211 (and the difference is 0.003371211).
+            // The above two "MaxDifference" methods are used within the implementation of the convenience method 'isReliable' 
+            // (also illustrated in this example further above)
+        }    
     }
+}
 ```
 # The library "crs-transformation-constants" with EPSG integer constants
 The integer constants are generated by using the [EPSG database](http://www.epsg-registry.org).  
@@ -550,6 +586,6 @@ AUSTRIA__ETRS89__AUSTRIA_LAMBERT__3416
 EUROPE__LIECHTENSTEIN_AND_SWITZERLAND__CH1903__LV03__21781  
 ```
 The above examples with constants are just showing a very few of them.  
-The actual number of constants in the generated class is 6733.  
+The actual number of constants in the generated class was 6733 (for version 9.5.4).  
 This number can easily be retrieved with the Java reflection code 'EpsgNumber.class.getFields().length'.  
 The same number can also be verified with the value returned by the SQL statement 'SELECT count(DISTINCT coord_ref_sys_code) FROM epsg_coordinatereferencesystem' (or simply 'SELECT count(*) FROM epsg_coordinatereferencesystem' since 'coord_ref_sys_code' is the primary key).

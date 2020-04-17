@@ -4,7 +4,10 @@ import spock.lang.Shared
 import spock.lang.Specification
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory
+import com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactory
 
+// cd sample_code/groovy
+// gradlew test
 class CrsTransformationTest extends Specification {
     
     @Shared expectedOutputCoordinate
@@ -21,14 +24,16 @@ class CrsTransformationTest extends Specification {
         def allCrsTransformationAdapters = crsTransformation.getAllCrsTransformationAdapters()
         def inputCoordinate = crsTransformation.getInputCoordinate()
         def targetCrsIdentifier = crsTransformation.getTargetCrsIdentifier()
-        def expectedNumberOfCrsTransformationAdapters = 9
+        def expectedTotalNumberOfCrsTransformationAdapters = 10
+        def expectedNumberOfLeafCrsTransformationAdapters = 6
         
         when:
         def results = crsTransformation.transform(inputCoordinate, targetCrsIdentifier, allCrsTransformationAdapters)
         
         then:
-        allCrsTransformationAdapters.size == expectedNumberOfCrsTransformationAdapters
-        results.size == expectedNumberOfCrsTransformationAdapters
+        expectedNumberOfLeafCrsTransformationAdapters == CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations().size
+        expectedTotalNumberOfCrsTransformationAdapters == allCrsTransformationAdapters.size
+        expectedTotalNumberOfCrsTransformationAdapters == results.size 
         results.each {
             assertTransformationResult(it)
         }

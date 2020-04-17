@@ -35,19 +35,21 @@ dependencies {
     implementation 'com.google.guava:guava:28.2-jre'
 
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.8.9'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.0.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.0.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.0.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.0.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.0.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.0.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.1.0'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.1.0'
     
     // Use TestNG framework, also requires calling test.useTestNG() below
     testImplementation 'org.testng:testng:7.0.0'
 }
 
 application {
-    // Define the main class for the application.
+    // cd sample_code/java
+    // gradlew run
     mainClassName = 'java_sample.CrsTransformation'
 }
 
