@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CrsTransformationAdapteeImplementationTypeAndVersionTest
 {
     // The version below should be the same as the version defined like this in "build.gradle":
-    // ext.crsTransformationVersion = '1.0.1'
+    // ext.crsTransformationVersion = '1.1.0'
     private final static String VersionOfCrsTransformationLibrary = "1.1.0";
     
     // Note that the names of CrsTransformationImplementationType and the deprecated CrsTransformationAdapteeType

@@ -12,7 +12,7 @@ package com.programmerare.crsTransformations
  * (but the version number was included in the type CrsTransformationAdapteeType 
  *  which is now deprecated and the usage of it is intended to be replaced with this enum instead 
  *  and if the version number is desirable then there is a method for retrieving 
- *  it in the interface CrsTransformationAdapter) 
+ *  it in [CrsTransformationAdapter]) 
  *
  * @author Tomas Johansson ( http://programmerare.com )
  * The code in the "crs-transformation-adapter-core" project is licensed with MIT.

@@ -1,21 +1,9 @@
 package com.programmerare.crsTransformations
 
 /**
- * 
- * Enumeration type returned from a method in the adapter interface.
- * 
- * The purpose is to make it easier to see from where a result originated
- * when iterating the 'leaf' adapter results in a 'composite' object.
- * 
- * The names of the leafs in the enumeration includes information
- * about the version number for the adaptee library it represents.
- * 
- * The purpose of this enum type is NOT to use it anywhere for specifying which implementation you want to use,
- * e.g. it is NOT possible to choose an older version of a library such as GeoTools
- * by using the enum value LEAF_GEOTOOLS_20_0 instead of LEAF_GEOTOOLS_20_2.
- * The latest version (with the highest version number in the enum name) will be used,
- * and the older enum is only kept for avoiding to cause compiling problems if someone
- * would be using it in for example if/switch statements for checking which version is used.
+ *
+ * Deprecated. Use [CrsTransformationImplementationType] instead.
+ * The main difference is that the version suffix is included for the leaf's in this deprecated enum below.  
  *
  * @author Tomas Johansson ( http://programmerare.com )
  * The code in the "crs-transformation-adapter-core" project is licensed with MIT.
@@ -37,7 +25,7 @@ enum class CrsTransformationAdapteeType {
 
     /**
      * DEPRECATED version for the adaptee library !
-     * ( this constant was published in release 1.0.0 )
+     * @since 1.0.0
      */
     @Deprecated("Use 'LEAF_GEOTOOLS_23_0' instead since the currently used GeoTools library is version 23.0")
     LEAF_GEOTOOLS_20_0,
@@ -45,17 +33,20 @@ enum class CrsTransformationAdapteeType {
     /**
      * Maven version for the adaptee library:
      * "org.geotools:gt-main:23.0"
+     * @since 1.1.0
      */
     LEAF_GEOTOOLS_23_0,    
+
     /**
      * Maven version for the adaptee library:
      * "com.github.goober:coordinate-transformation-library:1.1"
+     * @since 1.0.0
      */
     LEAF_GOOBER_1_1,
 
     /**
      * DEPRECATED version for the adaptee library !
-     * ( this constant was published in release 1.0.0 )
+     * @since 1.0.0
      */
     @Deprecated("Use 'LEAF_ORBISGIS_1_5_2' instead since the currently used OrbisGIS/CTS library is version 1.5.2")
     LEAF_ORBISGIS_1_5_1,
@@ -63,37 +54,35 @@ enum class CrsTransformationAdapteeType {
     /**
      * Maven version for the adaptee library:
      * "org.orbisgis:cts:1.5.2"
+     * @since 1.1.0
      */
     LEAF_ORBISGIS_1_5_2,
 
     /**
      * DEPRECATED version for the adaptee library !
-     * ( this constant was published in release 1.0.0 )
+     * @since 1.0.0
      */
     @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")
     LEAF_NGA_GEOPACKAGE_3_1_0,
 
-    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")
-    LEAF_NGA_GEOPACKAGE_3_2_0,
-
-    @Deprecated("Use 'LEAF_NGA_GEOPACKAGE_3_5_0' instead since the currently used 'mil.nga.geopackage' library is version 3.5.0")    
-    LEAF_NGA_GEOPACKAGE_3_3_0,
-
     /**
      * Maven version for the adaptee library:
      * "mil.nga.geopackage:geopackage-core:3.5.0"
+     * @since 1.1.0
      */
     LEAF_NGA_GEOPACKAGE_3_5_0,    
 
     /**
      * Maven version for the adaptee library:  
      * "org.osgeo:proj4j:0.1.0"
+     * @since 1.0.0
      */
     LEAF_PROJ4J_0_1_0,
 
     /**
      * Maven version for the adaptee library:
      * "org.locationtech.proj4j:proj4j:1.1.1"
+     * @since 1.1.0
      */    
     LEAF_PROJ4J_LOCATIONTECH_1_1_1,
 
@@ -109,12 +98,14 @@ enum class CrsTransformationAdapteeType {
     /**
      * Represents a composite which returns a result with
      * longitude and latitude being the median of the 'leafs'.
+     * @since 1.0.0
      */
     COMPOSITE_MEDIAN,
 
     /**
      * Represents a composite which returns a result with
      * longitude and latitude being the average of the 'leafs'.
+     * @since 1.0.0
      */
     COMPOSITE_AVERAGE,
 
@@ -125,6 +116,7 @@ enum class CrsTransformationAdapteeType {
      * The implementation will try to use results from all 'leaf' adapters
      * by calculating the resulting coordinate using weights
      * which must have been provided to the composite object when it was constructed.
+     * @since 1.0.0
      */
     COMPOSITE_WEIGHTED_AVERAGE,
 
@@ -140,6 +132,7 @@ enum class CrsTransformationAdapteeType {
      * In other words, the number of results will always
      * be zero or one, unlike the median and average (or weighted) composites
      * which can have many results from multiple 'leafs' (adapter/adaptee implementations).
+     * @since 1.0.0
      */
     COMPOSITE_FIRST_SUCCESS,
 

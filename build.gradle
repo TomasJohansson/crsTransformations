@@ -23,6 +23,7 @@ buildscript {
         // https://mvnrepository.com/artifact/org.jetbrains.dokka/dokka-gradle-plugin
         // https://github.com/JetBrains/kotlin-examples/blob/master/gradle/dokka-gradle-example/build.gradle
         // gradlew dokkaJavadoc
+        // gradlew :crs-transformation-adapter-core:dokkaJavadoc
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
     }
 }
@@ -36,9 +37,6 @@ plugins {
     // which you can verify by running "gradlew tasks" (i.e. run the command with and without the above 'maven-publish')
     id 'signing'
 }
-
-// TODO add the tags @since with version number for the constant values in the class CrsTransformationAdapteeType
-// e.g. @since 1.0.0 or @since 1.0.1 
 
 // https://semver.org
 //      Given a version number MAJOR.MINOR.PATCH, increment the:
@@ -55,7 +53,7 @@ plugins {
 ext.snapshotSuffixOrEmpty = ""//"-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org   
-ext.crsTransformationVersion = '1.1.0' + rootProject.snapshotSuffixOrEmpty
+ext.crsTransformationVersion = '1.1.0' + rootProject.snapshotSuffixOrEmpty 
 // currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
 // TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
 // for example as below:
@@ -124,9 +122,14 @@ subprojects { p->
         kotlinOptions.jvmTarget = "1.8"
     }
 
+    // gradlew dokkaJavadoc
+    // gradlew :crs-transformation-adapter-core:dokkaJavadoc    
     task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
         outputFormat = 'javadoc'
         outputDirectory = javadoc.destinationDir
+        configuration {
+            jdkVersion = 8
+        }
     }
 
     task dokkadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -145,7 +148,8 @@ subprojects { p->
     // https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
     // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
     task sourcesJar(type: Jar) {
-        from sourceSets.main.java
+        // from sourceSets.main.java // this sourceSets setting was used when generating "crs-transformation-constants" version 9.8.9
+        from sourceSets.main.allSource
         archiveClassifier = "sources"
         includeEmptyDirs false
     }
@@ -693,6 +697,7 @@ signing {
     sign publishing.publications.crstransformationsgoober
     sign publishing.publications.crstransformationsorbisgis
     sign publishing.publications.crstransformationsproj4j
+    sign publishing.publications.crstransformationsproj4jlocationtech
     sign publishing.publications.crstransformationsnga
 }
 

@@ -130,6 +130,7 @@ interface CrsTransformationAdapter {
     fun getShortNameOfImplementation(): String
 
     /**
+     * Deprecated. Use [getImplementationType] and [getVersionOfImplementationAdapteeLibrary] instead. 
      * @see CrsTransformationAdapteeType
      */
     @Deprecated("The type CrsTransformationAdapteeType was only used for getting information about which implementation was used, e.g. an enum with a name revealing the version number. Now instead use the methods getShortNameOfImplementation (existing since before) and the new method CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()")
@@ -139,8 +140,11 @@ interface CrsTransformationAdapter {
 
     /**
      * @return for example "3.3.0"
-     *  and the implementation should try to extract such a version number 
-     *  from the name of a jar file such as "geopackage-core-3.3.0.jar"
+     *  and a Leaf implementation should try to extract such a version number 
+     *  from the name of a jar file such as "geopackage-core-3.3.0.jar".
+     *  For a Composite implementation the version number is the version of this library 
+     *  itself e.g. "1.1.0" for the library "com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0"
+     * @see com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary
      */
     fun getVersionOfImplementationAdapteeLibrary() : String
 
