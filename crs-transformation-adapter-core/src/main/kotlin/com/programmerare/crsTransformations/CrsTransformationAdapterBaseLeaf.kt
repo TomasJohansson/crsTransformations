@@ -68,10 +68,14 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
 
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.UNSPECIFIED_LEAF
-    }    
+    }
 
-    override fun getVersionOfImplementationAdapteeLibrary(): String {
+    private val _version: String by lazy {
         val nameOfJarFile = this.getNameOfJarFileOrEmptyString()
-        return StringUtility.getLastNumericalValueFromString(nameOfJarFile)
+        StringUtility.getLastNumericalValueFromString(nameOfJarFile)        
+    }
+    
+    override fun getVersionOfImplementationAdapteeLibrary(): String {
+        return _version
     }    
 }
