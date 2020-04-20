@@ -4,7 +4,6 @@ import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
 import com.programmerare.crsTransformations.crsIdentifier.createFromCrsCode
 import com.programmerare.crsTransformations.crsIdentifier.createFromEpsgNumber
-import java.lang.IllegalArgumentException
 import java.security.ProtectionDomain
 import org.slf4j.LoggerFactory
 
@@ -171,13 +170,14 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
     ): String {
         // Doing the code in small steps below to figure out where the problem is when it does not work from Jython
         // (though it does work from Java, Kotlin, Scala, Groovy and JRuby)
-        debug("getNameOfJarFileFromProtectionDomain protectionDomain: " + protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary) // "... protectionDomain: ProtectionDomain  (null <no signer certificates>)"
+        // Updated comment: The "jython problem" was fixed in git commit 8835e412ea26916d4f9f7c28752d3dadba0d34f3
+        //debug("getNameOfJarFileFromProtectionDomain protectionDomain: " + protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary) // "... protectionDomain: ProtectionDomain  (null <no signer certificates>)"
         val codeSource = protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary.codeSource
-        debug("getNameOfJarFileFromProtectionDomain codeSource: " + codeSource) // "... codeSource: (null <no signer certificates>)"
+        //debug("getNameOfJarFileFromProtectionDomain codeSource: " + codeSource) // "... codeSource: (null <no signer certificates>)"
         val location = codeSource.location
-        debug("getNameOfJarFileFromProtectionDomain location: " + location) // "... location: null"
+        //debug("getNameOfJarFileFromProtectionDomain location: " + location) // "... location: null"
         val externalForm = location.toExternalForm()
-        debug("getNameOfJarFileFromProtectionDomain externalForm " + externalForm)
+        //debug("getNameOfJarFileFromProtectionDomain externalForm " + externalForm)
         return externalForm
     }
 
