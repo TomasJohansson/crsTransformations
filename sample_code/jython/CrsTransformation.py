@@ -47,6 +47,11 @@ class CrsTransformation:
             crs = result.crsTransformationAdapterResultSource
             print "%s  : X / Y ===> %s / %s" % (crs.adapteeType, outputCoordinate.x, outputCoordinate.y)
 
+# the row below does currently not work from Jython (but it did work from JRuby, and Java, Kotlin, Scala, Groovy) 
+            # version = crs.versionOfImplementationAdapteeLibrary
+            
+            # implementationType = crs.implementationType
+
         print "Short names of all Leaf implementations:"
         for leaf in CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations():
             print leaf.shortNameOfImplementation
@@ -91,11 +96,11 @@ class CrsTransformation:
 
     def __getAllCrsTransformationAdapters(self): # List<CrsTransformationAdapter>
         return [
+            CrsTransformationAdapterGooberCTL(),            
             CrsTransformationAdapterProj4J(),
             CrsTransformationAdapterProj4jLocationtech(),
             CrsTransformationAdapterGeoPackageNGA(),
             CrsTransformationAdapterOrbisgisCTS(),
-            CrsTransformationAdapterGooberCTL(),
             CrsTransformationAdapterGeoTools(),
             CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian(),
             CrsTransformationAdapterCompositeFactory.createCrsTransformationAverage(),

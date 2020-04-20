@@ -29,7 +29,7 @@ import java.util.*
  * is licensed with Apache License 2.0 i.e. the same license as the adaptee library goober/coordinate-transformation-library.
  */
 class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), CrsTransformationAdapter {
-
+    
     override protected fun transformHook(
         inputCoordinate: CrsCoordinate,
         crsIdentifierForOutputCoordinateSystem: CrsIdentifier
@@ -154,8 +154,17 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
     // for detecting upgrades to a new version (and then update the above method returned enum value)
     // Future failure will be a reminder to update the above enum value
     protected override fun getNameOfJarFileOrEmptyString(): String {
-        return super.getNameOfJarFileFromProtectionDomain(WGS84Position::class.java.protectionDomain)
+        // Doing the code in small steps below to figure out where the problem is when it does not work from Jython
+        // (though it does work from Java, Kotlin, Scala, Groovy and JRuby)
+        val clazz = WGS84Position::class
+        super.debug("goober clazz: " + clazz) // "goober clazz: class com.github.goober.coordinatetransformation.positions.WGS84Position (Kotlin reflection is not available)"
+        val javaClazz = clazz.java
+        debug("goober javaClazz: " + javaClazz) // "goober javaClazz: class com.github.goober.coordinatetransformation.positions.WGS84Position"
+        val protectionDomain = javaClazz.protectionDomain
+        debug("goober protectionDomain: " + protectionDomain) // "goober protectionDomain: ProtectionDomain  (null <no signer certificates>)"
+        return super.getNameOfJarFileFromProtectionDomain(protectionDomain)
     }
+
     // ----------------------------------------------------------
 
     private fun throwIllegalArgumentExceptionIfUnvalidCoordinateOrCrs(

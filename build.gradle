@@ -53,7 +53,7 @@ plugins {
 ext.snapshotSuffixOrEmpty = ""//"-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org   
-ext.crsTransformationVersion = '1.1.0' + rootProject.snapshotSuffixOrEmpty 
+ext.crsTransformationVersion = '1.1.1' + rootProject.snapshotSuffixOrEmpty 
 // currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
 // TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
 // for example as below:
@@ -259,6 +259,9 @@ project(':crs-transformation-adapter-impl-goober') {
     dependencies {
         implementation project(':crs-transformation-adapter-core')
 
+        // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+        implementation("org.slf4j:slf4j-api:1.7.30")
+        
         // https://mvnrepository.com/artifact/com.github.goober/coordinate-transformation-library
         implementation("com.github.goober:coordinate-transformation-library:1.1") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
         // test code will detect upgrades with the purpose to update an enum if the file name changes from "coordinate-transformation-library-1.1.jar"
@@ -626,6 +629,9 @@ project(':crs-transformation-adapter-core') {
         }
     }
     dependencies {
+        // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+        implementation("org.slf4j:slf4j-api:1.7.30")
+        
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
         testImplementation("org.junit.jupiter:junit-jupiter-engine:$junit_version")

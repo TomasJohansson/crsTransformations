@@ -6,7 +6,10 @@
 	<info organisation="com.programmerare" module="libs_for_sample_code" />
 	
 	<dependencies>
-		
+
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.30" />
+		<dependency org="org.slf4j" name="slf4j-simple" rev="1.7.30" />
+
 		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-constants" rev="9.8.9" />
 		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="1.1.0" />
 		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="1.1.0" />
