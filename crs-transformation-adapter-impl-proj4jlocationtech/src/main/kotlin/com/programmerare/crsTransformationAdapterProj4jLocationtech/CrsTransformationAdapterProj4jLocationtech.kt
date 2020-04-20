@@ -66,5 +66,12 @@ class CrsTransformationAdapterProj4jLocationtech : CrsTransformationAdapterBaseL
     protected override fun getNameOfJarFileOrEmptyString(): String {
         return super.getNameOfJarFileFromProtectionDomain(ProjCoordinate::class.java.protectionDomain)
     }
+
+    /**
+     * @since 1.1.1
+     */    
+    protected override fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*> {
+        return ProjCoordinate::class.java
+    }
     // ----------------------------------------------------------
 }

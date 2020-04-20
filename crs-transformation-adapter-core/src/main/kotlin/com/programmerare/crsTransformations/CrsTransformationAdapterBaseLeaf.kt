@@ -2,6 +2,7 @@ package com.programmerare.crsTransformations
 
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
+import com.programmerare.crsTransformations.utils.JarFileFinder
 import com.programmerare.crsTransformations.utils.StringUtility
 
 /**
@@ -71,10 +72,24 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
     }
 
     private val _version: String by lazy {
-        val nameOfJarFile = this.getNameOfJarFileOrEmptyString()
-        StringUtility.getLastNumericalValueFromString(nameOfJarFile)        
+        val unknownVersion = "[UNKNOWN VERSION]"
+        val defaultIfNotFound = StringUtility.returnValueIfNoNumericalValueIsFound // "?"
+        try {
+            val clazz = getSomeClassFromTheJarFileOfTheImplementationLibrary()
+            val nameOfJarFile = JarFileFinder.getNameOfJarFile(clazz)
+            val version = StringUtility.getLastNumericalValueFromString(nameOfJarFile)
+            if(version == defaultIfNotFound) unknownVersion else version
+        }
+        catch (e: Throwable) {
+            unknownVersion    
+        }
     }
-    
+
+    /**
+     * @since 1.1.1
+     */
+    protected abstract fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*>
+
     override fun getVersionOfImplementationAdapteeLibrary(): String {
         return _version
     }    

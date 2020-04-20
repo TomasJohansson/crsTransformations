@@ -57,5 +57,12 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
     protected override fun getNameOfJarFileOrEmptyString(): String {
         return super.getNameOfJarFileFromProtectionDomain(ContentsDao::class.java.protectionDomain)
     }
+
+    /**
+     * @since 1.1.1
+     */    
+    protected override fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*> {
+        return ContentsDao::class.java
+    }
     // ----------------------------------------------------------
 }

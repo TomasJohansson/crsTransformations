@@ -65,5 +65,12 @@ class CrsTransformationAdapterOrbisgisCTS : CrsTransformationAdapterBaseLeaf(), 
     protected override fun getNameOfJarFileOrEmptyString(): String {
         return super.getNameOfJarFileFromProtectionDomain(GeodeticCRS::class.java.protectionDomain)
     }
+    
+    /**
+     * @since 1.1.1
+     */    
+    protected override fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*> {
+        return GeodeticCRS::class.java
+    }
     // ----------------------------------------------------------
 }

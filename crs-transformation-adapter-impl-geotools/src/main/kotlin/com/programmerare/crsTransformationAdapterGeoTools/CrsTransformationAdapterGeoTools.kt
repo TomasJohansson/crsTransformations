@@ -79,5 +79,12 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     protected override fun getNameOfJarFileOrEmptyString(): String {
         return super.getNameOfJarFileFromProtectionDomain(JTS::class.java.protectionDomain)
     }
+
+    /**
+     * @since 1.1.1
+     */    
+    protected override fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*> {
+        return JTS::class.java
+    }    
     // ----------------------------------------------------------
 }

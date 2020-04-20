@@ -149,7 +149,8 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_GOOBER
     }
-    
+
+
     // The purpose of the method below is to use it in test code
     // for detecting upgrades to a new version (and then update the above method returned enum value)
     // Future failure will be a reminder to update the above enum value
@@ -165,6 +166,12 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
         return super.getNameOfJarFileFromProtectionDomain(protectionDomain)
     }
 
+    /**
+     * @since 1.1.1
+     */    
+    protected override fun getSomeClassFromTheJarFileOfTheImplementationLibrary(): Class<*> {
+        return WGS84Position::class.java
+    }    
     // ----------------------------------------------------------
 
     private fun throwIllegalArgumentExceptionIfUnvalidCoordinateOrCrs(

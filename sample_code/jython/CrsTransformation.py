@@ -45,12 +45,9 @@ class CrsTransformation:
         for result in crsTransformationResults:
             outputCoordinate = result.outputCoordinate
             crs = result.crsTransformationAdapterResultSource
-            print "%s  : X / Y ===> %s / %s" % (crs.adapteeType, outputCoordinate.x, outputCoordinate.y)
-
-# the row below does currently not work from Jython (but it did work from JRuby, and Java, Kotlin, Scala, Groovy) 
-            # version = crs.versionOfImplementationAdapteeLibrary
-            
-            # implementationType = crs.implementationType
+            implementationType = crs.implementationType
+            version = crs.versionOfImplementationAdapteeLibrary
+            print "%s %s  : X / Y ===> %s / %s" % (implementationType, version, outputCoordinate.x, outputCoordinate.y)
 
         print "Short names of all Leaf implementations:"
         for leaf in CrsTransformationAdapterLeafFactory.getInstancesOfAllKnownAvailableImplementations():

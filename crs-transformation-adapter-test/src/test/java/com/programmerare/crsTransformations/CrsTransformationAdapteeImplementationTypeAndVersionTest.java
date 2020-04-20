@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CrsTransformationAdapteeImplementationTypeAndVersionTest
 {
     // The version below should be the same as the version defined like this in "build.gradle":
-    // ext.crsTransformationVersion = '1.1.0'
-    private final static String VersionOfCrsTransformationLibrary = "1.1.0";
+    // ext.crsTransformationVersion = '1.1.1'
+    private final static String VersionOfCrsTransformationLibrary = "1.1.1";
     
     // Note that the names of CrsTransformationImplementationType and the deprecated CrsTransformationAdapteeType
     // are almost the same (e.g. "LEAF_ORBISGIS" vs "LEAF_ORBISGIS_1_5_2"), but for the Leaf's the 

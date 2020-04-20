@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StringUtilityTest {
     @Test
     void getLastNumericalValueFromString() {
+        assertNumericalValue("5.6.2", "junit-jupiter-api-5.6.2.jar");
+        
         assertNumericalValue("3.3.0", "geopackage-core-3.3.0.jar");
         assertNumericalValue("1.5.2", "cts-1.5.2.jar");
         assertNumericalValue("1.1", "coordinate-transformation-library-1.1.jar");
@@ -48,4 +50,48 @@ public class StringUtilityTest {
         String numericValue = StringUtility.getLastNumericalValueFromString(inputString);
         assertEquals(expected, numericValue);        
     }
+
+
+    @Test
+    void getJarFileNameWithoutThePath() {
+        final String expectedNameOfTestedJarFile = "junit-jupiter-api-5.6.2.jar";
+        final Class theTestedClass = Test.class;
+        
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "abcdef/junit-jupiter-api-5.6.2.jar!/ghjijk"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "abcdef\\junit-jupiter-api-5.6.2.jar!\\ghjijk"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "junit-jupiter-api-5.6.2.jar!/ghjijk"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "abcdef/junit-jupiter-api-5.6.2.jar!"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "abcdef/junit-jupiter-api-5.6.2.jar"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "junit-jupiter-api-5.6.2.jar"
+            )
+        );
+        assertEquals(expectedNameOfTestedJarFile,
+            StringUtility.getJarFileNameWithoutThePath(
+                "junit-jupiter-api-5.6.2.jar!"
+            )
+        );
+    }
+
 }

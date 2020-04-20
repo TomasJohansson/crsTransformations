@@ -127,8 +127,13 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
     override fun getImplementationType() : CrsTransformationImplementationType {
         // Should be overridden by subclasses
         return CrsTransformationImplementationType.UNSPECIFIED
-    }    
+    }
 
+    // The below method is protected which means that: Be careful to remove it !
+    // External code might still be using it, i.e. removal could cause incompatibilities 
+    // if mixing core libraries and implementation libraries with different versions
+    // if it is removed.    
+    @Deprecated("Deprecated from version 1.1.1. Replacement: 'getSomeClassFromTheJarFileOfTheImplementationLibrary' and lazy loaded '_version'")
     /**
      * This helper method is protected since it is NOT intended for
      * client code but only for test code purposes.
@@ -151,6 +156,11 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
         return ""
     }
 
+    // The below method is protected which means that: Be careful to remove it !
+    // External code might still be using it, i.e. removal could cause incompatibilities 
+    // if mixing core libraries and implementation libraries with different versions
+    // if it is removed.
+    @Deprecated("Deprecated from version 1.1.1. Replacement: 'getSomeClassFromTheJarFileOfTheImplementationLibrary' and lazy loaded '_version'")
     /**
      * Protected helper method intended to be used from subclasses
      * when implementing the method that should return the name
@@ -172,7 +182,7 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
     }
 
     protected fun debug(s: String) {
-        logger.debug(s) 
+        //logger.debug(s) 
         //logger.info(s)
     }    
 }
