@@ -44,16 +44,13 @@ plugins {
 //          MINOR version when you add functionality in a backwards-compatible manner, and
 //          PATCH version when you make backwards-compatible bug fixes.
 
-// The next version should be a minor i.e. change from 1.0.0 to 1.1.0
-// because of the added method 'CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()'
-
 // The version number below ("ext.crsTransformationVersion") should be the same as in 
 // the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
 
 ext.snapshotSuffixOrEmpty = ""//"-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org   
-ext.crsTransformationVersion = '1.1.1' + rootProject.snapshotSuffixOrEmpty 
+ext.crsTransformationVersion = '1.1.1' + rootProject.snapshotSuffixOrEmpty
 // currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
 // TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
 // for example as below:

@@ -1,4 +1,10 @@
 <ivysettings>
+	<!-- 
+		https://ant.apache.org/ivy/history/2.5.0/settings/property.html
+		https://stackoverflow.com/questions/2996048/can-i-use-properties-in-an-ivy-xml-file-to-avoid-repeating-version-numbers-of-de/3079655#3079655
+	 -->
+	<property name="adapterVersion" value="1.1.1"/> <!-- the property is used in ivy.xml -->
+
 	<settings defaultResolver="local-chain"/>
 	<resolvers>
 		<ibiblio name="central" root="https://repo1.maven.org/maven2/" m2compatible="true" />

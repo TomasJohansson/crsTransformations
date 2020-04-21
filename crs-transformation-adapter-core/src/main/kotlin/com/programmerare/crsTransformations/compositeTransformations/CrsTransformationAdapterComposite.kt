@@ -28,8 +28,8 @@ final class CrsTransformationAdapterComposite private constructor(
 
     /**
      *  For a Composite implementation the version number is the version of this library
-     *  itself i.e. "com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0"
-     * @return "1.1.0"
+     *  itself i.e. "com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.1"
+     * @return "1.1.1"
      * @see CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary
      */
     override fun getVersionOfImplementationAdapteeLibrary(): String {

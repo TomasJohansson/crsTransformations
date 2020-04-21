@@ -143,7 +143,7 @@ interface CrsTransformationAdapter {
      *  and a Leaf implementation should try to extract such a version number 
      *  from the name of a jar file such as "geopackage-core-3.3.0.jar".
      *  For a Composite implementation the version number is the version of this library 
-     *  itself e.g. "1.1.0" for the library "com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0"
+     *  itself e.g. "1.1.1" for the library "com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.1"
      * @see com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary
      */
     fun getVersionOfImplementationAdapteeLibrary() : String

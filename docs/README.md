@@ -165,7 +165,7 @@ Java:
 ```
     
 
-# Adaptee libraries used by the adapter libraries in the release 1.1.0
+# Adaptee libraries used by the adapter libraries in the release 1.1.1
 * https://github.com/Proj4J/proj4j
     (version 0.1.0)
 * https://github.com/locationtech/proj4j
@@ -180,7 +180,7 @@ Java:
     (version 1.1)
 
 # Released library versions
-The following eight artifacts (version 1.1.0, "except crs-transformation-constants") from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
+The following eight artifacts (version 1.1.1, "except crs-transformation-constants") from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
 
 * crs-transformation-adapter-**core**
 * crs-transformation-adapter-*impl*-**proj4j**
@@ -228,13 +228,13 @@ repositories {
 
 dependencies {
     ...
-    // implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0' // this "core" should not be needed to include since the others below have defined dependency of it  
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.1.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.1.0" // you should also include the above mentioned geotools repository
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.1.0" // only swedish CRS	
+    // implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.1' // this "core" should not be needed to include since the others below have defined dependency of it  
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.1"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.1"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.1"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.1.1"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.1.1" // you should also include the above mentioned geotools repository
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.1.1" // only swedish CRS	
     
     implementation "com.programmerare.crs-transformation:crs-transformation-constants:9.8.9" // only one class with constants 
     ...
@@ -249,7 +249,7 @@ pom.xml
     ...
     <properties>
         ...
-        <crsTransformationVersion>1.1.0</crsTransformationVersion>
+        <crsTransformationVersion>1.1.1</crsTransformationVersion>
     </properties>
     ...
     <dependencies>
@@ -316,7 +316,7 @@ pom.xml
 
 # Kotlin example
 
-Below is a small Kotlin example code working with the current version 1.1.0.  
+Below is a small Kotlin example code working with the current version 1.1.1.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).
 
@@ -350,7 +350,7 @@ fun main(args: Array<String>) {
 ```
 
 # Java examples
-Below is a small Java example code working with the current version 1.1.0.  
+Below is a small Java example code working with the current version 1.1.1.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).  
 ```java

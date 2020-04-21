@@ -11,12 +11,16 @@
 		<dependency org="org.slf4j" name="slf4j-simple" rev="1.7.30" />
 
 		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-constants" rev="9.8.9" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="1.1.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="1.1.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-nga" rev="1.1.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4j" rev="1.1.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4jlocationtech" rev="1.1.0" />
-		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-geotools" rev="1.1.0" />
+		<!--
+			https://stackoverflow.com/questions/2996048/can-i-use-properties-in-an-ivy-xml-file-to-avoid-repeating-version-numbers-of-de/3079655#3079655
+			The below property {adapterVersion} is defined in the file "ivysettings.xml" (see above URL)
+		-->
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-goober" rev="${adapterVersion}" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-orbisgis" rev="${adapterVersion}" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-nga" rev="${adapterVersion}" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4j" rev="${adapterVersion}" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-proj4jlocationtech" rev="${adapterVersion}" />
+		<dependency org="com.programmerare.crs-transformation" name="crs-transformation-adapter-impl-geotools" rev="${adapterVersion}" />
         
         <!-- the purpose of the below elements is to avoid downloading of files such as "crs-transformation-constants-9.8.9-javadoc.jar" and "crs-transformation-constants-9.8.9-sources.jar" -->
         <exclude type="javadoc" ext="*" conf="*"/>

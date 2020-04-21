@@ -16,6 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+	<adapterVersion>1.1.1</adapterVersion>
   </properties>
 
   <dependencies>
@@ -30,49 +31,49 @@
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-core</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>	
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-nga</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4j -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>
 
       <!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4jlocationtech -->
       <dependency>
           <groupId>com.programmerare.crs-transformation</groupId>
           <artifactId>crs-transformation-adapter-impl-proj4jlocationtech</artifactId>
-          <version>1.1.0</version>
+          <version>${adapterVersion}</version>
       </dependency>
       
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-geotools</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-orbisgis -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-orbisgis</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-goober -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-goober</artifactId>
-		<version>1.1.0</version>
+		<version>${adapterVersion}</version>
 	</dependency>
 
     <dependency>
@@ -131,6 +132,7 @@
 	
 	<!--
 	cd sample_code/java
+	mvn clean
 	mvn compile
 	mvn exec:java
 	-->
@@ -159,8 +161,8 @@
 			Could not find artifact org.geotools:gt-main:jar:20.0 in central (https://repo.maven.apache.org/maven2)
 		 -->
 		<repository>
-		<id>osgeo</id>
-		<url>https://repo.osgeo.org/repository/release/</url>
+			<id>osgeo</id>
+			<url>https://repo.osgeo.org/repository/release/</url>
 		</repository>
 	</repositories>	  
 </project>

@@ -13,9 +13,8 @@ plugins {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
     maven {
         url "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
     }    
@@ -29,13 +28,16 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.8.9'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:1.1.0'
-    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:1.1.0'
+    // The above "crs-transformation-constants" is a Java library 
+    // while the below "crs-transformation-adapter-*" are Kotlin libraries
+    def adapterVersion = "1.1.1"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:$adapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$adapterVersion"
 
     // Use the Kotlin test library.
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
@@ -45,6 +47,6 @@ dependencies {
 }
 
 application {
-    // Define the main class for the application.
+    // gradlew run
     mainClassName = 'kotlin_sample.CrsTransformationKt'
 }
