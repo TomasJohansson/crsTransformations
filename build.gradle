@@ -8,7 +8,7 @@ buildscript {
     // NOTE that if you upgrade implementations such as the below geopackage 
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterGeoPackageNGA_version_3.3.0.csv"
-    ext.geopackage_version = '3.5.0' // mil.nga.geopackage:geopackage-core:3.5.0
+    ext.geopackage_version = '4.0.0' // mil.nga.geopackage:geopackage-core:4.0.0 // https://github.com/ngageoint/geopackage-java/releases
     ext.geotools_version = '23.0' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 

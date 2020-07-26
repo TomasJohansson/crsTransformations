@@ -7,7 +7,7 @@ import com.programmerare.crsTransformations.CrsTransformationImplementationType
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier
 import com.programmerare.crsTransformations.coordinate.createFromXEastingLongitudeAndYNorthingLatitude
-import mil.nga.geopackage.core.contents.ContentsDao
+import mil.nga.geopackage.contents.ContentsDao
 import mil.nga.sf.Point
 import mil.nga.sf.proj.ProjectionFactory
 
@@ -44,7 +44,7 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
 
     // ----------------------------------------------------------
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_3_5_0
+        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_4_0_0
     }
 
     override fun getImplementationType() : CrsTransformationImplementationType {
