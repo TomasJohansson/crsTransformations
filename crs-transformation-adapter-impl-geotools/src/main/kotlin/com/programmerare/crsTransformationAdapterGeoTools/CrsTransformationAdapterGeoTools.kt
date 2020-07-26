@@ -66,7 +66,7 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     // ----------------------------------------------------------
 
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_0
+        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_2
     }
 
     override fun getImplementationType() : CrsTransformationImplementationType {
