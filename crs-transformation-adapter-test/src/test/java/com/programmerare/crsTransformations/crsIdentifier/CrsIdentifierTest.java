@@ -51,8 +51,8 @@ public class CrsIdentifierTest {
 
     @Test
     void crsIdentifierFactory_shouldThrowException_whenCrsCodeInputIsNull() {
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
+        NullPointerException exception = assertThrows(
+            NullPointerException.class,
             () -> CrsIdentifierFactory.createFromCrsCode(null), // should fail
             "Must not be null"
         );
@@ -103,7 +103,7 @@ public class CrsIdentifierTest {
      * @param expectedStringToBeContainedInExceptionMessage e.g. "non-null" or "non-empty"
      */
     private void assertExceptionMessageWhenArgumentWasNullOrEmptyString(
-        IllegalArgumentException exception,
+        RuntimeException exception, // NullPointerException or IllegalArgumentException
         String expectedStringToBeContainedInExceptionMessage
     ) {
         assertNotNull(exception);
@@ -132,8 +132,8 @@ public class CrsIdentifierTest {
     @Test
     void createFromCrsCode_shouldThrowException_whenCrsCodeIsNull() {
         String crsCode = null;
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
+        NullPointerException exception = assertThrows(
+            NullPointerException.class,
             () -> CrsIdentifierFactory.createFromCrsCode(crsCode)
         );
         // "java.lang.IllegalArgumentException: Parameter specified as non-null is null: method com.programmerare.crsTransformations.crsIdentifier.CrsIdentifierFactory.createFromCrsCode, parameter crsCode"

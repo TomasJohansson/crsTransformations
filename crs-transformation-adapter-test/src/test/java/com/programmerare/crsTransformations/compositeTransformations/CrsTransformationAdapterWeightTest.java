@@ -20,7 +20,7 @@ class CrsTransformationAdapterWeightTest {
     @Test
     void createFromInstance_shouldThrowException_whenAdapterParameterIsNull() {
         assertThrows(
-            IllegalArgumentException.class,
+            NullPointerException.class,
             () -> CrsTransformationAdapterWeight.createFromInstance(
                 null, // adapter
                 123 // weight

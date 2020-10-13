@@ -280,8 +280,8 @@ class CrsCoordinateTest {
     @Test
     void createFromXEastingLongitudeAndYNorthingLatitude_shouldThrowException_whenCrsIdentifierIsNull() {
         CrsIdentifier crsIdentifier = null;
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
+        NullPointerException exception = assertThrows(
+            NullPointerException.class,
             () -> CrsCoordinateFactory.createFromXEastingLongitudeAndYNorthingLatitude(
                 60.0,
                 20.0,
@@ -310,8 +310,8 @@ class CrsCoordinateTest {
     @Test
     void createFromXEastingLongitudeAndYNorthingLatitude_shouldThrowException_whenCrsCodeIsNull() {
         String crsCode = null;
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
+        NullPointerException exception = assertThrows(
+            NullPointerException.class,
             () -> CrsCoordinateFactory.createFromXEastingLongitudeAndYNorthingLatitude(
                 60.0,
                 20.0,
@@ -322,7 +322,10 @@ class CrsCoordinateTest {
         assertExceptionMessageForIllegalArgumentException(exception, "crsCode");
     }
 
-    private void assertExceptionMessageForIllegalArgumentException(IllegalArgumentException exception, String suffixWithNameOfParameter) {
+    private void assertExceptionMessageForIllegalArgumentException(
+        RuntimeException exception, // NullPointerException or IllegalArgumentException
+        String suffixWithNameOfParameter
+    ) {
         assertNotNull(exception);
         final String actualEceptionMessage = exception.getMessage();
         // fragile hardcoded strings below but will not change often and if/when then it will be easy to fix when it fails
