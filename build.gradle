@@ -36,6 +36,7 @@ plugins {
     // the above configuration enables the tasks "publish" and "publishToMavenLocal"
     // which you can verify by running "gradlew tasks" (i.e. run the command with and without the above 'maven-publish')
     id 'signing'
+    // activate "mavenUser" etc further down in this file when releasing
 }
 
 // https://semver.org
@@ -618,10 +619,12 @@ project(':crs-transformation-adapter-core') {
                 def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
                 def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
                 url = rootProject.crsTransformationVersion.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                credentials {
-                    username mavenUser
-                    password mavenPassword
-                }
+
+                // configure and activate the below code when releasing
+                //credentials {
+                    //username mavenUser
+                    //password mavenPassword
+                //}
             }
         }
     }
