@@ -1,7 +1,7 @@
 buildscript {
     ext.kotlin_version = '1.4.10' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
 
-    ext.junit_version = '5.6.2'
+    ext.junit_version = '5.7.0'
     // https://github.com/junit-team/junit5/releases
     // https://mvnrepository.com/artifact/org.junit.jupiter    
 	
@@ -500,7 +500,7 @@ project(':crs-transformation-adapter-test') {
 // https://mvnrepository.com/artifact/org.geotools/gt-shapefile
 //        implementation group: 'org.geotools', name: 'gt-shapefile', version: '19.1'
         // https://mvnrepository.com/artifact/org.mockito/mockito-core
-        testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.5.13'
 
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
@@ -513,7 +513,7 @@ project(':crs-transformation-adapter-test') {
 
         // https://mvnrepository.com/artifact/com.google.guava/guava
         // https://github.com/google/guava/releases
-        testImplementation group: 'com.google.guava', name: 'guava', version: '28.2-jre' // com.google.common.io
+        testImplementation group: 'com.google.guava', name: 'guava', version: '29.0-jre' // com.google.common.io
     }
 }
 
