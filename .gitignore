@@ -82,5 +82,6 @@ hs_err_pid*
 data_files/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle/wrapper/gradle-wrapper.jar
+!gradle-wrapper.jar
 # "Adding the JAR file to version control is expected." https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
