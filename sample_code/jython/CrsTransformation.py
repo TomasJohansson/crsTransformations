@@ -3,7 +3,7 @@ lib_directory = "../ivy_dependencies/lib/"
 for jar in glob.glob(os.path.join(lib_directory,'*.jar')):
     sys.path.append(jar)
 
-# The Jython code in this file is tested with Jython 2.7.2 (for Windows 10 64bit).
+# The Jython code in this file is tested with Jython 2.7.2 (for Windows 10 64bit and for Linux Ubuntu 20.04).
 # Note that it is assumed that the needed jar files has been retrieved into the above directory "../ivy_dependencies/lib/".
 # Those jar files (46 files and totally around 20 MB) can be retrieved from the internet with these command prompt commands from the root directory of this git repository:
 # (assuming that Ant and Ivy are installed, and for further details, read comments in the file "ivy_dependencies/build.xml")
@@ -16,7 +16,10 @@ for jar in glob.glob(os.path.join(lib_directory,'*.jar')):
 
 # "crs-transformation-constants-9.8.9.jar" is one of the jar files that are appended to the path above 
 # in the above iteration. That jar file contains the below imported class "EpsgNumber"
-from com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9 import EpsgNumber
+try:
+    from com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9 import EpsgNumber
+except ImportError:
+    raise ImportError("The module could not be imported. Maybe you have not run 'ant' from the directory '../ivy_dependencies/' (with the jar-file for 'ivy' in the lib folder of ant)")
 
 from com.programmerare.crsTransformations.coordinate import CrsCoordinateFactory
 from com.programmerare.crsTransformations.crsIdentifier import CrsIdentifierFactory

@@ -1,10 +1,12 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" default="resolve">
 <!--
 Ant and Ivy are assumed to be installed, to be able to run this script.
-This ant script has tested with Ant 1.10.7 and Ivy 2.5.0 (with the Operating system Windows 10 64bit).
+This ant script has been tested with:
+* Ant 1.10.7 and Ivy 2.5.0 (with the Operating system Windows 10 64bit).
+* Ant 1.10.9 and Ivy 2.5.0 (with the Operating system Linux Ubuntu 20.04).
 
 The installation of Ant and Ivy are simple.
-For exammple you can download and unzip Ant into some directory and define it in an environment variable ANT_HOME which should be added to Path.
+For example you can download and unzip Ant into some directory and define it in an environment variable ANT_HOME which should be added to Path.
 Then download Ivy and copy the jar file (e.g. "ivy-2.5.0.jar") into the directory %ANT_HOME%/lib .
 https://ant.apache.org
 https://ant.apache.org/ivy/

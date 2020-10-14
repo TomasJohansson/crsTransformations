@@ -3,7 +3,7 @@ Dir["../ivy_dependencies/lib/*.jar"].each { |jar|
     require jar
 }
 
-# The JRuby code in this file is tested with JRuby 9.2.11.1 (for Windows 10 64 bit).
+# The JRuby code in this file is tested with JRuby 9.2.11.1 (for Windows 10 64 bit) and JRuby 9.2.13.0 (for Linux Ubuntu 20.04).
 # Note that it is assumed that the needed jar files has been retrieved into the above directory "../ivy_dependencies/lib/".
 # Those jar files (46 files and totally around 20 MB) can be retrieved from the internet with these command prompt commands from the root directory of this git repository:
 # (assuming that Ant and Ivy are installed, and for further details, read comments in the file "ivy_dependencies/build.xml")
@@ -16,7 +16,12 @@ Dir["../ivy_dependencies/lib/*.jar"].each { |jar|
 
 # "crs-transformation-constants-9.8.9.jar" is one of the jar files that are "required" above 
 # in the above "each" iteration. That jar file contains the below imported class "EpsgNumber"
-java_import "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber"
+begin
+    java_import "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber"
+rescue NameError => e
+    raise NameError.new("The module could not be imported. Maybe you have not run 'ant' from the directory '../ivy_dependencies/' (with the jar-file for 'ivy' in the lib folder of ant)")
+end
+
 
 java_import "com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory"
 java_import "com.programmerare.crsTransformations.crsIdentifier.CrsIdentifierFactory"
