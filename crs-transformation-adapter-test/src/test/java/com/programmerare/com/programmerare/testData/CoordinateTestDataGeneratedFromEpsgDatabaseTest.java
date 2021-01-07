@@ -683,7 +683,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
     //      4326|12.146151472138385|58.46573396912418|3006|333538.2957000149|6484098.2550872|3007|158529.85136620898|6483166.205771873|6|6
     //      4326|13.470524334397624|58.58400993288184|3006|411075.37423013494|6494745.783843142|3008|148285.48862749408|6496331.697852695|6|6
     //      4326|14.977576047737374|58.78282472189397|3006|498703.5890065983|6515870.052578431|3009|148703.07023469123|6518477.443555852|6|6
-    // @Test //  Dsiabled with comments "//" since this is not a real "test" method but it was just used once as a starting point for the execution when generating the file 
+    //@Test // Disabled with comments "//" since this is not a real "test" method but it was just used once as a starting point for the execution when generating the file  
     void createFileWithTransformationResultsForCoordinatesInSweden()
         throws IOException
     {
@@ -694,20 +694,20 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
         final String separator = "|";
         final String headerRow =
-            "EPSG 4326 (WGS84)" // col1 
-                + "Longitude for WGS84 (EPSG 4326)"// col2 
-                + "Latitude for WGS84 (EPSG 4326)" // col3
-                + "EPSG 3006"      // col4 
-                + "X for EPSG 3006"// col5
-                + "Y for EPSG 3006"// col6
-                + "EPSG 3007-3024" // col7
-                + "X for EPSG 3007-3024" // col8
-                + "Y for EPSG 3007-3024" // col9
+                  "EPSG 4326 (WGS84)" // col1 
+                + separator + "Longitude for WGS84 (EPSG 4326)"// col2 
+                + separator + "Latitude for WGS84 (EPSG 4326)" // col3
+                + separator + "EPSG 3006"      // col4 
+                + separator + "X for EPSG 3006"// col5
+                + separator + "Y for EPSG 3006"// col6
+                + separator + "EPSG 3007-3024" // col7
+                + separator + "X for EPSG 3007-3024" // col8
+                + separator + "Y for EPSG 3007-3024" // col9
                 // The X and Y values generated (below) to the file for the 3006 and 3007-3024
                 // transformations are median values for many implementations that support these EPSG codes,
                 // and the last two columns shows how many implementations were used for those median values.
-                + "Implementation count for EPSG 3006 transformation" // col10
-                + "Implementation count for EPSG 3007-3024 transformation";// col11
+                + separator + "Implementation count for EPSG 3006 transformation" // col10
+                + separator + "Implementation count for EPSG 3007-3024 transformation";// col11
         // Each row will have coordinates for EPSG 4326 and EPSG 3006 
         final String col1 = EpsgNumber.WORLD__WGS_84__4326 + "";
         final String col4 = EpsgNumber.SWEDEN__SWEREF99_TM__3006 + "";
@@ -746,6 +746,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         }).collect(Collectors.toList());        
         final File directoryForOutputFile = getDirectoryForGeneratedFiles();
         final File outputFile_swedish_crs_coordinates = new File(directoryForOutputFile, "swedish_crs_coordinates.csv");
+        linesFourOutputFile.add(0, headerRow);
         Files.write(outputFile_swedish_crs_coordinates.toPath(), linesFourOutputFile, Charset.forName("UTF-8"));
     }    
 }
