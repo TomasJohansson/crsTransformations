@@ -1,6 +1,6 @@
 package com.programmerare.crsCodeGeneration.utils
 
-object JavaPackageToCSharpeNamespaceConverter {
+object JavaPackageToModuleNameForOtherLanguageConverter {
 
     private val regexMatchingVersionPart = Regex("""v[_\d]+""")
 

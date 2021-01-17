@@ -1,7 +1,7 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
-import com.programmerare.crsCodeGeneration.utils.JavaPackageToCSharpeNamespaceConverter
+import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
 
 // This class generates constants classes into subfolders of this folder:
@@ -529,7 +529,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", throwExceptionIfNotExisting = false)
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return JavaPackageToCSharpeNamespaceConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
+            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
         }
         override fun getFileExtensionForClassFile(): String {
             return FILE_EXTENSION_FOR_CSHARPE_FILE
@@ -549,7 +549,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             // same package name for F# as C# so therefore can reuse the class below 
-            return JavaPackageToCSharpeNamespaceConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
+            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
         }
         override fun getFileExtensionForClassFile(): String {
             return FILE_EXTENSION_FOR_FSHARPE_FILE
@@ -584,8 +584,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", throwExceptionIfNotExisting = false)
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            // TODO rename this below class/object "JavaPackageToCSharpeNamespaceConverter" since no longer only used for CSharpe
-            return JavaPackageToCSharpeNamespaceConverter.getAsNameOfDartModule(nameOfJavaPackage)
+            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfDartModule(nameOfJavaPackage)
         }
         override fun getFileExtensionForClassFile(): String {
             return FILE_EXTENSION_FOR_DART_FILE
