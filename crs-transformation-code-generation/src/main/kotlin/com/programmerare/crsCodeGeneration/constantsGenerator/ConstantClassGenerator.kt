@@ -185,6 +185,13 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             else if(typeOfFilesToBeGenerated == "kotlin") {
                 constantClassGenerator.generateFilesWithKotlinConstants()
             }
+            else if(typeOfFilesToBeGenerated == "dart") {
+                // TODO fix the path and file name for dart which currently becomes:
+                // ... resources/generated/dart_constants/com/programmerare/crsConstants/constantsByAreaNameNumber/v9_9_1/EpsgNumber.dart
+                // but it should rather become something like below:
+                // ... resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
+                constantClassGenerator.generateFilesWithDartConstants()
+            }
             else {
                 println("Unsupported argument: " + typeOfFilesToBeGenerated)
             }
@@ -224,6 +231,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
+        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
 
         private const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
@@ -293,6 +301,11 @@ class ConstantClassGenerator : CodeGeneratorBase() {
 
     fun generateFilesWithKotlinConstants() {
         programmingLanguageStrategy = ProgrammingLanguageKotlinStrategy()
+        generateFilesWithConstants()
+    }
+
+    fun generateFilesWithDartConstants() {
+        programmingLanguageStrategy = ProgrammingLanguageDartStrategy()
         generateFilesWithConstants()
     }
 
@@ -545,6 +558,24 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         override fun getFileExtensionForClassFile(): String {
             return FILE_EXTENSION_FOR_KOTLIN_FILE
         }        
+    }
+    inner class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategy {
+        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
+            return renderStrategy
+        }
+        override fun getNameOfFreemarkerTemplateForConstants(): String {
+            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS
+        }
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", throwExceptionIfNotExisting = false)
+        }
+        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
+            // TODO fix this i.e. do not use the java package name as file path ...  
+            return nameOfJavaPackage;
+        }
+        override fun getFileExtensionForClassFile(): String {
+            return FILE_EXTENSION_FOR_DART_FILE
+        }
     }
     inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {

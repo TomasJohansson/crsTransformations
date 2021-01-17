@@ -126,6 +126,7 @@ abstract class CodeGeneratorBase {
         )
         template.process(rootHashMapWithDataToBeUsedByFreemarkerTemplate, outputStreamWriterWithUTF8encoding)
         outputStreamWriterWithUTF8encoding.close()
+        println("File created: " + fileToBecomeCreated.absolutePath)
     }
 
     companion object {
@@ -150,6 +151,9 @@ abstract class CodeGeneratorBase {
 
         @JvmField
         val FILE_EXTENSION_FOR_KOTLIN_FILE = ".kt"
+
+        @JvmField
+        val FILE_EXTENSION_FOR_DART_FILE = ".dart"
 
         @JvmField
         val RELATIVE_PATH_TO_JAVA_FILES = "src/main/java"

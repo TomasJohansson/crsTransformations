@@ -540,11 +540,11 @@ project(':crs-transformation-code-generation') {
         implementation("org.freemarker:freemarker:2.3.30")
 
         // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
-        implementation("org.mariadb.jdbc:mariadb-java-client:2.6.0")
+        implementation("org.mariadb.jdbc:mariadb-java-client:2.7.1")
         
         // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
         // https://github.com/spring-projects/spring-framework/releases
-        implementation("org.springframework:spring-jdbc:5.2.5.RELEASE")
+        implementation("org.springframework:spring-jdbc:5.3.3")
         
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
