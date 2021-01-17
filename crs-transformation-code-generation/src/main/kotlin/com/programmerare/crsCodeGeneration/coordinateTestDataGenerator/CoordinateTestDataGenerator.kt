@@ -46,12 +46,18 @@ import java.io.File
  * a polygon associated with an area code (also existing in the database) and then the
  * library GeoTools is used for finding the centroid coordinate from that polygon.
  */
-class CoordinateTestDataGenerator : CodeGeneratorBase() {
+class CoordinateTestDataGenerator(
+    private val versionSuffixForTheGeneratedFile: String
+) : CodeGeneratorBase() {
 
     private fun getCsvFileToBecomeCreated(): File {
+        val relativePathIncludingSuffixAndFileExtension = 
+            RELATIVE_PATH_TO_CSV_FILE_WITH_TESTDATA_TO_BECOME_GENERATED_EXCLUDING_FILE_EXTENSION + 
+            "_" + versionSuffixForTheGeneratedFile + ".csv" 
+
         val csvFile = super.getFileOrDirectory(
             NAME_OF_MODULE_DIRECTORY_FOR_TESTS,
-            RELATIVE_PATH_TO_CSV_FILE_WITH_TESTDATA_TO_BECOME_GENERATED,
+            relativePathIncludingSuffixAndFileExtension,
             throwExceptionIfNotExisting = false
         )
         throwExceptionIfDirectoryDoesNotExist(csvFile.parentFile)
@@ -95,7 +101,9 @@ class CoordinateTestDataGenerator : CodeGeneratorBase() {
         generateFile(listOfDataToBeIncludedInGeneratedCsvFile)
     }
 
-    private fun generateFile(listOfDataToBeIncludedInGeneratedCsvFile: List<EpsgCrsAndAreaCodeWithCoordinates>) {
+    private fun generateFile(
+        listOfDataToBeIncludedInGeneratedCsvFile: List<EpsgCrsAndAreaCodeWithCoordinates>
+    ) {
         val rootHashMapWithDataToBeUsedByFreemarkerTemplate = HashMap<String, Any>()
         rootHashMapWithDataToBeUsedByFreemarkerTemplate.put(FREEMARKER_PROPERTY_NAME_OF_LIST_WITH_TEST_DATA, listOfDataToBeIncludedInGeneratedCsvFile)
 
@@ -148,10 +156,12 @@ class CoordinateTestDataGenerator : CodeGeneratorBase() {
          *      args[1] name of the EPSG database
          *      args[2] name of database user with access to the above EPSG database
          *      args[3] password for the above database user
+         *      args[4] suffix for the version of EPSG database e.g. v10_011 
+         *              (args[4] should NOT begin with "_" nor end with "." nor ".csv" but those will be added in the code)
          */
         fun main(args: Array<String>) {
-            if(args.size < 4) {
-                println("You must provide four parameters: PathToShapeFile dbName dbUser dbPassword")
+            if(args.size < 5) {
+                println("You must provide five parameters: PathToShapeFile dbName dbUser dbPassword versionSuffixForFilename")
                 return
             }
 
@@ -160,7 +170,7 @@ class CoordinateTestDataGenerator : CodeGeneratorBase() {
                     databaseUserName = args[2],
                     databaseUserPassword = args[3]
             )
-            val c = CoordinateTestDataGenerator()
+            val c = CoordinateTestDataGenerator(versionSuffixForTheGeneratedFile = args[4])
             c.generateTestData(pathToShapeFile = args[0])
         }
 
@@ -168,7 +178,11 @@ class CoordinateTestDataGenerator : CodeGeneratorBase() {
 
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_TESTDATA = "CoordinateTestCsvData.ftlh"
 
-        private const val RELATIVE_PATH_TO_CSV_FILE_WITH_TESTDATA_TO_BECOME_GENERATED = "src/test/resources/generated/CoordinateTestDataGeneratedFromEpsgDatabase.csv"
+        //private const val RELATIVE_PATH_TO_CSV_FILE_WITH_TESTDATA_TO_BECOME_GENERATED = "src/test/resources/generated/CoordinateTestDataGeneratedFromEpsgDatabase.csv"
+        // the above file was only generated once 2018 and then without suffix indicating the database version
+        // but later (2021) this class was modified to also add a suffix indicating which EPSG version was used for the generation
+        // so therefore the value of this constant was changed but also its name to reflect the fact that file extension is now not included  
+        private const val RELATIVE_PATH_TO_CSV_FILE_WITH_TESTDATA_TO_BECOME_GENERATED_EXCLUDING_FILE_EXTENSION = "src/test/resources/generated/CoordinateTestDataGeneratedFromEpsgDatabase"
     }
 }
 

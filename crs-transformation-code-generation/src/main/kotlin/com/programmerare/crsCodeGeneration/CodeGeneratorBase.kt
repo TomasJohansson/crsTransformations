@@ -138,7 +138,7 @@ abstract class CodeGeneratorBase {
         val NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS = "crs-transformation-constants"
 
         @JvmField
-        val NAME_OF_MODULE_DIRECTORY_FOR_TESTS = "crsTransformationTest"
+        val NAME_OF_MODULE_DIRECTORY_FOR_TESTS = "crs-transformation-adapter-test"
 
         @JvmField
         val FILE_EXTENSION_FOR_JAVA_FILE = ".java"
@@ -199,23 +199,39 @@ abstract class CodeGeneratorBase {
         // The SQL below works for the downloaded database MySQL/MariaDB database
         // (but had slightly different names in the previously used MS Access database)
         // for example the table names are using the prefix "epsg_" in the MySQL database but not in the MS Access database.
+//        @JvmField val SQL_STATEMENT_SELECTING_CRSCODE_CRSNAME_AREANAME_old_database_before_version_10 = """
+//            SELECT
+//                area.area_name,
+//                crs.area_of_use_code,
+//                crs.coord_ref_sys_code,
+//                crs.coord_ref_sys_name
+//            FROM
+//                epsg_coordinatereferencesystem AS crs
+//                INNER JOIN
+//                epsg_area AS area
+//                    ON
+//                    crs.area_of_use_code = area.area_code
+//        """
+        // Below is the SQL statement for EPSG database model version 10 (the above SQL worked until version 9)
         @JvmField val SQL_STATEMENT_SELECTING_CRSCODE_CRSNAME_AREANAME = """
             SELECT
-                area.area_name,
-                crs.area_of_use_code,
+                extent.extent_name, -- area.area_name,
+                extent.extent_code, -- crs.area_of_use_code,
                 crs.coord_ref_sys_code,
-                crs.coord_ref_sys_name
+                crs.coord_ref_sys_name            
             FROM
                 epsg_coordinatereferencesystem AS crs
-                INNER JOIN
-                epsg_area AS area
-                    ON
-                    crs.area_of_use_code = area.area_code
+                INNER JOIN 
+                epsg_usage AS usag 
+                    ON crs.coord_ref_sys_code = usag.object_code 
+                    AND usag.object_table_name = 'epsg_coordinatereferencesystem'
+                INNER JOIN 
+                epsg_extent AS extent 
+                    ON extent.extent_code = usag.extent_code 
         """
-
         @JvmField val SQL_COLUMN_CRSCODE = "coord_ref_sys_code"
         @JvmField val SQL_COLUMN_CRSNAME = "coord_ref_sys_name"
-        @JvmField val SQL_COLUMN_AREANAME = "area_name"
-        @JvmField val SQL_COLUMN_AREACODE = "area_of_use_code"
+        @JvmField val SQL_COLUMN_AREANAME = "extent_name"// before version 10: "area_name"
+        @JvmField val SQL_COLUMN_AREACODE = "extent_code"// before version 10: "area_of_use_code"
     }
 }

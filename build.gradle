@@ -567,9 +567,12 @@ project(':crs-transformation-code-generation') {
         implementation("org.geotools:gt-data:$geotools_data_version"){ 
             exclude group: 'javax.media', module: 'jai_core'
         }
-        implementation("org.geotools:gt-shapefile:$geotools_version") {
+        // ClassNotFoundException: org.geotools.factory.Hints
+        // the exception at the above line was solved by making sure to use the same version above and below
+        // i.e. $geotools_data_version for both 'gt-data' and 'gt-shapefile'
+        implementation("org.geotools:gt-shapefile:$geotools_data_version") {
             exclude group: 'javax.media', module: 'jai_core'
-        }		
+        }
     }
 }
 

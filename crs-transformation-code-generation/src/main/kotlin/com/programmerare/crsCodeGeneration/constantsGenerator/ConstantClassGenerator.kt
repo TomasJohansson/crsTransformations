@@ -17,11 +17,11 @@ import java.io.File
  * Below are step by step instructions for how to generate new constants when a new EPSG version is downloaded.
  * (i.e. constants within "crsConstants" e.g. the file ".\crsConstants\src\main\java\com\programmerare\crsConstants\constantsByAreaNameNumber\v9_6_3\EpsgCode.java")
  *
- * 1. Download the latest version of a MySQL/MariaDB file from one of these websites:
- *          http://www.epsg-registry.org
- *          http://www.epsg.org
- *      It may be necessary to register to be able to download the latest file.
- *      The name of the downloaded file might be something like this: "EPSG-MySQL-export-9.6.3.zip"
+ * 1. Download the latest version of a MySQL/MariaDB file from this website:
+ *          https://epsg.org
+ *          https://epsg.org/download-dataset.html
+ *      It is currently necessary to register to be able to download the latest file.
+ *      The name of the downloaded file might be something like this: "EPSG-v10_011-MySQL.zip"
  * 2. Unzip the content of the downloaded file into some directory.
  *      In the description below it is assumed that you unzipped the content to the directory "C:\temp\EPSG\"
  *      There should now be at least two relevant SQL files in your unzip directory:
@@ -58,7 +58,7 @@ import java.io.File
  *              but with the difference that in the new file, there will also be
  *              "start transaction" and "commit" statements at around each 50th insert statement.
  *              (currently 50 is used, but it might change later without remembering to mention it here)
- * 5. Create the MariaDB database to become populated with the above two files
+ * 5. Create the MariaDB/MySql database to become populated with the above two files
  *      i.e. the file that creates the tables and then the file (modified with transaction)
  *      which inserts the data.
  *    Note that the creation of a database (and user rights) is currently not described here in detail.
