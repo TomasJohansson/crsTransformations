@@ -13,4 +13,14 @@ internal class JavaPackageToCSharpeNamespaceConverterTest {
             )
         )
     }
+
+    @Test
+    fun getAsNameOfDartModule() {
+        assertEquals(
+            "crs_constants.v9_9_1",
+            JavaPackageToCSharpeNamespaceConverter.getAsNameOfDartModule(
+            "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_9_1"
+            )
+        )
+    }
 }

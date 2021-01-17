@@ -186,10 +186,9 @@ class ConstantClassGenerator : CodeGeneratorBase() {
                 constantClassGenerator.generateFilesWithKotlinConstants()
             }
             else if(typeOfFilesToBeGenerated == "dart") {
-                // TODO fix the path and file name for dart which currently becomes:
-                // ... resources/generated/dart_constants/com/programmerare/crsConstants/constantsByAreaNameNumber/v9_9_1/EpsgNumber.dart
-                // but it should rather become something like below:
-                // ... resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
+                // will generate a file at this kind of path:
+                //          (but of course the version number may change from the example in below)  
+                // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
                 constantClassGenerator.generateFilesWithDartConstants()
             }
             else {
@@ -368,21 +367,21 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         constantNameRenderer.renderStrategy = this.programmingLanguageStrategy.getRenderStrategy(renderStrategy)
         val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated()
         val nameOfPackageOrNamespace = this.programmingLanguageStrategy.getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage)
-        var classFileToBecomeCreated = getClassFileToBecomeCreated(nameOfClass, nameOfPackageOrNamespace, directoryWhereTheClassFilesShouldBeGenerated)
+        var fileToBecomeCreated = getFileToBecomeCreated(nameOfClass, nameOfPackageOrNamespace, directoryWhereTheClassFilesShouldBeGenerated)
         val constantsSorted: List<ConstantTypeNameValue> =
             if(sortByNumber)
                 nameOfConstants.sortedBy { it.epsgNumber }
             else
                 nameOfConstants.sortedBy { it.getNameForConstant() }
         val constantsInformation = ConstantsInformation(nameOfClass, nameOfPackageOrNamespace, constants = constantsSorted)
-        generateClassFileWithConstants(classFileToBecomeCreated, constantsInformation, this.programmingLanguageStrategy.getNameOfFreemarkerTemplateForConstants())
+        generateClassFileWithConstants(fileToBecomeCreated, constantsInformation, this.programmingLanguageStrategy.getNameOfFreemarkerTemplateForConstants())
     }
 
-    private fun getClassFileToBecomeCreated(nameOfClassToBeGenerated: String, nameOfPackageOrNamespaceToBeGenerated: String, directoryWhereTheClassFilesShouldBeGenerated: File): File {
+    private fun getFileToBecomeCreated(nameOfClassToBeGenerated: String, nameOfPackageOrNamespaceToBeGenerated: String, directoryWhereTheClassFilesShouldBeGenerated: File): File {
         val fullClassName = nameOfPackageOrNamespaceToBeGenerated + "." + nameOfClassToBeGenerated // e.g. "com.programmerare.crsConstants.EpsgNumber"
         val relativePathToClassFile = fullClassName.replace('.', '/') + this.programmingLanguageStrategy.getFileExtensionForClassFile() // "com/programmerare/crsConstants/EpsgNumber.java"
-        val classFileToBecomeCreated = directoryWhereTheClassFilesShouldBeGenerated.resolve(relativePathToClassFile)
-        val dir = classFileToBecomeCreated.parentFile
+        var fileToBecomeCreated = directoryWhereTheClassFilesShouldBeGenerated.resolve(relativePathToClassFile)
+        val dir = fileToBecomeCreated.parentFile
         if(!dir.exists()) {
             val result: Boolean = dir.mkdirs()
             if(result) {
@@ -396,7 +395,10 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         if(!dir.isDirectory) {
             throw RuntimeException("Not directory: " + dir.absolutePath)
         }
-        return classFileToBecomeCreated
+        // most of the implementations for 'getCustomFile' below will simply return the input file,
+        // but Dart is different and will use lowercase file name with underscores
+        fileToBecomeCreated = this.programmingLanguageStrategy.getCustomFile(fileToBecomeCreated)
+        return fileToBecomeCreated
     }
 
     private fun generateClassFileWithConstants(
@@ -502,8 +504,20 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy
         fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String
         fun getFileExtensionForClassFile(): String
+        
+        // can be used if an implementation want to modify the path or file name
+        // compared to the default generated path and file, with the path being based 
+        // on the java package, and the file name the same as the class name.
+        // This method was added when support for Dart was added,
+        // which do not use the same package concept as Java/Kotlin (which is similar to the namespace for C#/F#)
+        fun getCustomFile(file: File): File
     }
-    inner class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategy {
+    abstract inner class ProgrammingLanguageStrategyBase: ProgrammingLanguageStrategy {
+        override fun getCustomFile(file: File): File {
+            return file;
+        }
+    }
+    inner class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             // purpose: render "string" (C#) instead of "String" (Java)
             return RenderStrategyDecoratorForCSharpe(renderStrategy)
@@ -522,7 +536,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
     }
 
-    inner class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategy {
+    inner class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             // purpose: render "string" (F# or C#) instead of "String" (Java)
             return RenderStrategyDecoratorForCSharpe(renderStrategy) // string in F# too so can reuse the same Strategy as C# string
@@ -542,7 +556,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
     }
     
-    inner class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategy {
+    inner class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
@@ -559,7 +573,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return FILE_EXTENSION_FOR_KOTLIN_FILE
         }        
     }
-    inner class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategy {
+    inner class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
@@ -570,14 +584,22 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", throwExceptionIfNotExisting = false)
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            // TODO fix this i.e. do not use the java package name as file path ...  
-            return nameOfJavaPackage;
+            // TODO rename this below class/object "JavaPackageToCSharpeNamespaceConverter" since no longer only used for CSharpe
+            return JavaPackageToCSharpeNamespaceConverter.getAsNameOfDartModule(nameOfJavaPackage)
         }
         override fun getFileExtensionForClassFile(): String {
             return FILE_EXTENSION_FOR_DART_FILE
         }
+        override fun getCustomFile(file: File): File {
+            return if(file.name.startsWith("EpsgNumber")) {
+                File(file.parentFile, "epsg_number.dart")
+            }
+            else {
+                file
+            }
+        }        
     }
-    inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategy {
+    inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }

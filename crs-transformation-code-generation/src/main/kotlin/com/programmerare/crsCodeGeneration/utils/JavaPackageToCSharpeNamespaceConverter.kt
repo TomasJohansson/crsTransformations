@@ -26,4 +26,15 @@ object JavaPackageToCSharpeNamespaceConverter {
         }
         return sb.toString()
     }
+    // actually the "dart module" name will rather be used for the path to the generated file
+    // for example the java package name:
+    // "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_9_1"
+    // will just use the last part with the version and then return "crs_constants.v9_9_1"
+    // which will NOT be used for a "namespace/module/package" name in Dart 
+    // but will be used for creating the directory path "crs_constants/v9_9_1"
+    // since code for other languages do it like that ...
+    fun getAsNameOfDartModule(nameOfJavaPackage: String): String {
+        val lastIndexOf = nameOfJavaPackage.lastIndexOf('.');
+        return "crs_constants" + nameOfJavaPackage.substring(lastIndexOf);
+    }
 }
