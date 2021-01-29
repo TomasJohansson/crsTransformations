@@ -190,7 +190,15 @@ subprojects { p->
 project(':crs-transformation-adapter-impl-geotools') {
     // Clients should also add the following maven repository: "https://download.osgeo.org/webdav/geotools/"
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
+        // regarding "api" (used above) vs "implementation" (used further below):
+        // https://docs.gradle.org/current/userguide/java_library_plugin.html
+        // > Dependencies appearing in the api configurations will be transitively exposed to consumers of the library, 
+        // > and as such will appear on the compile classpath of consumers. 
+        // > Dependencies found in the implementation configuration will, on the other hand, not be exposed to consumers
+        // Gradle dependencies api/implementation  vs  Maven dependency scopes compile/runtime : 
+        // https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
+        // https://reflectoring.io/maven-scopes-gradle-configurations/
 
         // https://mvnrepository.com/artifact/org.geotools/gt-main?repo=boundless
         // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
@@ -255,7 +263,7 @@ project(':crs-transformation-adapter-impl-geotools') {
 
 project(':crs-transformation-adapter-impl-goober') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
         implementation("org.slf4j:slf4j-api:1.7.30")
@@ -305,7 +313,7 @@ project(':crs-transformation-adapter-impl-goober') {
 
 project(':crs-transformation-adapter-impl-orbisgis') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.orbisgis/cts
         implementation("org.orbisgis:cts:1.5.2") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
@@ -352,7 +360,7 @@ project(':crs-transformation-adapter-impl-orbisgis') {
 
 project(':crs-transformation-adapter-impl-proj4jlocationtech') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
         // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j/
         implementation("org.locationtech.proj4j:proj4j:1.1.1")
     }
@@ -396,7 +404,7 @@ project(':crs-transformation-adapter-impl-proj4jlocationtech') {
 }
 project(':crs-transformation-adapter-impl-proj4j') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.osgeo/proj4j
         implementation("org.osgeo:proj4j:0.1.0") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
@@ -443,7 +451,7 @@ project(':crs-transformation-adapter-impl-proj4j') {
 
 project(':crs-transformation-adapter-impl-nga') {
     dependencies {
-        implementation project(':crs-transformation-adapter-core')
+        api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/mil.nga.geopackage/geopackage
         // https://github.com/ngageoint/GeoPackage

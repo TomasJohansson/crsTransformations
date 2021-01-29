@@ -208,10 +208,12 @@ It is a **Java** library (i.e. not even depending on Kotlin) with only one class
 The constant class has been generated from the [EPSG database](http://www.epsg-registry.org) version 9.8.9 which is the reason for the version number.
 
 # Gradle configuration
-The "core" library should not be necessary to include since there is an implicit/transitive dependency from all the "impl" libraries to the "core".  
+ 
 The "constants" library is not needed but might be interesting if you want to use constants 
 for the EPSG numbers rather than hardcoding them or define your own integer constants.  
-The "repository" for geotools is only needed if you want to use the library for geotools.
+The "repository" for geotools is only needed if you want to use the library for geotools.  
+If you try to use all implementations as below, and then run into build problems such as "> More than one file was found with OS independent path 'plugin.xml'." 
+then you can first try to disable (i.e. not use) the geotools implementation.  
 
 build.gradle
 ```Groovy
@@ -228,7 +230,7 @@ repositories {
 
 dependencies {
     ...
-    // implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.1' // this "core" should not be needed to include since the others below have defined dependency of it  
+    implementation 'com.programmerare.crs-transformation:crs-transformation-adapter-core:1.1.1'  
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:1.1.1"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:1.1.1"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:1.1.1"
@@ -242,7 +244,8 @@ dependencies {
 ```
 
 # Maven configuration
-The comments at the above section with Gradle configuration applies for Maven too, e.g. the core library should not be necessary to include explicitly.  
+
+The comments at the above section with Gradle configuration applies for Maven too, e.g. try without geotools first if you run into build problems.
 
 pom.xml 
 ```xml
@@ -253,7 +256,13 @@ pom.xml
     </properties>
     ...
     <dependencies>
-        ...    
+        ...
+        <dependency>
+            <groupId>com.programmerare.crs-transformation</groupId>
+            <artifactId>crs-transformation-adapter-core</artifactId>
+            <version>${crsTransformationVersion}</version>
+        </dependency>
+            
         <dependency>
             <groupId>com.programmerare.crs-transformation</groupId>
             <artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
