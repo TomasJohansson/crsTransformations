@@ -156,6 +156,9 @@ abstract class CodeGeneratorBase {
         val FILE_EXTENSION_FOR_DART_FILE = ".dart"
 
         @JvmField
+        val FILE_EXTENSION_FOR_TYPESCRIPT_FILE = ".ts"        
+
+        @JvmField
         val RELATIVE_PATH_TO_JAVA_FILES = "src/main/java"
 //        @JvmStatic
 //        protected val RELATIVE_PATH_TO_KOTLIN_FILES = "src/main/kotlin"

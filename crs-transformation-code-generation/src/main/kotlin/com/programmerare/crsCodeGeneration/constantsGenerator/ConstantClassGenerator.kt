@@ -90,6 +90,8 @@ import java.io.File
  *                                      kotlin
  *                                      csharpe
  *                                      fsharpe
+ *                                      dart
+ *                                      typescript
  *                                      csv
  *                                      
  *      Example of running the main method:
@@ -191,6 +193,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
                 // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
                 constantClassGenerator.generateFilesWithDartConstants()
             }
+            else if(typeOfFilesToBeGenerated == "typescript") {
+                // will generate a file at this kind of path:
+                //          (but of course the version number may change from the example in below)                
+                // ... src/main/resources/generated/typescript_constants/crs_constants/v10_011/epsg_number.ts
+                constantClassGenerator.generateFilesWithTypeScriptConstants()
+            }
             else {
                 println("Unsupported argument: " + typeOfFilesToBeGenerated)
             }
@@ -231,6 +239,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
+        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
 
         private const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
@@ -307,6 +316,11 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         programmingLanguageStrategy = ProgrammingLanguageDartStrategy()
         generateFilesWithConstants()
     }
+    
+    fun generateFilesWithTypeScriptConstants() {
+        programmingLanguageStrategy = ProgrammingLanguageTypeScriptStrategy()
+        generateFilesWithConstants()
+    }    
 
     // Generates classes with constants based on database with EPSG codes:
     // http://www.epsg.org/EPSGDataset/DownloadDataset.aspx
@@ -590,13 +604,38 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return FILE_EXTENSION_FOR_DART_FILE
         }
         override fun getCustomFile(file: File): File {
-            return if(file.name.startsWith("EpsgNumber")) {
+            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
                 File(file.parentFile, "epsg_number.dart")
             }
             else {
                 file
             }
         }        
+    }
+    inner class ProgrammingLanguageTypeScriptStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
+            return renderStrategy
+        }
+        override fun getNameOfFreemarkerTemplateForConstants(): String {
+            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS
+        }
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/typescript_constants", throwExceptionIfNotExisting = false)
+        }
+        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
+            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfTypeScriptModule(nameOfJavaPackage)
+        }
+        override fun getFileExtensionForClassFile(): String {
+            return FILE_EXTENSION_FOR_TYPESCRIPT_FILE
+        }
+        override fun getCustomFile(file: File): File {
+            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
+                File(file.parentFile, "epsg_number.ts")
+            }
+            else {
+                file
+            }
+        }
     }
     inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {

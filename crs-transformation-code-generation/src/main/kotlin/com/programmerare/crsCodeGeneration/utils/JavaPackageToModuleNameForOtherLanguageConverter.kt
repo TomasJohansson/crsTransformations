@@ -37,4 +37,9 @@ object JavaPackageToModuleNameForOtherLanguageConverter {
         val lastIndexOf = nameOfJavaPackage.lastIndexOf('.');
         return "crs_constants" + nameOfJavaPackage.substring(lastIndexOf);
     }
+
+    fun getAsNameOfTypeScriptModule(nameOfJavaPackage: String): String {
+        // simply do the same thing for TypeScript as Dart: 
+        return getAsNameOfDartModule(nameOfJavaPackage)
+    }    
 }
