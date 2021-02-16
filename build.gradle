@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.4.21-2' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+    ext.kotlin_version = '1.4.30' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
 
     ext.junit_version = '5.7.0'
     // https://github.com/junit-team/junit5/releases
