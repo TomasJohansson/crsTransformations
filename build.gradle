@@ -1,9 +1,9 @@
 buildscript {
-    ext.kotlin_version = '1.4.30' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+    ext.kotlin_version = '1.4.31' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
 
-    ext.junit_version = '5.7.0'
+    ext.junit_version = '5.7.1'
     // https://github.com/junit-team/junit5/releases
-    // https://mvnrepository.com/artifact/org.junit.jupiter    
+    // https://mvnrepository.com/artifact/org.junit.jupiter
 	
     // NOTE that if you upgrade implementations such as the below geopackage 
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
@@ -508,7 +508,7 @@ project(':crs-transformation-adapter-test') {
 // https://mvnrepository.com/artifact/org.geotools/gt-shapefile
 //        implementation group: 'org.geotools', name: 'gt-shapefile', version: '19.1'
         // https://mvnrepository.com/artifact/org.mockito/mockito-core
-        testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.7.0'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.8.0'
 
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
