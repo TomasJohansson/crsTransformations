@@ -53,9 +53,9 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
-            "geopackage-core-4.0.0.jar",
+            "geopackage-core-5.0.0.jar",
             CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE,
-            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_4_0_0,
+            CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_5_0_0,
             "4.0.0"
         );
     }

@@ -44,7 +44,7 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
 
     // ----------------------------------------------------------
     override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_4_0_0
+        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_5_0_0
     }
 
     override fun getImplementationType() : CrsTransformationImplementationType {
