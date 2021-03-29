@@ -30,7 +30,8 @@ class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(),
         )
     }
     override fun getFileExtensionForClassFile(): String {
-        return CodeGeneratorBase.FILE_EXTENSION_FOR_DART_FILE
+        // val FILE_EXTENSION_FOR_DART_FILE = ".dart"
+        return ".dart"
     }
     override fun getCustomFile(file: File): File {
         return if(file.name.startsWith(ConstantClassGenerator.CLASS_NAME_INTEGER_CONSTANTS)) {

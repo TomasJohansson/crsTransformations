@@ -1,7 +1,6 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator.programmingLanguageStrategies
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
-import com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator
 import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import java.io.File
 
@@ -25,6 +24,7 @@ class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(),
         return nameOfJavaPackage;
     }
     override fun getFileExtensionForClassFile(): String {
-        return CodeGeneratorBase.FILE_EXTENSION_FOR_JAVA_FILE
+        // val FILE_EXTENSION_FOR_JAVA_FILE = ".java"
+        return ".java"
     }
 }

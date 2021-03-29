@@ -141,27 +141,6 @@ abstract class CodeGeneratorBase {
         val NAME_OF_MODULE_DIRECTORY_FOR_TESTS = "crs-transformation-adapter-test"
 
         @JvmField
-        val FILE_EXTENSION_FOR_JAVA_FILE = ".java"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_CSHARPE_FILE = ".cs"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_FSHARPE_FILE = ".fs"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_KOTLIN_FILE = ".kt"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_DART_FILE = ".dart"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_TYPESCRIPT_FILE = ".ts"
-
-        @JvmField
-        val FILE_EXTENSION_FOR_PYTHON_FILE = ".py"        
-
-        @JvmField
         val RELATIVE_PATH_TO_JAVA_FILES = "src/main/java"
 //        @JvmStatic
 //        protected val RELATIVE_PATH_TO_KOTLIN_FILES = "src/main/kotlin"

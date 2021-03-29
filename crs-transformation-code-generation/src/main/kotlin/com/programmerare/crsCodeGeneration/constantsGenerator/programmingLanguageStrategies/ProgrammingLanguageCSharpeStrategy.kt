@@ -2,7 +2,6 @@ package com.programmerare.crsCodeGeneration.constantsGenerator.programmingLangua
 
 import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
-import com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator
 import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategyDecoratorForCSharpe
 import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
@@ -29,6 +28,7 @@ class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(),
         )
     }
     override fun getFileExtensionForClassFile(): String {
-        return CodeGeneratorBase.FILE_EXTENSION_FOR_CSHARPE_FILE
+        // val FILE_EXTENSION_FOR_CSHARPE_FILE = ".cs"
+        return ".cs"
     }
 }
