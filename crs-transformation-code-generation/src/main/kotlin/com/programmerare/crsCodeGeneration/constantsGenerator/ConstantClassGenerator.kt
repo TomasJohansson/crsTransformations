@@ -157,8 +157,23 @@ class ConstantClassGenerator : CodeGeneratorBase() {
      * JVM class has been created with the programming language Kotlin.
      */
     companion object {
+        
+        
+        
         @JvmStatic
         fun main(args: Array<String>) {
+            val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
+                "java" to ProgrammingLanguageJavaStrategy(),
+                "kotlin" to ProgrammingLanguageKotlinStrategy(),
+                "csharpe" to ProgrammingLanguageCSharpeStrategy(),
+                "fsharpe" to ProgrammingLanguageFSharpeStrategy(),
+                "dart" to ProgrammingLanguageDartStrategy(),
+                "typescript" to ProgrammingLanguageTypeScriptStrategy(),
+                "python" to ProgrammingLanguagePythonStrategy(),
+            )
+            // all
+            // csv
+            
             val validationMessage = getValidationErrorMessageOrEmptyStringIfNoError(args)
             if (!validationMessage.equals("")) {
                 println(validationMessage)
@@ -173,39 +188,20 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             )
             val constantClassGenerator = ConstantClassGenerator()
             val typeOfFilesToBeGenerated = args[4]
-            if(typeOfFilesToBeGenerated == "java") {
-                constantClassGenerator.generateFilesWithJavaConstants()
+            if(mapWithProgrammingLanguageStrategies.containsKey(typeOfFilesToBeGenerated)) {
+                val programmingLanguageStrategy: ProgrammingLanguageStrategy = mapWithProgrammingLanguageStrategies.get(typeOfFilesToBeGenerated)!!
+                constantClassGenerator.generateFileWithConstants(programmingLanguageStrategy)                
             }
+            else if(typeOfFilesToBeGenerated == "all") {
+                val iterator = mapWithProgrammingLanguageStrategies.values.iterator()
+                while(iterator.hasNext()) {
+                    val programmingLanguageStrategy = iterator.next()
+                    constantClassGenerator.generateFileWithConstants(programmingLanguageStrategy)
+                }
+            }            
             else if(typeOfFilesToBeGenerated == "csv") {
                 constantClassGenerator.generateCsvFile()
-            }
-            else if(typeOfFilesToBeGenerated == "csharpe") {
-                constantClassGenerator.generateFilesWithCSharpeConstants()
-            }
-            else if(typeOfFilesToBeGenerated == "fsharpe") {
-                constantClassGenerator.generateFilesWithFSharpeConstants()
-            }
-            else if(typeOfFilesToBeGenerated == "kotlin") {
-                constantClassGenerator.generateFilesWithKotlinConstants()
-            }
-            else if(typeOfFilesToBeGenerated == "dart") {
-                // will generate a file at this kind of path:
-                //          (but of course the version number may change from the example in below)  
-                // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
-                constantClassGenerator.generateFilesWithDartConstants()
-            }
-            else if(typeOfFilesToBeGenerated == "typescript") {
-                // will generate a file at this kind of path:
-                //          (but of course the version number may change from the example in below)                
-                // ... src/main/resources/generated/typescript_constants/crs_constants/v10_011/epsg_number.ts
-                constantClassGenerator.generateFilesWithTypeScriptConstants()
-            }
-            else if(typeOfFilesToBeGenerated == "python") {
-                // will generate a file at this kind of path:
-                //          (but of course the version number may change from the example in below)                
-                // ... src/main/resources/generated/python_constants/crs_constants/v10_011/epsg_number.py
-                constantClassGenerator.generateFilesWithPythonConstants()
-            }
+            }            
             else {
                 println("Unsupported argument: " + typeOfFilesToBeGenerated)
             }
@@ -279,6 +275,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
     private var constantNameRenderer = ConstantNameRenderer(RenderStrategyNameAreaNumberInteger())
 
     private fun populateListWithNameOfConstants() {
+        if(nameOfConstants.size > 0) return // has already been populated
         val sqlQuery = SQL_STATEMENT_SELECTING_CRSCODE_CRSNAME_AREANAME
 
         getJdbcTemplate().query(sqlQuery) { rs, _ ->
@@ -300,38 +297,8 @@ class ConstantClassGenerator : CodeGeneratorBase() {
 
     private var programmingLanguageStrategy: ProgrammingLanguageStrategy = ProgrammingLanguageJavaStrategy()
 
-    fun generateFilesWithJavaConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageJavaStrategy()
-        generateFilesWithConstants()
-    }
-
-    fun generateFilesWithCSharpeConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageCSharpeStrategy()
-        generateFilesWithConstants()
-    }
-
-    fun generateFilesWithFSharpeConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageFSharpeStrategy()
-        generateFilesWithConstants()
-    }
-
-    fun generateFilesWithKotlinConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageKotlinStrategy()
-        generateFilesWithConstants()
-    }
-
-    fun generateFilesWithDartConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageDartStrategy()
-        generateFilesWithConstants()
-    }
-    
-    fun generateFilesWithTypeScriptConstants() {
-        programmingLanguageStrategy = ProgrammingLanguageTypeScriptStrategy()
-        generateFilesWithConstants()
-    }
-
-    fun generateFilesWithPythonConstants() {
-        programmingLanguageStrategy = ProgrammingLanguagePythonStrategy()
+    fun generateFileWithConstants(programmingLanguageStrategy: ProgrammingLanguageStrategy) {
+        this.programmingLanguageStrategy = programmingLanguageStrategy
         generateFilesWithConstants()
     }
 
@@ -392,7 +359,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         sortByNumber: Boolean = false
     ) {
         constantNameRenderer.renderStrategy = this.programmingLanguageStrategy.getRenderStrategy(renderStrategy)
-        val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated()
+        val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated( this::getFileOrDirectory )
         val nameOfPackageOrNamespace = this.programmingLanguageStrategy.getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage)
         var fileToBecomeCreated = getFileToBecomeCreated(nameOfClass, nameOfPackageOrNamespace, directoryWhereTheClassFilesShouldBeGenerated)
         val constantsSorted: List<ConstantTypeNameValue> =
@@ -527,7 +494,11 @@ class ConstantClassGenerator : CodeGeneratorBase() {
     // and their implementations for Java and C#
     interface ProgrammingLanguageStrategy {
         fun getNameOfFreemarkerTemplateForConstants(): String
-        fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File
+        
+        fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File
+        
         fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy
         fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String
         fun getFileExtensionForClassFile(): String
@@ -539,12 +510,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         // which do not use the same package concept as Java/Kotlin (which is similar to the namespace for C#/F#)
         fun getCustomFile(file: File): File
     }
-    abstract inner class ProgrammingLanguageStrategyBase: ProgrammingLanguageStrategy {
+    abstract class ProgrammingLanguageStrategyBase: ProgrammingLanguageStrategy {
         override fun getCustomFile(file: File): File {
             return file;
         }
     }
-    inner class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             // purpose: render "string" (C#) instead of "String" (Java)
             return RenderStrategyDecoratorForCSharpe(renderStrategy)
@@ -552,8 +523,11 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(getFileOrDirectoryFunction: (String, String, throwExceptionIfNotExisting: Boolean) -> File): File {
+              
+            // // protected fun getFileOrDirectory(nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean = true): File {
+            //return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", throwExceptionIfNotExisting = false)
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", false)
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
@@ -563,7 +537,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
     }
 
-    inner class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             // purpose: render "string" (F# or C#) instead of "String" (Java)
             return RenderStrategyDecoratorForCSharpe(renderStrategy) // string in F# too so can reuse the same Strategy as C# string
@@ -571,8 +545,10 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/fsharpe_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/fsharpe_constants", false) // throwExceptionIfNotExisting
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             // same package name for F# as C# so therefore can reuse the class below 
@@ -583,15 +559,17 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
     }
     
-    inner class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/kotlin_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/kotlin_constants", false) // throwExceptionIfNotExisting
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return nameOfJavaPackage;
@@ -600,15 +578,21 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             return FILE_EXTENSION_FOR_KOTLIN_FILE
         }        
     }
-    inner class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+        //                // will generate a file at this kind of path:
+        //                //          (but of course the version number may change from the example in below)  
+        //                // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
+        //                constantClassGenerator.generateFilesWithDartConstants()        
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", false) // throwExceptionIfNotExisting
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfDartModule(nameOfJavaPackage)
@@ -625,15 +609,20 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             }
         }        
     }
-    inner class ProgrammingLanguageTypeScriptStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageTypeScriptStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+        //                // will generate a file at this kind of path:
+        //                //          (but of course the version number may change from the example in below)                
+        //                // ... src/main/resources/generated/typescript_constants/crs_constants/v10_011/epsg_number.ts        
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/typescript_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/typescript_constants",  false) // throwExceptionIfNotExisting
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfTypeScriptModule(nameOfJavaPackage)
@@ -650,15 +639,20 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             }
         }
     }
-    inner class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+        //                // will generate a file at this kind of path:
+        //                //          (but of course the version number may change from the example in below)                
+        //                // ... src/main/resources/generated/python_constants/crs_constants/v10_011/epsg_number.py
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/python_constants", throwExceptionIfNotExisting = false)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/python_constants", false) // throwExceptionIfNotExisting
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfPythonModule(nameOfJavaPackage)
@@ -675,15 +669,17 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             }
         }
     }    
-    inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+    class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy
         }
         override fun getNameOfFreemarkerTemplateForConstants(): String {
             return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_JAVA_CONSTANTS
         }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
-            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS, RELATIVE_PATH_TO_JAVA_FILES)
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
+        ): File {
+            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS, RELATIVE_PATH_TO_JAVA_FILES, false)
         }
         override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
             return nameOfJavaPackage;
