@@ -92,6 +92,7 @@ import java.io.File
  *                                      fsharpe
  *                                      dart
  *                                      typescript
+ *                                      python
  *                                      csv
  *                                      
  *      Example of running the main method:
@@ -199,6 +200,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
                 // ... src/main/resources/generated/typescript_constants/crs_constants/v10_011/epsg_number.ts
                 constantClassGenerator.generateFilesWithTypeScriptConstants()
             }
+            else if(typeOfFilesToBeGenerated == "python") {
+                // will generate a file at this kind of path:
+                //          (but of course the version number may change from the example in below)                
+                // ... src/main/resources/generated/python_constants/crs_constants/v10_011/epsg_number.py
+                constantClassGenerator.generateFilesWithPythonConstants()
+            }
             else {
                 println("Unsupported argument: " + typeOfFilesToBeGenerated)
             }
@@ -240,6 +247,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
+        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS = "ConstantsPython.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
 
         private const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
@@ -320,7 +328,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
     fun generateFilesWithTypeScriptConstants() {
         programmingLanguageStrategy = ProgrammingLanguageTypeScriptStrategy()
         generateFilesWithConstants()
-    }    
+    }
+
+    fun generateFilesWithPythonConstants() {
+        programmingLanguageStrategy = ProgrammingLanguagePythonStrategy()
+        generateFilesWithConstants()
+    }
 
     // Generates classes with constants based on database with EPSG codes:
     // http://www.epsg.org/EPSGDataset/DownloadDataset.aspx
@@ -637,6 +650,31 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             }
         }
     }
+    inner class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
+        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
+            return renderStrategy
+        }
+        override fun getNameOfFreemarkerTemplateForConstants(): String {
+            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS
+        }
+        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+            return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/python_constants", throwExceptionIfNotExisting = false)
+        }
+        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
+            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfPythonModule(nameOfJavaPackage)
+        }
+        override fun getFileExtensionForClassFile(): String {
+            return FILE_EXTENSION_FOR_PYTHON_FILE
+        }
+        override fun getCustomFile(file: File): File {
+            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
+                File(file.parentFile, "epsg_number.py")
+            }
+            else {
+                file
+            }
+        }
+    }    
     inner class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
         override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
             return renderStrategy

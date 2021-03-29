@@ -41,5 +41,10 @@ object JavaPackageToModuleNameForOtherLanguageConverter {
     fun getAsNameOfTypeScriptModule(nameOfJavaPackage: String): String {
         // simply do the same thing for TypeScript as Dart: 
         return getAsNameOfDartModule(nameOfJavaPackage)
+    }
+
+    fun getAsNameOfPythonModule(nameOfJavaPackage: String): String {
+        // simply do the same thing for Python as Dart: 
+        return getAsNameOfDartModule(nameOfJavaPackage)
     }    
 }
