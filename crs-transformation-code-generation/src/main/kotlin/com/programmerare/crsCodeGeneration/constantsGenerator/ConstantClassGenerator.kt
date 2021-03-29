@@ -236,13 +236,6 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val FREEMARKER_PROPERTY_NAME_OF_PACKAGE_OR_NAMESPACE = "nameOfPackageOrNamespace"
         private const val FREEMARKER_PROPERTY_NAME_OF_CLASS_LEVEL_COMMENTS = "rowsForClassLevelComment"
 
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_JAVA_CONSTANTS = "ConstantsJava.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
-        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS = "ConstantsPython.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
 
         public const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
@@ -284,12 +277,12 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             val crsName = rs.getString(SQL_COLUMN_CRSNAME)
 
             nameOfConstants.add(
-                    ConstantTypeNameValue(
-                            constantNameRenderer,
-                            epsgNumber,
-                            areaName,
-                            crsName
-                    )
+                ConstantTypeNameValue(
+                    constantNameRenderer,
+                    epsgNumber,
+                    areaName,
+                    crsName
+                )
             )
         }
     }
@@ -481,13 +474,10 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         rootHashMapWithDataToBeUsedByFreemarkerTemplate.put(FREEMARKER_PROPERTY_NAME_OF_CONSTANTS, nameOfConstants)
 
         super.createFile(
-                NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE,
-                rootHashMapWithDataToBeUsedByFreemarkerTemplate,
-                csvFileToBecomeCreated
+            NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE,
+            rootHashMapWithDataToBeUsedByFreemarkerTemplate,
+            csvFileToBecomeCreated
         )
     } // end of method 'generateCsvFile' which does not really belong (semantically) in this class with the name 'ConstantClassGenerator'
     // ---------------------------------------------------------------------
-
-    // ---------------------------------------------------------------------
-
 }

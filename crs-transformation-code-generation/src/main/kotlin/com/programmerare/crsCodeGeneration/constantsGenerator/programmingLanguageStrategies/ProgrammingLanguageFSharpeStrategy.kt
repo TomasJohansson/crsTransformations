@@ -14,7 +14,8 @@ class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(),
         return RenderStrategyDecoratorForCSharpe(renderStrategy) // string in F# too so can reuse the same Strategy as C# string
     }
     override fun getNameOfFreemarkerTemplateForConstants(): String {
-        return ConstantClassGenerator.NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS
+        // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
+        return "ConstantsFSharpe.ftlh"
     }
     override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
         getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File

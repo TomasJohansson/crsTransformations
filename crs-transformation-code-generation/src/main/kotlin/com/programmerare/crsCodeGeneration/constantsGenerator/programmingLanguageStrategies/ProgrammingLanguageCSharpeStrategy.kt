@@ -14,7 +14,8 @@ class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(),
         return RenderStrategyDecoratorForCSharpe(renderStrategy)
     }
     override fun getNameOfFreemarkerTemplateForConstants(): String {
-        return ConstantClassGenerator.NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS
+        // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
+        return "ConstantsCSharpe.ftlh"
     }
     override fun getDirectoryWhereTheClassFilesShouldBeGenerated(getFileOrDirectoryFunction: (String, String, throwExceptionIfNotExisting: Boolean) -> File): File {
           

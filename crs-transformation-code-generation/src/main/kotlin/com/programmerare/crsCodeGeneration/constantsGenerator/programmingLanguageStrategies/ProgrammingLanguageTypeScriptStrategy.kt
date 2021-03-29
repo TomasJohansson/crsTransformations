@@ -15,7 +15,8 @@ class ProgrammingLanguageTypeScriptStrategy: ProgrammingLanguageStrategyBase(),
         return renderStrategy
     }
     override fun getNameOfFreemarkerTemplateForConstants(): String {
-        return ConstantClassGenerator.NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS
+        // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
+        return "ConstantsTypeScript.ftlh"
     }
     override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
         getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File

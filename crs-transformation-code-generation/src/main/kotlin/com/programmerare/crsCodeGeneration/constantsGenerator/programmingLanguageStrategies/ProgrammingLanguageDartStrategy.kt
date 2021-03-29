@@ -16,7 +16,8 @@ class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(),
         return renderStrategy
     }
     override fun getNameOfFreemarkerTemplateForConstants(): String {
-        return ConstantClassGenerator.NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS
+        // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
+        return "ConstantsDart.ftlh"
     }
     override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
         getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File

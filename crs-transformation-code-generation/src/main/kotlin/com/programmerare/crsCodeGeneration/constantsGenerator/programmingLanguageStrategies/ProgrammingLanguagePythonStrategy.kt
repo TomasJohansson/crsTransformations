@@ -15,7 +15,8 @@ class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(),
         return renderStrategy
     }
     override fun getNameOfFreemarkerTemplateForConstants(): String {
-        return ConstantClassGenerator.NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS
+        // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS = "ConstantsPython.ftlh"
+        return "ConstantsPython.ftlh"
     }
     override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
         getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
