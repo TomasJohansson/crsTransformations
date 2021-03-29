@@ -1,6 +1,6 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator.programmingLanguageStrategies
 
-import com.programmerare.crsCodeGeneration.constantsGenerator.RenderStrategy
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import java.io.File
 
 // ---------------------------------------------------------------------

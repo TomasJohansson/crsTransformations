@@ -1,9 +1,9 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator.programmingLanguageStrategies
 
-import com.programmerare.crsCodeGeneration.constantsGenerator.RenderStrategy
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
 import com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator
-import com.programmerare.crsCodeGeneration.constantsGenerator.RenderStrategyDecoratorForCSharpe
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategyDecoratorForCSharpe
 import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
 

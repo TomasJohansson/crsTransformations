@@ -2,7 +2,7 @@ package com.programmerare.crsCodeGeneration.constantsGenerator.programmingLangua
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
 import com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator
-import com.programmerare.crsCodeGeneration.constantsGenerator.RenderStrategy
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import java.io.File
 
 class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(),

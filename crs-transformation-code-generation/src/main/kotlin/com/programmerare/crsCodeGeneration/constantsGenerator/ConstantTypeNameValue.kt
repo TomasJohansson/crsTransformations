@@ -1,5 +1,7 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator
 
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.ConstantNameRenderer
+
 /**
  * It might seem as if this class is never being used when looking at "grayed"
  * method names in an IDE such as IntelliJ IDEA.

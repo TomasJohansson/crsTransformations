@@ -2,6 +2,7 @@ package com.programmerare.crsCodeGeneration.constantsGenerator
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
 import com.programmerare.crsCodeGeneration.constantsGenerator.programmingLanguageStrategies.*
+import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.*
 import java.io.File
 
 // This class generates constants classes into subfolders of this folder:
