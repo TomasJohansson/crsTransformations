@@ -1,7 +1,7 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
-import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
+import com.programmerare.crsCodeGeneration.constantsGenerator.programmingLanguageStrategies.*
 import java.io.File
 
 // This class generates constants classes into subfolders of this folder:
@@ -158,8 +158,6 @@ class ConstantClassGenerator : CodeGeneratorBase() {
      */
     companion object {
         
-        
-        
         @JvmStatic
         fun main(args: Array<String>) {
             val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
@@ -182,9 +180,9 @@ class ConstantClassGenerator : CodeGeneratorBase() {
             // args[0] is the version of EPSG and should be specified with underscores instead of dots e.g. "v9_6_3"
             setEpsgVersion(epsgVersion = args[0])
             setDatabaseInformationForMariaDbConnection(
-                    databaseName = args[1],
-                    databaseUserName = args[2],
-                    databaseUserPassword = args[3]
+                databaseName = args[1],
+                databaseUserName = args[2],
+                databaseUserPassword = args[3]
             )
             val constantClassGenerator = ConstantClassGenerator()
             val typeOfFilesToBeGenerated = args[4]
@@ -237,16 +235,16 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val FREEMARKER_PROPERTY_NAME_OF_PACKAGE_OR_NAMESPACE = "nameOfPackageOrNamespace"
         private const val FREEMARKER_PROPERTY_NAME_OF_CLASS_LEVEL_COMMENTS = "rowsForClassLevelComment"
 
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_JAVA_CONSTANTS = "ConstantsJava.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
-        private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS = "ConstantsPython.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_JAVA_CONSTANTS = "ConstantsJava.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS = "ConstantsFSharpe.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
+        public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS = "ConstantsPython.ftlh"
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
 
-        private const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
+        public const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
         private const val CLASS_NAME_STRING_CONSTANTS = "EpsgCode"
 
         private const val PACKAGE_NAME_PREFIX = "com.programmerare.crsConstants."
@@ -489,205 +487,6 @@ class ConstantClassGenerator : CodeGeneratorBase() {
     } // end of method 'generateCsvFile' which does not really belong (semantically) in this class with the name 'ConstantClassGenerator'
     // ---------------------------------------------------------------------
 
-    // ---------------------------------------------------------------------
-    // interface for programming language (Java vs C#) specific differences
-    // and their implementations for Java and C#
-    interface ProgrammingLanguageStrategy {
-        fun getNameOfFreemarkerTemplateForConstants(): String
-        
-        fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File
-        
-        fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy
-        fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String
-        fun getFileExtensionForClassFile(): String
-        
-        // can be used if an implementation want to modify the path or file name
-        // compared to the default generated path and file, with the path being based 
-        // on the java package, and the file name the same as the class name.
-        // This method was added when support for Dart was added,
-        // which do not use the same package concept as Java/Kotlin (which is similar to the namespace for C#/F#)
-        fun getCustomFile(file: File): File
-    }
-    abstract class ProgrammingLanguageStrategyBase: ProgrammingLanguageStrategy {
-        override fun getCustomFile(file: File): File {
-            return file;
-        }
-    }
-    class ProgrammingLanguageCSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            // purpose: render "string" (C#) instead of "String" (Java)
-            return RenderStrategyDecoratorForCSharpe(renderStrategy)
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(getFileOrDirectoryFunction: (String, String, throwExceptionIfNotExisting: Boolean) -> File): File {
-              
-            // // protected fun getFileOrDirectory(nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean = true): File {
-            //return getFileOrDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", throwExceptionIfNotExisting = false)
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/csharpe_constants", false)
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_CSHARPE_FILE
-        }
-    }
-
-    class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            // purpose: render "string" (F# or C#) instead of "String" (Java)
-            return RenderStrategyDecoratorForCSharpe(renderStrategy) // string in F# too so can reuse the same Strategy as C# string
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_FSHARPE_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/fsharpe_constants", false) // throwExceptionIfNotExisting
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            // same package name for F# as C# so therefore can reuse the class below 
-            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(nameOfJavaPackage)
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_FSHARPE_FILE
-        }
-    }
-    
-    class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            return renderStrategy
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/kotlin_constants", false) // throwExceptionIfNotExisting
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return nameOfJavaPackage;
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_KOTLIN_FILE
-        }        
-    }
-    class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        //                // will generate a file at this kind of path:
-        //                //          (but of course the version number may change from the example in below)  
-        //                // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart
-        //                constantClassGenerator.generateFilesWithDartConstants()        
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            return renderStrategy
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", false) // throwExceptionIfNotExisting
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfDartModule(nameOfJavaPackage)
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_DART_FILE
-        }
-        override fun getCustomFile(file: File): File {
-            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
-                File(file.parentFile, "epsg_number.dart")
-            }
-            else {
-                file
-            }
-        }        
-    }
-    class ProgrammingLanguageTypeScriptStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        //                // will generate a file at this kind of path:
-        //                //          (but of course the version number may change from the example in below)                
-        //                // ... src/main/resources/generated/typescript_constants/crs_constants/v10_011/epsg_number.ts        
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            return renderStrategy
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/typescript_constants",  false) // throwExceptionIfNotExisting
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfTypeScriptModule(nameOfJavaPackage)
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_TYPESCRIPT_FILE
-        }
-        override fun getCustomFile(file: File): File {
-            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
-                File(file.parentFile, "epsg_number.ts")
-            }
-            else {
-                file
-            }
-        }
-    }
-    class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        //                // will generate a file at this kind of path:
-        //                //          (but of course the version number may change from the example in below)                
-        //                // ... src/main/resources/generated/python_constants/crs_constants/v10_011/epsg_number.py
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            return renderStrategy
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_PYTHON_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/python_constants", false) // throwExceptionIfNotExisting
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfPythonModule(nameOfJavaPackage)
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_PYTHON_FILE
-        }
-        override fun getCustomFile(file: File): File {
-            return if(file.name.startsWith(CLASS_NAME_INTEGER_CONSTANTS)) {
-                File(file.parentFile, "epsg_number.py")
-            }
-            else {
-                file
-            }
-        }
-    }    
-    class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(), ProgrammingLanguageStrategy {
-        override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
-            return renderStrategy
-        }
-        override fun getNameOfFreemarkerTemplateForConstants(): String {
-            return NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_JAVA_CONSTANTS
-        }
-        override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-            getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-        ): File {
-            return getFileOrDirectoryFunction(NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS, RELATIVE_PATH_TO_JAVA_FILES, false)
-        }
-        override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
-            return nameOfJavaPackage;
-        }
-        override fun getFileExtensionForClassFile(): String {
-            return FILE_EXTENSION_FOR_JAVA_FILE
-        }
-    }
     // ---------------------------------------------------------------------
 
 }
