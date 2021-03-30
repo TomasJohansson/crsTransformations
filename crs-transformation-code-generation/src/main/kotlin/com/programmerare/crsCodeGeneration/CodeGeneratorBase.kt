@@ -17,7 +17,7 @@ abstract class CodeGeneratorBase {
     init {
         verifyJdbcDriver()
 
-        freemarkerConfiguration = Configuration(Configuration.VERSION_2_3_28)
+        freemarkerConfiguration = Configuration(Configuration.VERSION_2_3_28) // TODO try to update this version
 //        freemarkerConfiguration.setDirectoryForTemplateLoading(File(DIRECTORY_FOR_FREEMARKER_TEMPLATES))
         freemarkerConfiguration.setClassForTemplateLoading(javaClass, DIRECTORY_FOR_FREEMARKER_TEMPLATES)
         freemarkerConfiguration.setDefaultEncoding(ENCODING_UTF_8)
@@ -52,13 +52,13 @@ abstract class CodeGeneratorBase {
     }
 
     /**
-     * @return a file object for the directory "crsCodeGeneration"
+     * @return a file object for the directory "crs-transformation-code-generation"
      */
-    private fun getDirectoryForCodeGenerationModule(): File {
+    fun getDirectoryForCodeGenerationModule(): File {
         val pathToRootDirectoryForClassFiles: String? = CodeGeneratorBase.javaClass.getResource("/").path
         // the path retrieved above is now assumed to be like this:
-        // " .../crsCodeGeneration/build/classes/kotlin/main/"
-        // (and therefore by navigatin upwards four directory we should find the directory "crsCodeGeneration")
+        // " .../crs-transformation-code-generation/build/classes/kotlin/main/"
+        // (and therefore by navigating upwards four directory we should find the directory "crs-transformation-code-generation")
         val rootDirectoryForClassFiles = File(pathToRootDirectoryForClassFiles)
         throwExceptionIfDirectoryDoesNotExist(rootDirectoryForClassFiles)
         val rootDirectoryForModule = rootDirectoryForClassFiles.parentFile.parentFile.parentFile.parentFile
@@ -131,6 +131,14 @@ abstract class CodeGeneratorBase {
 
     companion object {
 
+        @JvmField
+        val NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES = "crsTransformations"
+        
+        // The above and below constants mean that there are directories like this:
+        //      .../crsTransformations/crs-transformation-code-generation
+        //      .../crsTransformations/crs-transformation-constants
+        //      .../crsTransformations/crs-transformation-adapter-test
+        
         @JvmField
         val NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION = "crs-transformation-code-generation"
 

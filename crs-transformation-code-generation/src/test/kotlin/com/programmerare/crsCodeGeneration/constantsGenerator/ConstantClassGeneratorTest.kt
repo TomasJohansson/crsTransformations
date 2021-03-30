@@ -1,7 +1,9 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator
 
+import com.programmerare.crsCodeGeneration.CodeGeneratorBase
+import com.programmerare.crsCodeGeneration.CodeGeneratorBase.Companion.NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES
+import com.programmerare.crsCodeGeneration.CodeGeneratorBase.Companion.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION
 import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
 
 internal class ConstantClassGeneratorTest {
@@ -43,5 +45,16 @@ internal class ConstantClassGeneratorTest {
         assertFalse(ConstantClassGenerator.isValidAsVersionPrefix("v9.5.3"))
         assertFalse(ConstantClassGenerator.isValidAsVersionPrefix("v9_5_x"))
 
+    }
+    
+    @Test
+    fun getDirectoryForCodeGenerationModule() {
+        // The tested method "getDirectoryForCodeGenerationModule"  
+        // is defined in the abstract base class, 
+        // which is also shown below by using explicit typing for the base class. 
+        val constantGenerator: CodeGeneratorBase = ConstantClassGenerator()
+        val file = constantGenerator.getDirectoryForCodeGenerationModule()
+        assertEquals(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, file.name)
+        assertEquals(NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES, file.parentFile.name)
     }
 }
