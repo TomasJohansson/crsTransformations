@@ -1,5 +1,6 @@
 package com.programmerare.crsCodeGeneration
 
+import com.programmerare.crsCodeGeneration.utils.FileUtility
 import freemarker.template.Configuration
 import freemarker.template.TemplateExceptionHandler
 import org.springframework.jdbc.core.JdbcTemplate
@@ -61,7 +62,15 @@ abstract class CodeGeneratorBase {
         // (and therefore by navigating upwards four directory we should find the directory "crs-transformation-code-generation")
         val rootDirectoryForClassFiles = File(pathToRootDirectoryForClassFiles)
         throwExceptionIfDirectoryDoesNotExist(rootDirectoryForClassFiles)
-        val rootDirectoryForModule = rootDirectoryForClassFiles.parentFile.parentFile.parentFile.parentFile
+        
+        // val rootDirectoryForModule = rootDirectoryForClassFiles.parentFile.parentFile.parentFile.parentFile
+        // Note that there is a unit test for the below FileUtility method 
+        val rootDirectoryForModule = FileUtility.getParentDirectoryByNavigatingUpwards(
+            rootDirectoryForClassFiles,
+            RELATIVE_PATH_TO_SUBDIRECTORIES_WITH_COMPILED_CLASSES, 
+            CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION
+        )
+        
         throwExceptionIfDirectoryDoesNotExist(rootDirectoryForModule)
         if(!rootDirectoryForModule.name.equals(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION)) {
             throw RuntimeException("Assumption about directory structure was not valid. Expected 4 parent directories of the following dir to be named '${NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION}' : " + pathToRootDirectoryForClassFiles)
@@ -72,7 +81,7 @@ abstract class CodeGeneratorBase {
     /**
      * @param nameOfModuleDirectory should be e.g. NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION or NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS
      */
-    protected fun getModuleDirectory(nameOfModuleDirectory: String): File {
+    private fun getModuleDirectory(nameOfModuleDirectory: String): File {
         val codeGenerationDirectory = getDirectoryForCodeGenerationModule()
         val baseDirectoryWithAllModules = codeGenerationDirectory.parentFile
         val moduleDirectory = File(baseDirectoryWithAllModules, nameOfModuleDirectory)
@@ -84,7 +93,11 @@ abstract class CodeGeneratorBase {
      * @nameOfModuleDirectory should be e.g. NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION or NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS
      * @subpathToFileOrDirectoryRelativeToModuleDirectory should be e.g. RELATIVE_PATH_TO_JAVA_FILES
      */
-    protected fun getFileOrDirectory(nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean = true): File {
+    protected fun getFileOrDirectory(
+        nameOfModuleDirectory: String,
+        subpathToFileOrDirectoryRelativeToModuleDirectory: String,
+        throwExceptionIfNotExisting: Boolean = true
+    ): File {
         val baseDir = getModuleDirectory(nameOfModuleDirectory)
         var directoryOrFile = baseDir.resolve(subpathToFileOrDirectoryRelativeToModuleDirectory)
         if(throwExceptionIfNotExisting) throwExceptionIfFileOrDirectoryDoesNotExist(directoryOrFile)
@@ -157,6 +170,23 @@ abstract class CodeGeneratorBase {
         val RELATIVE_PATH_TO_RESOURCES_DIRECTORY = "src/main/resources"
 
         @JvmField
+        val RELATIVE_PATH_TO_SUBDIRECTORIES_WITH_COMPILED_CLASSES = listOf(
+            "build/classes/kotlin/main",
+            "build/classes/kotlin/test",            
+            // The purpose of these relative paths above is to use them for 
+            // 'navigation upwards' to the base directory of the module for the code generation 
+            // i.e. the directory with the name 'crs-transformation-code-generation'
+            // but if they would not work with paths as above
+            // then at least some of these below should work 
+            // i.e. try to navigate up 3, 4 or 5 directories, regardless of the name,
+            // and then the cdoe will check to verify that the destination is a 
+            // directory named 'crs-transformation-code-generation'
+            "*/*/*",
+            "*/*/*/*",
+            "*/*/*/*/*",
+        )        
+
+        @JvmField
         val RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY = RELATIVE_PATH_TO_RESOURCES_DIRECTORY + "/generated"
 
         @JvmField
@@ -173,9 +203,9 @@ abstract class CodeGeneratorBase {
         // the values for the above fields should be set by a main method
         // throgh invoking the method below
         public fun setDatabaseInformationForMariaDbConnection(
-                databaseName: String,
-                databaseUserName: String,
-                databaseUserPassword: String
+            databaseName: String,
+            databaseUserName: String,
+            databaseUserPassword: String
         ) {
             _databaseName = databaseName
             _databaseUserName = databaseUserName
