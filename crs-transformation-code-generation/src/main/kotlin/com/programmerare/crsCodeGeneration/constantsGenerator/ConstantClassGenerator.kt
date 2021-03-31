@@ -150,119 +150,115 @@ import java.io.File
  *          constants for EPSG codes used specifically in Sweden are sorted together.
  */
 class ConstantClassGenerator : CodeGeneratorBase() {
-    // --------------------------------------------------------------------------------
-
     /**
      * Not intended to be used with ".Companion" from client code.
      * The reason for its existence has to do with the fact that the
      * JVM class has been created with the programming language Kotlin.
      */
     companion object {
-        
         @JvmStatic
         fun main(args: Array<String>) {
-            val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
-                "java" to ProgrammingLanguageJavaStrategy(),
-                "kotlin" to ProgrammingLanguageKotlinStrategy(),
-                "csharpe" to ProgrammingLanguageCSharpeStrategy(),
-                "fsharpe" to ProgrammingLanguageFSharpeStrategy(),
-                "dart" to ProgrammingLanguageDartStrategy(),
-                "typescript" to ProgrammingLanguageTypeScriptStrategy(),
-                "python" to ProgrammingLanguagePythonStrategy(),
-            )
-            // all
-            // csv
-            
-            val validationMessage = getValidationErrorMessageOrEmptyStringIfNoError(args)
-            if (!validationMessage.equals("")) {
-                println(validationMessage)
-                return
-            }
-            // args[0] is the version of EPSG and should be specified with underscores instead of dots e.g. "v9_6_3"
-            setEpsgVersion(epsgVersion = args[0])
-            setDatabaseInformationForMariaDbConnection(
-                databaseName = args[1],
-                databaseUserName = args[2],
-                databaseUserPassword = args[3]
-            )
             val constantClassGenerator = ConstantClassGenerator()
-            val typeOfFilesToBeGenerated = args[4]
-            if(mapWithProgrammingLanguageStrategies.containsKey(typeOfFilesToBeGenerated)) {
-                val programmingLanguageStrategy: ProgrammingLanguageStrategy = mapWithProgrammingLanguageStrategies.get(typeOfFilesToBeGenerated)!!
-                constantClassGenerator.generateFileWithConstants(programmingLanguageStrategy)                
-            }
-            else if(typeOfFilesToBeGenerated == "all") {
-                val iterator = mapWithProgrammingLanguageStrategies.values.iterator()
-                while(iterator.hasNext()) {
-                    val programmingLanguageStrategy = iterator.next()
-                    constantClassGenerator.generateFileWithConstants(programmingLanguageStrategy)
-                }
-            }            
-            else if(typeOfFilesToBeGenerated == "csv") {
-                constantClassGenerator.generateCsvFile()
-            }            
-            else {
-                println("Unsupported argument: " + typeOfFilesToBeGenerated)
-            }
+            constantClassGenerator.mainMethod(args)
         }
-
-        /**
-         * Return empty string if validation is okay, otherwise
-         * a string with a validation message that should be displayed
-         */
-        fun getValidationErrorMessageOrEmptyStringIfNoError(args: Array<String>): String {
-            if (args.size < 5) {
-                return "The method should have five parameters"
-            }
-            if(!isValidAsVersionPrefix(args[0])) {
-                return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_6_3' "
-            }
-            return ""
-        }
-
-        private val regularExpressionForVersionSuffix = Regex("""v(\d+|\d+[_\d]*\d+)""")
-        /**
-         * @param versionSuffix a string such as "v9_6_3" (for a version 9.6.3)
-         *  i.e. the "v" as prefix and then some version number with one or more digits,
-         *  but instead of the normal dots the separator between major/minor version numbers should be underscore.
-         *  The usage of the validated string is that it will be used as the last part of a package name.
-         */
-        fun isValidAsVersionPrefix(versionSuffix: String): Boolean {
-            return regularExpressionForVersionSuffix.matches(versionSuffix)
-        }
-
         private const val FREEMARKER_PROPERTY_NAME_OF_CONSTANTS = "constants"
         private const val FREEMARKER_PROPERTY_NAME_OF_CLASS = "nameOfClass"
         private const val FREEMARKER_PROPERTY_NAME_OF_PACKAGE_OR_NAMESPACE = "nameOfPackageOrNamespace"
         private const val FREEMARKER_PROPERTY_NAME_OF_CLASS_LEVEL_COMMENTS = "rowsForClassLevelComment"
-
         private const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSV_FILE = "CsvFileWithEpsgNumberAndCrsNameAndAreaName.ftlh"
-
         public const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
         private const val CLASS_NAME_STRING_CONSTANTS = "EpsgCode"
-
         private const val PACKAGE_NAME_PREFIX = "com.programmerare.crsConstants."
-
-        private var _epsgVersion = "v_NotYetDefined" // should be something like "v9_6_3"
-        private fun setEpsgVersion(epsgVersion: String) {
-            _epsgVersion = epsgVersion
-        }
-
-        // should return something like "v9_6_3" or "v9.6.3" depending on the boolean parameter
-        private fun getEpsgVersion(useUnderScoresInsteadOfDots: Boolean = true) : String {
-            if(useUnderScoresInsteadOfDots) {
-                return _epsgVersion.replace('.','_')
-            }
-            else {
-                return _epsgVersion.replace('_','.')
-            }
-        }
-        private fun getPackageNameSuffix(): String {
-            return "." + getEpsgVersion()
-        }
     } // companion object ends here
     // --------------------------------------------------------------------------------
+    fun mainMethod(args: Array<String>) {
+        val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
+            "java" to ProgrammingLanguageJavaStrategy(),
+            "kotlin" to ProgrammingLanguageKotlinStrategy(),
+            "csharpe" to ProgrammingLanguageCSharpeStrategy(),
+            "fsharpe" to ProgrammingLanguageFSharpeStrategy(),
+            "dart" to ProgrammingLanguageDartStrategy(),
+            "typescript" to ProgrammingLanguageTypeScriptStrategy(),
+            "python" to ProgrammingLanguagePythonStrategy(),
+        )
+        // all
+        // csv
 
+        val validationMessage = getValidationErrorMessageOrEmptyStringIfNoError(args)
+        if (!validationMessage.equals("")) {
+            println(validationMessage)
+            return
+        }
+        // args[0] is the version of EPSG and should be specified with underscores instead of dots e.g. "v9_6_3"
+        setEpsgVersion(epsgVersion = args[0])
+        setDatabaseInformationForMariaDbConnection(
+            databaseName = args[1],
+            databaseUserName = args[2],
+            databaseUserPassword = args[3]
+        )
+        val typeOfFilesToBeGenerated = args[4]
+        if(mapWithProgrammingLanguageStrategies.containsKey(typeOfFilesToBeGenerated)) {
+            val programmingLanguageStrategy: ProgrammingLanguageStrategy = mapWithProgrammingLanguageStrategies.get(typeOfFilesToBeGenerated)!!
+            this.generateFileWithConstants(programmingLanguageStrategy)
+        }
+        else if(typeOfFilesToBeGenerated == "all") {
+            val iterator = mapWithProgrammingLanguageStrategies.values.iterator()
+            while(iterator.hasNext()) {
+                val programmingLanguageStrategy = iterator.next()
+                this.generateFileWithConstants(programmingLanguageStrategy)
+            }
+        }
+        else if(typeOfFilesToBeGenerated == "csv") {
+            this.generateCsvFile()
+        }
+        else {
+            println("Unsupported argument: " + typeOfFilesToBeGenerated)
+        }        
+    }
+    
+    /**
+     * Return empty string if validation is okay, otherwise
+     * a string with a validation message that should be displayed
+     */
+    fun getValidationErrorMessageOrEmptyStringIfNoError(args: Array<String>): String {
+        if (args.size < 5) {
+            return "The method should have five parameters"
+        }
+        if(!isValidAsVersionPrefix(args[0])) {
+            return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_6_3' "
+        }
+        return ""
+    }
+
+    private val regularExpressionForVersionSuffix = Regex("""v(\d+|\d+[_\d]*\d+)""")
+    /**
+     * @param versionSuffix a string such as "v9_6_3" (for a version 9.6.3)
+     *  i.e. the "v" as prefix and then some version number with one or more digits,
+     *  but instead of the normal dots the separator between major/minor version numbers should be underscore.
+     *  The usage of the validated string is that it will be used as the last part of a package name.
+     */
+    fun isValidAsVersionPrefix(versionSuffix: String): Boolean {
+        return regularExpressionForVersionSuffix.matches(versionSuffix)
+    }
+    
+    private var _epsgVersion = "v_NotYetDefined" // should be something like "v9_6_3"
+    private fun setEpsgVersion(epsgVersion: String) {
+        _epsgVersion = epsgVersion
+    }
+
+    // should return something like "v9_6_3" or "v9.6.3" depending on the boolean parameter
+    private fun getEpsgVersion(useUnderScoresInsteadOfDots: Boolean = true) : String {
+        if(useUnderScoresInsteadOfDots) {
+            return _epsgVersion.replace('.','_')
+        }
+        else {
+            return _epsgVersion.replace('_','.')
+        }
+    }
+    private fun getPackageNameSuffix(): String {
+        return "." + getEpsgVersion()
+    }
+    
     private var nameOfConstants = mutableListOf<ConstantTypeNameValue>()
     private var constantNameRenderer = ConstantNameRenderer(RenderStrategyNameAreaNumberInteger())
 
