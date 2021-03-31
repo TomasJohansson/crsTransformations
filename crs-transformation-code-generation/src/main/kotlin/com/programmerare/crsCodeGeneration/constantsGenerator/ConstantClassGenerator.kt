@@ -182,21 +182,22 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         // to become generated
         srcMainDir
     }
-    private val _resourcesDirectoryInModuleWithCodeGeneration: File by lazy {
+    private val _generatedResourcesDirectoryInModuleWithCodeGeneration: File by lazy {
         val directoryForModuleWithConstants = super.getModuleDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION)
-        val srcDir = File(directoryForModuleWithConstants, RELATIVE_PATH_TO_RESOURCES_DIRECTORY)
-        srcDir
+        val generatedResourcesDirectory = File(directoryForModuleWithConstants, RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY)
+        // .the returned directory: ".../crs-transformation-code-generation\src\main\resources\generated"
+        generatedResourcesDirectory
     }
     
     fun mainMethod(args: Array<String>) {
         val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
             "java" to ProgrammingLanguageJavaStrategy(_mainDirectoryAboveJavaDirectoryInModuleWithConstants),
-            "kotlin" to ProgrammingLanguageKotlinStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
-            "csharpe" to ProgrammingLanguageCSharpeStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
-            "fsharpe" to ProgrammingLanguageFSharpeStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
-            "dart" to ProgrammingLanguageDartStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
-            "typescript" to ProgrammingLanguageTypeScriptStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
-            "python" to ProgrammingLanguagePythonStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "kotlin" to ProgrammingLanguageKotlinStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
+            "csharpe" to ProgrammingLanguageCSharpeStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
+            "fsharpe" to ProgrammingLanguageFSharpeStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
+            "dart" to ProgrammingLanguageDartStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
+            "typescript" to ProgrammingLanguageTypeScriptStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
+            "python" to ProgrammingLanguagePythonStrategy(_generatedResourcesDirectoryInModuleWithCodeGeneration),
         )
         // all
         // csv
@@ -364,7 +365,8 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         sortByNumber: Boolean = false
     ) {
         constantNameRenderer.renderStrategy = this.programmingLanguageStrategy.getRenderStrategy(renderStrategy)
-        val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated( this::getFileOrDirectory )
+        //val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated( this::getFileOrDirectory )
+        val directoryWhereTheClassFilesShouldBeGenerated = this.programmingLanguageStrategy.getDirectoryWhereTheClassFilesShouldBeGenerated()
         val nameOfPackageOrNamespace = this.programmingLanguageStrategy.getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage)
         var fileToBecomeCreated = getFileToBecomeCreated(nameOfClass, nameOfPackageOrNamespace, directoryWhereTheClassFilesShouldBeGenerated)
         val constantsSorted: List<ConstantTypeNameValue> =
