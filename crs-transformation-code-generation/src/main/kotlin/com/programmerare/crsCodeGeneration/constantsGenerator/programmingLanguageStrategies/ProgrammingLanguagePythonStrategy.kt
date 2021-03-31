@@ -6,8 +6,10 @@ import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.R
 import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
 
-class ProgrammingLanguagePythonStrategy: ProgrammingLanguageStrategyBase(),
-    ProgrammingLanguageStrategy {
+class ProgrammingLanguagePythonStrategy(baseDirectory: File):
+    ProgrammingLanguageStrategyBase(baseDirectory),
+    ProgrammingLanguageStrategy
+{
     //                // will generate a file at this kind of path:
     //                //          (but of course the version number may change from the example in below)                
     //                // ... src/main/resources/generated/python_constants/crs_constants/v10_011/epsg_number.py

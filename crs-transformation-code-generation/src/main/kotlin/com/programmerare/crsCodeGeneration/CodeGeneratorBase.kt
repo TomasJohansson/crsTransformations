@@ -81,7 +81,7 @@ abstract class CodeGeneratorBase {
     /**
      * @param nameOfModuleDirectory should be e.g. NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION or NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS
      */
-    private fun getModuleDirectory(nameOfModuleDirectory: String): File {
+    protected fun getModuleDirectory(nameOfModuleDirectory: String): File {
         val codeGenerationDirectory = getDirectoryForCodeGenerationModule()
         val baseDirectoryWithAllModules = codeGenerationDirectory.parentFile
         val moduleDirectory = File(baseDirectoryWithAllModules, nameOfModuleDirectory)
@@ -162,7 +162,10 @@ abstract class CodeGeneratorBase {
         val NAME_OF_MODULE_DIRECTORY_FOR_TESTS = "crs-transformation-adapter-test"
 
         @JvmField
-        val RELATIVE_PATH_TO_JAVA_FILES = "src/main/java"
+        val RELATIVE_PATH_TO_SRC_MAIN = "src/main"
+        
+        @JvmField
+        val RELATIVE_PATH_TO_JAVA_FILES = "$RELATIVE_PATH_TO_SRC_MAIN/java"
 //        @JvmStatic
 //        protected val RELATIVE_PATH_TO_KOTLIN_FILES = "src/main/kotlin"
 

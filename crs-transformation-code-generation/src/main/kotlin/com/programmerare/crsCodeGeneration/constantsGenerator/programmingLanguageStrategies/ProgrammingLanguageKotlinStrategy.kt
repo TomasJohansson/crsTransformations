@@ -4,8 +4,10 @@ import com.programmerare.crsCodeGeneration.CodeGeneratorBase
 import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import java.io.File
 
-class ProgrammingLanguageKotlinStrategy: ProgrammingLanguageStrategyBase(),
-    ProgrammingLanguageStrategy {
+class ProgrammingLanguageKotlinStrategy(baseDirectory: File):
+    ProgrammingLanguageStrategyBase(baseDirectory),
+    ProgrammingLanguageStrategy
+{
     override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
         return renderStrategy
     }

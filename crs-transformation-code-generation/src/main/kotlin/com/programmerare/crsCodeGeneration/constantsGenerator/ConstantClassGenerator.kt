@@ -171,15 +171,32 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         private const val PACKAGE_NAME_PREFIX = "com.programmerare.crsConstants."
     } // companion object ends here
     // --------------------------------------------------------------------------------
+    
+    private val _mainDirectoryAboveJavaDirectoryInModuleWithConstants: File by lazy {
+        val directoryForModuleWithConstants = super.getModuleDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS)
+        val srcMainDir = File(directoryForModuleWithConstants, RELATIVE_PATH_TO_SRC_MAIN) // "src/main"
+        // return the directory ending with "...src/main" instead of "...src/main/java" 
+        // to make it easier to handle the 'ProgrammingLanguageJavaStrategy' implementation
+        // in the same way as the others, i.e. the implementation defines the last directory part
+        // which in this case will be the "java" directory as the destination for the constant file
+        // to become generated
+        srcMainDir
+    }
+    private val _resourcesDirectoryInModuleWithCodeGeneration: File by lazy {
+        val directoryForModuleWithConstants = super.getModuleDirectory(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION)
+        val srcDir = File(directoryForModuleWithConstants, RELATIVE_PATH_TO_RESOURCES_DIRECTORY)
+        srcDir
+    }
+    
     fun mainMethod(args: Array<String>) {
         val mapWithProgrammingLanguageStrategies = mapOf<String, ProgrammingLanguageStrategy>(
-            "java" to ProgrammingLanguageJavaStrategy(),
-            "kotlin" to ProgrammingLanguageKotlinStrategy(),
-            "csharpe" to ProgrammingLanguageCSharpeStrategy(),
-            "fsharpe" to ProgrammingLanguageFSharpeStrategy(),
-            "dart" to ProgrammingLanguageDartStrategy(),
-            "typescript" to ProgrammingLanguageTypeScriptStrategy(),
-            "python" to ProgrammingLanguagePythonStrategy(),
+            "java" to ProgrammingLanguageJavaStrategy(_mainDirectoryAboveJavaDirectoryInModuleWithConstants),
+            "kotlin" to ProgrammingLanguageKotlinStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "csharpe" to ProgrammingLanguageCSharpeStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "fsharpe" to ProgrammingLanguageFSharpeStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "dart" to ProgrammingLanguageDartStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "typescript" to ProgrammingLanguageTypeScriptStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
+            "python" to ProgrammingLanguagePythonStrategy(_resourcesDirectoryInModuleWithCodeGeneration),
         )
         // all
         // csv
@@ -283,7 +300,7 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         }
     }
 
-    private var programmingLanguageStrategy: ProgrammingLanguageStrategy = ProgrammingLanguageJavaStrategy()
+    private var programmingLanguageStrategy: ProgrammingLanguageStrategy = ProgrammingLanguageJavaStrategy(_mainDirectoryAboveJavaDirectoryInModuleWithConstants)
 
     fun generateFileWithConstants(programmingLanguageStrategy: ProgrammingLanguageStrategy) {
         this.programmingLanguageStrategy = programmingLanguageStrategy

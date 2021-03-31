@@ -10,6 +10,8 @@ interface ProgrammingLanguageStrategy {
     fun getNameOfFreemarkerTemplateForConstants(): String
     
     fun getDirectoryWhereTheClassFilesShouldBeGenerated(
+        // TODO remove the below function object parameter and instead use the more 
+        // easily understood new baseDirectory constructor parameter for the ProgrammingLanguageStrategyBase  
         getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
     ): File
     

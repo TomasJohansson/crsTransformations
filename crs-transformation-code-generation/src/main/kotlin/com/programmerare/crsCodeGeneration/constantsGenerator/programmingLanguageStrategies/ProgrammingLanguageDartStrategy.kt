@@ -6,8 +6,10 @@ import com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGener
 import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
 
-class ProgrammingLanguageDartStrategy: ProgrammingLanguageStrategyBase(),
-    ProgrammingLanguageStrategy {
+class ProgrammingLanguageDartStrategy(baseDirectory: File):
+    ProgrammingLanguageStrategyBase(baseDirectory),
+    ProgrammingLanguageStrategy
+{
     //                // will generate a file at this kind of path:
     //                //          (but of course the version number may change from the example in below)  
     //                // ... src/main/resources/generated/dart_constants/crs_constants/v9_9_1/epsg_number.dart

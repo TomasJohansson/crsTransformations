@@ -4,8 +4,10 @@ import com.programmerare.crsCodeGeneration.CodeGeneratorBase
 import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.RenderStrategy
 import java.io.File
 
-class ProgrammingLanguageJavaStrategy: ProgrammingLanguageStrategyBase(),
-    ProgrammingLanguageStrategy {
+class ProgrammingLanguageJavaStrategy(baseDirectory: File):
+    ProgrammingLanguageStrategyBase(baseDirectory),
+    ProgrammingLanguageStrategy
+{
     override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
         return renderStrategy
     }

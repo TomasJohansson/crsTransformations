@@ -6,8 +6,10 @@ import com.programmerare.crsCodeGeneration.constantsGenerator.renderStrategies.R
 import com.programmerare.crsCodeGeneration.utils.JavaPackageToModuleNameForOtherLanguageConverter
 import java.io.File
 
-class ProgrammingLanguageFSharpeStrategy: ProgrammingLanguageStrategyBase(),
-    ProgrammingLanguageStrategy {
+class ProgrammingLanguageFSharpeStrategy(baseDirectory: File):
+    ProgrammingLanguageStrategyBase(baseDirectory),
+    ProgrammingLanguageStrategy
+{
     override fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy {
         // purpose: render "string" (F# or C#) instead of "String" (Java)
         return RenderStrategyDecoratorForCSharpe(renderStrategy) // string in F# too so can reuse the same Strategy as C# string
