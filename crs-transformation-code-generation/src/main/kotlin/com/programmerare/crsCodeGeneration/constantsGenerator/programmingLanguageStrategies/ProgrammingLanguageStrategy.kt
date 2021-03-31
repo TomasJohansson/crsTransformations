@@ -9,11 +9,7 @@ import java.io.File
 interface ProgrammingLanguageStrategy {
     fun getNameOfFreemarkerTemplateForConstants(): String
     
-    fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-        // TODO remove the below function object parameter and instead use the more 
-        // easily understood new baseDirectory constructor parameter for the ProgrammingLanguageStrategyBase  
-        getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-    ): File
+    fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File
     
     fun getRenderStrategy(renderStrategy: RenderStrategy): RenderStrategy
     fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String

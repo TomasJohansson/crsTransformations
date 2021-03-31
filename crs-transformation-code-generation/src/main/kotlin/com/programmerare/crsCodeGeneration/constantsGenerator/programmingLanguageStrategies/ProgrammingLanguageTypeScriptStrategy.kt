@@ -20,10 +20,8 @@ class ProgrammingLanguageTypeScriptStrategy(baseDirectory: File):
         // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_TYPESCRIPT_CONSTANTS = "ConstantsTypeScript.ftlh"
         return "ConstantsTypeScript.ftlh"
     }
-    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-        getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-    ): File {
-        return getFileOrDirectoryFunction(CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, CodeGeneratorBase.RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/typescript_constants",  false) // throwExceptionIfNotExisting
+    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+        return File(baseDirectory, "/typescript_constants")
     }
     override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
         return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfTypeScriptModule(

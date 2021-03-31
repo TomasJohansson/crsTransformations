@@ -21,10 +21,8 @@ class ProgrammingLanguageDartStrategy(baseDirectory: File):
         // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_DART_CONSTANTS = "ConstantsDart.ftlh"
         return "ConstantsDart.ftlh"
     }
-    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-        getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-    ): File {
-        return getFileOrDirectoryFunction(CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, CodeGeneratorBase.RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/dart_constants", false) // throwExceptionIfNotExisting
+    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+        return File(baseDirectory, "/dart_constants")
     }
     override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
         return JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfDartModule(

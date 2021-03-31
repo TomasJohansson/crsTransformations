@@ -15,10 +15,8 @@ class ProgrammingLanguageKotlinStrategy(baseDirectory: File):
         // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_KOTLIN_CONSTANTS = "ConstantsKotlin.ftlh"
         return "ConstantsKotlin.ftlh"
     }
-    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-        getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-    ): File {
-        return getFileOrDirectoryFunction(CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, CodeGeneratorBase.RELATIVE_PATH_TO_TARGET_DIRECTORY_FOR_GENERATED_CODE_WITHIN_RESOURCES_DIRECTORY + "/kotlin_constants", false) // throwExceptionIfNotExisting
+    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+        return File(baseDirectory, "/kotlin_constants")
     }
     override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
         return nameOfJavaPackage;

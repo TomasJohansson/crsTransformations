@@ -15,12 +15,9 @@ class ProgrammingLanguageJavaStrategy(baseDirectory: File):
         // public const val NAME_OF_FREEMARKER_TEMPLATE_FILE_FOR_CSHARPE_CONSTANTS = "ConstantsCSharpe.ftlh"
         return "ConstantsJava.ftlh"
     }
-    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(
-        getFileOrDirectoryFunction: (nameOfModuleDirectory: String, subpathToFileOrDirectoryRelativeToModuleDirectory: String, throwExceptionIfNotExisting: Boolean) -> File
-    ): File {
-        return getFileOrDirectoryFunction(
-            CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CONSTANTS,
-            CodeGeneratorBase.RELATIVE_PATH_TO_JAVA_FILES, false)
+    override fun getDirectoryWhereTheClassFilesShouldBeGenerated(): File {
+        return File(baseDirectory, "/java") // "src/main" should be the base directory i.e. now returning the directory ".../src/main"/java""
+        // this method will now return the directory ".../crs-transformation-constants/src/main/java"
     }
     override fun getNameOfPackageOrNamespaceToBeGenerated(nameOfJavaPackage: String): String {
         return nameOfJavaPackage;
