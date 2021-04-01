@@ -545,7 +545,7 @@ project(':crs-transformation-code-generation') {
 
     dependencies {
         // https://mvnrepository.com/artifact/org.freemarker/freemarker
-        implementation("org.freemarker:freemarker:2.3.31")
+        implementation("org.freemarker:freemarker:2.3.31") 
 
         // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
         implementation("org.mariadb.jdbc:mariadb-java-client:2.7.2")

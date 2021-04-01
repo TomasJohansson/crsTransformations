@@ -18,7 +18,7 @@ abstract class CodeGeneratorBase {
     init {
         verifyJdbcDriver()
 
-        freemarkerConfiguration = Configuration(Configuration.VERSION_2_3_28) // TODO try to update this version
+        freemarkerConfiguration = Configuration(Configuration.VERSION_2_3_31)
 //        freemarkerConfiguration.setDirectoryForTemplateLoading(File(DIRECTORY_FOR_FREEMARKER_TEMPLATES))
         freemarkerConfiguration.setClassForTemplateLoading(javaClass, DIRECTORY_FOR_FREEMARKER_TEMPLATES)
         freemarkerConfiguration.setDefaultEncoding(ENCODING_UTF_8)
