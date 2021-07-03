@@ -140,7 +140,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
                 weightForOrbis * resultCoordinateOrbisgisCTS.getYNorthingLatitude() +
                 weightForProj4J * resultCoordinateProj4J.getYNorthingLatitude() +
                 weightForProj4jLocationtech * resultCoordinateProj4jLocationtech.getYNorthingLatitude() +
-                weightForGeoPackageNGA * resultCoordinateProj4J.getYNorthingLatitude();
+                weightForGeoPackageNGA * resultCoordinateGeoPackageNGA.getYNorthingLatitude();
 
         final double longitutdeWeightedSum =
                 weightForGeoTools * resultCoordinateGeoTools.getXEastingLongitude() +
@@ -148,7 +148,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
                 weightForOrbis * resultCoordinateOrbisgisCTS.getXEastingLongitude() +
                 weightForProj4J * resultCoordinateProj4J.getXEastingLongitude() +
                 weightForProj4jLocationtech * resultCoordinateProj4jLocationtech.getXEastingLongitude() +
-                weightForGeoPackageNGA * resultCoordinateProj4J.getXEastingLongitude();
+                weightForGeoPackageNGA * resultCoordinateGeoPackageNGA.getXEastingLongitude();
         
         final double totWeights = weightForGeoTools + weightForGoober + weightForOrbis + weightForProj4J + weightForProj4jLocationtech + weightForGeoPackageNGA;
         return CrsCoordinateFactory.createFromYNorthingLatitudeAndXEastingLongitude( latitudeWeightedSum/totWeights, longitutdeWeightedSum/totWeights, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
