@@ -64,9 +64,6 @@ internal abstract class CompositeStrategyBase protected constructor
         }
     }
 
-    override fun _getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.UNSPECIFIED_COMPOSITE
-    }
     override fun _getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.UNSPECIFIED_COMPOSITE
     }    

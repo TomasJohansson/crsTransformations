@@ -1,6 +1,5 @@
 package com.programmerare.crsTransformationAdapterGeoPackageNGA
 
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationImplementationType
@@ -43,10 +42,6 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
     }
 
     // ----------------------------------------------------------
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_NGA_GEOPACKAGE_5_0_0
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE
     }

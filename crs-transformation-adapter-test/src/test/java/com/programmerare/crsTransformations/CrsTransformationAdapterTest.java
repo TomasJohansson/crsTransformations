@@ -108,7 +108,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         CrsCoordinate unvalidInputCoordinate
     ) {
         for (CrsTransformationAdapter crsTransformationAdapter : crsTransformationAdapterImplementations) {
-            final String messageWhenError = "Problem with the implementation " + crsTransformationAdapter.getAdapteeType();
+            final String messageWhenError = "Problem with the implementation " + crsTransformationAdapter.getImplementationType();
             CrsTransformationResult transformResult = crsTransformationAdapter.transform(unvalidInputCoordinate, epsgNumberForSweref99TM);
             assertNotNull(transformResult, messageWhenError);
             if(!unvalidInputCoordinate.getCrsIdentifier().isEpsgCode()) {
@@ -172,11 +172,11 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
             Exception exception = assertThrows(
                 Exception.class,
                 () -> crsTransformationAdapter.transformToCoordinate(unvalidInputCoordinate, super.epsgNumberForSweref99TM),
-                () -> "Exception was not thrown but SHOULD have been thrown for implementation " + crsTransformationAdapter.getAdapteeType() + " and coordinate " + unvalidInputCoordinate 
+                () -> "Exception was not thrown but SHOULD have been thrown for implementation " + crsTransformationAdapter.getTransformationAdapterChildren() + " and coordinate " + unvalidInputCoordinate 
             );
 
             boolean isExpectedException = classNamesForExpectedPotentialExceptionsWhenIncorrectEPSGcode.stream().anyMatch(it -> it.equals(exception.getClass().getName()));
-            assertTrue(isExpectedException, () -> "Unexpected exception: " + exception.getClass().getName() + " for adapter " + crsTransformationAdapter.getAdapteeType());
+            assertTrue(isExpectedException, () -> "Unexpected exception: " + exception.getClass().getName() + " for adapter " + crsTransformationAdapter.getImplementationType());
         }
     }
     
@@ -361,7 +361,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
 
         final List<CrsTransformationAdapter> crsTransformationAdapterImplementationsExpectingManyResults = new ArrayList<>();
         for (CrsTransformationAdapter crsTransformationAdapterComposite : super.crsTransformationAdapterCompositeImplementations) {
-            if(crsTransformationAdapterComposite.getAdapteeType() != CrsTransformationAdapteeType.COMPOSITE_FIRST_SUCCESS) {
+            if(crsTransformationAdapterComposite.getImplementationType() != CrsTransformationImplementationType.COMPOSITE_FIRST_SUCCESS) {
                 crsTransformationAdapterImplementationsExpectingManyResults.add(crsTransformationAdapterComposite);
             }
         }

@@ -129,13 +129,6 @@ interface CrsTransformationAdapter {
      */
     fun getShortNameOfImplementation(): String
 
-    /**
-     * Deprecated. Use [getImplementationType] and [getVersionOfImplementationAdapteeLibrary] instead. 
-     * @see CrsTransformationAdapteeType
-     */
-    @Deprecated("The type CrsTransformationAdapteeType was only used for getting information about which implementation was used, e.g. an enum with a name revealing the version number. Now instead use the methods getShortNameOfImplementation (existing since before) and the new method CrsTransformationAdapter.getVersionOfImplementationAdapteeLibrary()")
-    fun getAdapteeType() : CrsTransformationAdapteeType
-
     fun getImplementationType() : CrsTransformationImplementationType
 
     /**

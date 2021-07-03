@@ -63,10 +63,6 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
         return false
     }
 
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.UNSPECIFIED_LEAF
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.UNSPECIFIED_LEAF
     }

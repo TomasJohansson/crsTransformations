@@ -1,6 +1,5 @@
 package com.programmerare.crsTransformationAdapterOrbisgisCTS
 
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationImplementationType
@@ -51,10 +50,6 @@ class CrsTransformationAdapterOrbisgisCTS : CrsTransformationAdapterBaseLeaf(), 
     }
 
     // ----------------------------------------------------------
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_ORBISGIS_1_5_2
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_ORBISGIS
     }

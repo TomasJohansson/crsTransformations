@@ -36,8 +36,8 @@ final class CrsTransformationAdapterComposite private constructor(
         // the semantic is not really correct here, since it is not actually 
         // an adapter to a third party adaptee library but instead
         // the composites can simply refer to the library itself
-        return "1.1.1" // the same as the library itself as specified in build.gradle like below: 
-        // ext.crsTransformationVersion = '1.1.1' + rootProject.snapshotSuffixOrEmpty 
+        return "2.0.0" // the same as the library itself as specified in build.gradle like below: 
+        // ext.crsTransformationVersion = '2.0.0' + rootProject.snapshotSuffixOrEmpty 
     }
 
     override final protected fun transformHook(inputCoordinate: CrsCoordinate, crsIdentifierForOutputCoordinateSystem: CrsIdentifier): CrsCoordinate {
@@ -73,9 +73,6 @@ final class CrsTransformationAdapterComposite private constructor(
         return true
     }
 
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return compositeStrategy._getAdapteeType()
-    }
     override fun getImplementationType() : CrsTransformationImplementationType {
         return compositeStrategy._getImplementationType()
     }

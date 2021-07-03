@@ -6,7 +6,6 @@ import com.github.goober.coordinatetransformation.positions.RT90Position
 import com.github.goober.coordinatetransformation.positions.SWEREF99Position
 import com.github.goober.coordinatetransformation.positions.SWEREF99Position.SWEREFProjection
 import com.github.goober.coordinatetransformation.positions.WGS84Position
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationImplementationType
@@ -142,10 +141,6 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
 
 
     // ----------------------------------------------------------
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_GOOBER_1_1
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_GOOBER
     }

@@ -1,7 +1,6 @@
 package com.programmerare.crsTransformationAdapterGeoTools
 
 // build.gradle: implementation("org.geotools:gt-main:[TheCurrentVersion]")
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.coordinate.createFromYNorthingLatitudeAndXEastingLongitude
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationAdapter
@@ -64,11 +63,6 @@ class CrsTransformationAdapterGeoTools : CrsTransformationAdapterBaseLeaf(), Crs
     }
 
     // ----------------------------------------------------------
-
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_GEOTOOLS_23_2
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_GEOTOOLS
     }

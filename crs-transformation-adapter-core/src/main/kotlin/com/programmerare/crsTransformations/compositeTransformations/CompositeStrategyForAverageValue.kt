@@ -35,9 +35,6 @@ internal class CompositeStrategyForAverageValue private constructor(
         )
    }
 
-    override fun _getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.COMPOSITE_AVERAGE
-    }
     override fun _getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.COMPOSITE_AVERAGE
     }

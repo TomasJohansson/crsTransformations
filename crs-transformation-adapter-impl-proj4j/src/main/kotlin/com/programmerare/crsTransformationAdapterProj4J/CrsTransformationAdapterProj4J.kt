@@ -1,6 +1,5 @@
 package com.programmerare.crsTransformationAdapterProj4J
 
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import org.osgeo.proj4j.CRSFactory;
 import org.osgeo.proj4j.CoordinateTransformFactory;
 import org.osgeo.proj4j.ProjCoordinate;
@@ -49,10 +48,6 @@ class CrsTransformationAdapterProj4J : CrsTransformationAdapterBaseLeaf(), CrsTr
     }
 
     // ----------------------------------------------------------
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_PROJ4J_0_1_0
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_PROJ4J
     }

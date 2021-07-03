@@ -1,6 +1,5 @@
 package com.programmerare.crsTransformations.compositeTransformations
 
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationImplementationType
 import com.programmerare.crsTransformations.CrsTransformationResult
@@ -111,9 +110,6 @@ internal class CompositeStrategyForWeightedAverageValue private constructor(
         }
     }
 
-    override fun _getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.COMPOSITE_WEIGHTED_AVERAGE
-    }
     override fun _getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.COMPOSITE_WEIGHTED_AVERAGE
     }

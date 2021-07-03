@@ -35,9 +35,6 @@ internal class CompositeStrategyForMedianValue private constructor(
         )
     }
 
-    override fun _getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.COMPOSITE_MEDIAN
-    }
     override fun _getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.COMPOSITE_MEDIAN
     }

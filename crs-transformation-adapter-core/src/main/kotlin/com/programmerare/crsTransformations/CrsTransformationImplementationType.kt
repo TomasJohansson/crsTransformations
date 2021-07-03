@@ -9,10 +9,7 @@ package com.programmerare.crsTransformations
  *
  * The names of the leafs in the enumeration does NOT include information
  * about the version number for the adaptee library it represents.
- * (but the version number was included in the type CrsTransformationAdapteeType 
- *  which is now deprecated and the usage of it is intended to be replaced with this enum instead 
- *  and if the version number is desirable then there is a method for retrieving 
- *  it in [CrsTransformationAdapter]) 
+ * (but the interface 'CrsTransformationAdapter' provides a method that returns the version) 
  *
  * @author Tomas Johansson ( http://programmerare.com )
  * The code in the "crs-transformation-adapter-core" project is licensed with MIT.

@@ -49,9 +49,6 @@ internal class CompositeStrategyForFirstSuccess private constructor(
         }
     }
 
-    override fun _getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.COMPOSITE_FIRST_SUCCESS
-    }
     override fun _getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.COMPOSITE_FIRST_SUCCESS
     }    

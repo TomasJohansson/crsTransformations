@@ -3,7 +3,6 @@ package com.programmerare.crsTransformationAdapterProj4jLocationtech
 import org.locationtech.proj4j.CRSFactory
 import org.locationtech.proj4j.CoordinateTransformFactory
 import org.locationtech.proj4j.ProjCoordinate
-import com.programmerare.crsTransformations.CrsTransformationAdapteeType
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf
 import com.programmerare.crsTransformations.CrsTransformationImplementationType
@@ -52,10 +51,6 @@ class CrsTransformationAdapterProj4jLocationtech : CrsTransformationAdapterBaseL
     }
 
     // ----------------------------------------------------------
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        return CrsTransformationAdapteeType.LEAF_PROJ4J_LOCATIONTECH_1_1_1
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         return CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH
     }

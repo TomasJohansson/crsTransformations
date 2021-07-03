@@ -69,7 +69,6 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
             inputCoordinate,
             crsIdentifierForOutputCoordinateSystem
         )
-        // println("" + this.getAdapteeType() + " transformToCoordinate " + crsCoordinate)
         return crsCoordinate        
     }
     // -------------------------------------------------
@@ -118,11 +117,6 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
         }
     }
 
-    override fun getAdapteeType() : CrsTransformationAdapteeType {
-        // Should be overridden by subclasses
-        return CrsTransformationAdapteeType.UNSPECIFIED
-    }
-
     override fun getImplementationType() : CrsTransformationImplementationType {
         // Should be overridden by subclasses
         return CrsTransformationImplementationType.UNSPECIFIED
@@ -149,7 +143,6 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
      *      includes the version name and can be asserted in test code
      *      to help remembering that the value of an enum specifying
      *      the 'adaptee' (and version) should be updated after an adaptee upgrade.
-     * @see CrsTransformationAdapteeType
      */
     protected open fun getNameOfJarFileOrEmptyString(): String {
         return ""
