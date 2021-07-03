@@ -1,6 +1,6 @@
 package com.programmerare.crsTransformationAdapterOrbisgisCTS;
 
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.CrsTransformationResultStatistic;
 import com.programmerare.crsTransformations.CrsTransformationResult;

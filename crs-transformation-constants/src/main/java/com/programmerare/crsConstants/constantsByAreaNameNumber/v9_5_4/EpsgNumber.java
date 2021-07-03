@@ -23,7 +23,7 @@ package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_5_4;
 // https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-constants
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
 // Please also note that the EPSG version number (from www.epsg-registry.org) is reflected in the package name, for example as the below row illustrates with version 9.8.9:
-//      package com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9;
+//      package com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027;
 @Deprecated
 public class EpsgNumber {
 

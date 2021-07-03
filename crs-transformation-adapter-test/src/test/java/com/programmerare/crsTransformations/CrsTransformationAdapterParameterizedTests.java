@@ -1,7 +1,7 @@
 package com.programmerare.crsTransformations;
 
 import com.programmerare.com.programmerare.testData.TestCategory;
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
 import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier;

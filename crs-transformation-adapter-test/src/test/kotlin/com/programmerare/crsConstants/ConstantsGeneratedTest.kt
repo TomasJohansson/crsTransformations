@@ -12,7 +12,7 @@ class ConstantsGeneratedTest {
 //            com.programmerare.crsConstants.constantsByNumberNameArea.v9_8_9.EpsgNumber._3006__SWEREF99_TM__SWEDEN,
 //            com.programmerare.crsConstants.constantsByNumberAreaName.v9_8_9.EpsgNumber._3006__SWEDEN__SWEREF99_TM,
 
-            com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber.SWEDEN__SWEREF99_TM__3006,
+            com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber.SWEDEN__SWEREF99_TM__3006,
             3006
 //            com.programmerare.crsConstants.constantsByAreaNumberName.v9_8_9.EpsgNumber.SWEDEN__3006__SWEREF99_TM,
 
@@ -28,7 +28,7 @@ class ConstantsGeneratedTest {
 //            com.programmerare.crsConstants.constantsByNumberNameArea.v9_8_9.EpsgCode._3006__SWEREF99_TM__SWEDEN,
 //            com.programmerare.crsConstants.constantsByNumberAreaName.v9_8_9.EpsgCode._3006__SWEDEN__SWEREF99_TM,
 
-            // com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgCode.SWEDEN__SWEREF99_TM__3006
+            // com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgCode.SWEDEN__SWEREF99_TM__3006
 //            com.programmerare.crsConstants.constantsByAreaNumberName.v9_8_9.EpsgCode.SWEDEN__3006__SWEREF99_TM,
 
 //            com.programmerare.crsConstants.constantsByNameAreaNumber.v9_8_9.EpsgCode.SWEREF99_TM__SWEDEN__3006,

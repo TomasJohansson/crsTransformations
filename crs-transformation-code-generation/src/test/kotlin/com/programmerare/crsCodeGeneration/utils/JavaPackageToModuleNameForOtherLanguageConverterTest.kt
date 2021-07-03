@@ -9,7 +9,7 @@ internal class JavaPackageToModuleNameForOtherLanguageConverterTest {
         assertEquals(
             "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_8_9",
             JavaPackageToModuleNameForOtherLanguageConverter.getAsNameOfCSharpeNameSpace(
-                "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9"
+                "com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027"
             )
         )
     }

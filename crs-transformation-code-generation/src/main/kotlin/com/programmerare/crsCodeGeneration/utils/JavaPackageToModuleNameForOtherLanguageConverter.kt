@@ -5,7 +5,7 @@ object JavaPackageToModuleNameForOtherLanguageConverter {
     private val regexMatchingVersionPart = Regex("""v[_\d]+""")
 
     /**
-     * @param nameOfJavaPackage e.g. "com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9"
+     * @param nameOfJavaPackage e.g. "com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027"
      * @return something like "Programmerare.CrsConstants.ConstantsByAreaNameNumber.v9_8_9"
      */
     fun getAsNameOfCSharpeNameSpace(nameOfJavaPackage: String): String {

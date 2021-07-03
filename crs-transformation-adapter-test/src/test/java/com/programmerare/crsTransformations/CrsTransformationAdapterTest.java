@@ -323,7 +323,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
             // it will be the Composite FirstSuccess which also will only have one result 
             // and thus can be tested in the same way as the leafs in this method
             final CrsCoordinate wgs84coordinateInSweden = CrsCoordinateFactory.latLon(59.29,18.03);
-            final CrsTransformationResult resultWhenTransformingToSwedishCRS = crsTransformationAdapterLeaf.transform(wgs84coordinateInSweden, com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber.SWEDEN__SWEREF99_TM__3006);
+            final CrsTransformationResult resultWhenTransformingToSwedishCRS = crsTransformationAdapterLeaf.transform(wgs84coordinateInSweden, com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber.SWEDEN__SWEREF99_TM__3006);
             assertNotNull(resultWhenTransformingToSwedishCRS);
             assertTrue(resultWhenTransformingToSwedishCRS.isSuccess());
             final CrsTransformationResultStatistic crsTransformationResultStatistic = resultWhenTransformingToSwedishCRS.getCrsTransformationResultStatistic();
@@ -369,7 +369,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         
         for (CrsTransformationAdapter crsTransformationAdapterComposite : crsTransformationAdapterImplementationsExpectingManyResults) {
             final CrsCoordinate wgs84coordinateInSweden = CrsCoordinateFactory.latLon(59.29,18.03);
-            final CrsTransformationResult resultWhenTransformingToSwedishCRS = crsTransformationAdapterComposite.transform(wgs84coordinateInSweden, com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber.SWEDEN__SWEREF99_TM__3006);
+            final CrsTransformationResult resultWhenTransformingToSwedishCRS = crsTransformationAdapterComposite.transform(wgs84coordinateInSweden, com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber.SWEDEN__SWEREF99_TM__3006);
             assertNotNull(resultWhenTransformingToSwedishCRS);
             assertTrue(resultWhenTransformingToSwedishCRS.isSuccess());
             final CrsTransformationResultStatistic crsTransformationResultStatistic = resultWhenTransformingToSwedishCRS.getCrsTransformationResultStatistic();
