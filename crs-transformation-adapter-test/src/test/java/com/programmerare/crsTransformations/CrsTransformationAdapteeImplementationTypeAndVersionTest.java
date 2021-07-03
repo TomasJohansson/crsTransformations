@@ -42,9 +42,9 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void geotoolsAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
-            "gt-main-23.2.jar",
+            "gt-main-25.1.jar",
             CrsTransformationImplementationType.LEAF_GEOTOOLS,
-            "23.2"
+            "25.1"
         );
     }
 

@@ -100,8 +100,8 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForGeoTools,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_23.2"  // build.gradle: implementation("org.geotools:gt-main:23.2")
-            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_23.2.csv
+            "_version_25.1"  // build.gradle: implementation("org.geotools:gt-main:25.1")
+            // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_25.1.csv
         );
         // There are differences in the GeoTools generated files (e.g. when using version 21.0 instead of 19.1)
         // but when roughly looking at the files with WinMerge the differences seem to be very small.
