@@ -72,9 +72,9 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void proj4jLocationtechAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4jLocationtech(),
-            "proj4j-1.1.1.jar",
+            "proj4j-1.1.3.jar",
             CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH,
-            "1.1.1"
+            "1.1.3"
         );
     }
 

@@ -363,7 +363,7 @@ project(':crs-transformation-adapter-impl-proj4jlocationtech') {
     dependencies {
         api project(':crs-transformation-adapter-core')
         // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j/
-        implementation("org.locationtech.proj4j:proj4j:1.1.1") // TODO try upgrading to 1.1.3
+        implementation("org.locationtech.proj4j:proj4j:1.1.3")
     }
     publishing {
         publications {

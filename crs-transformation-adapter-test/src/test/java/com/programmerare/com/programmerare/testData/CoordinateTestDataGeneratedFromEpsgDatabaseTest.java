@@ -162,7 +162,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
             testResultForProj4jLocationtech,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_1.1.1" // build.gradle: implementation("org.locationtech.proj4j:proj4j:1.1.1")
+            "_version_1.1.3" // build.gradle: implementation("org.locationtech.proj4j:proj4j:1.1.3")
         );
     }    
 
