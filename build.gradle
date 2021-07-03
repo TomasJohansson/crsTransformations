@@ -652,13 +652,14 @@ project(':crs-transformation-adapter-core') {
 }
 
 project(':crs-transformation-constants') {
-    sourceSets {
-        main {
-            java {
-                include "**/v9_8_9/*.java"
-            }
-        }
-    }
+// When publishing a new version of the constants, then use some configuration like below, to only include the latest version:
+//    sourceSets {
+//        main {
+//            java {
+//                include "**/v10_027/*.java"
+//            }
+//        }
+//    }
     publishing {
         publications {
             crstransformationsconstants(MavenPublication) {
@@ -700,6 +701,10 @@ project(':crs-transformation-constants') {
                 }
             }
         }
+    }
+    dependencies {
+        testImplementation("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_version")
     }
 }
 
