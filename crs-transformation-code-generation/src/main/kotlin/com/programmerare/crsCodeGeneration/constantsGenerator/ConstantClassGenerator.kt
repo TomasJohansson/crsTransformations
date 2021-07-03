@@ -15,7 +15,7 @@ import java.io.File
 // gradlew generateClassesWithEpsgConstants --args="v9_6_3 epsg_version_9_6_3 MyDatabaseUserName MyDatabasePassword csv"
 
 /**
- * Below are step by step instructions for how to generate new constants when a new EPSG version is downloaded.
+ * Below are step by step instructions for how to generate new constants when a new EPSG version is downloaded. 
  * (i.e. constants within "crsConstants" e.g. the file ".\crsConstants\src\main\java\com\programmerare\crsConstants\constantsByAreaNameNumber\v9_6_3\EpsgCode.java")
  *
  * 1. Download the latest version of a MySQL/MariaDB file from this website:
@@ -86,7 +86,8 @@ import java.io.File
  *          database name e.g. "epsg_version_9_6_3"
  *          database user name
  *          database user password
- *          typeOfFilesToBeGenerated  with one the below currently supported values: 
+ *          typeOfFilesToBeGenerated  with one the below currently supported values:
+ *                                      all
  *                                      java
  *                                      kotlin
  *                                      csharpe
@@ -169,6 +170,33 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         public const val CLASS_NAME_INTEGER_CONSTANTS = "EpsgNumber"
         private const val CLASS_NAME_STRING_CONSTANTS = "EpsgCode"
         private const val PACKAGE_NAME_PREFIX = "com.programmerare.crsConstants."
+
+        private val regularExpressionForVersionSuffix = Regex("""v(\d+|\d+[_\d]*\d+)""")
+        /**
+         * @param versionSuffix a string such as "v9_6_3" (for a version 9.6.3)
+         *  i.e. the "v" as prefix and then some version number with one or more digits,
+         *  but instead of the normal dots the separator between major/minor version numbers should be underscore.
+         *  The usage of the validated string is that it will be used as the last part of a package name.
+         */
+        @JvmStatic
+        fun isValidAsVersionPrefix(versionSuffix: String): Boolean {
+            return regularExpressionForVersionSuffix.matches(versionSuffix)
+        }
+
+        /**
+         * Return empty string if validation is okay, otherwise
+         * a string with a validation message that should be displayed
+         */
+        @JvmStatic
+        fun getValidationErrorMessageOrEmptyStringIfNoError(args: Array<String>): String {
+            if (args.size < 5) {
+                return "The method should have five parameters"
+            }
+            if(!isValidAsVersionPrefix(args[0])) {
+                return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_6_3' "
+            }
+            return ""
+        }        
     } // companion object ends here
     // --------------------------------------------------------------------------------
     
@@ -232,31 +260,6 @@ class ConstantClassGenerator : CodeGeneratorBase() {
         else {
             println("Unsupported argument: " + typeOfFilesToBeGenerated)
         }        
-    }
-    
-    /**
-     * Return empty string if validation is okay, otherwise
-     * a string with a validation message that should be displayed
-     */
-    fun getValidationErrorMessageOrEmptyStringIfNoError(args: Array<String>): String {
-        if (args.size < 5) {
-            return "The method should have five parameters"
-        }
-        if(!isValidAsVersionPrefix(args[0])) {
-            return "The version prefix is not valid. It should be a 'v' with some numbers, potentially separated with '_' instead of '.' . Example: 'v9_6_3' "
-        }
-        return ""
-    }
-
-    private val regularExpressionForVersionSuffix = Regex("""v(\d+|\d+[_\d]*\d+)""")
-    /**
-     * @param versionSuffix a string such as "v9_6_3" (for a version 9.6.3)
-     *  i.e. the "v" as prefix and then some version number with one or more digits,
-     *  but instead of the normal dots the separator between major/minor version numbers should be underscore.
-     *  The usage of the validated string is that it will be used as the last part of a package name.
-     */
-    fun isValidAsVersionPrefix(versionSuffix: String): Boolean {
-        return regularExpressionForVersionSuffix.matches(versionSuffix)
     }
     
     private var _epsgVersion = "v_NotYetDefined" // should be something like "v9_6_3"
