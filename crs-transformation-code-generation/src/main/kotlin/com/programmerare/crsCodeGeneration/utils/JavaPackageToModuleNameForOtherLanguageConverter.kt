@@ -21,7 +21,7 @@ object JavaPackageToModuleNameForOtherLanguageConverter {
                 sb.append(part)
             }
             else {
-                sb.append(part.capitalize())
+                sb.append(part.replaceFirstChar { it.uppercase() })
             }
         }
         return sb.toString()

@@ -16,7 +16,7 @@ internal abstract class CompositeStrategyBase protected constructor
     : CompositeStrategy {
 
     init {
-        if(crsTransformationAdapters == null || crsTransformationAdapters.size < 1) {
+        if(crsTransformationAdapters.size < 1) {
             throw RuntimeException("'Composite' adapter can not be created with an empty list of 'leaf' adapters") 
         }
     }

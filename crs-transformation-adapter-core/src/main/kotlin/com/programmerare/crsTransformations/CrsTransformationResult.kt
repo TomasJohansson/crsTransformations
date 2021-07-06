@@ -85,8 +85,7 @@ class CrsTransformationResult private constructor(
         }
         this.exception = getExceptionIfNotNullButOtherwiseTryToGetExceptionsFromChildrenExceptionsIfExisting(_exception)
         
-        
-        if(transformationResultChildren == null || transformationResultChildren.size <= 0) {
+        if(transformationResultChildren.size <= 0) {
             // SHOULD be a leaf since no children, i.e. throw exception if Composite
             if(crsTransformationAdapterResultSource.isComposite()) {
                 throw IllegalStateException("Inconsistent result: 'Composite' without 'leafs' (should not be possible)")    
@@ -102,19 +101,19 @@ class CrsTransformationResult private constructor(
     
     private fun getExceptionIfNotNullButOtherwiseTryToGetExceptionsFromChildrenExceptionsIfExisting(exception: Throwable?): Throwable? {
         if(exception != null) return exception
-        if(this.transformationResultChildren == null || this.transformationResultChildren.size == 0) return exception
+        if(this.transformationResultChildren.isEmpty()) return exception
         val sb = StringBuilder()
         for (transformationResultChild in this.transformationResultChildren) {
             if(transformationResultChild.exception != null) {
-                sb.appendln(transformationResultChild.exception.message)
+                sb.appendLine(transformationResultChild.exception.message)
             }
         }
         if(sb.isEmpty()){
             return null    
         }
         else {
-            sb.appendln("If you want more details with stacktrace you can try iterating the children for exceptions.")
-            sb.appendln("This composite exception message only contains the 'getMessage' part for each child exception.")
+            sb.appendLine("If you want more details with stacktrace you can try iterating the children for exceptions.")
+            sb.appendLine("This composite exception message only contains the 'getMessage' part for each child exception.")
             return RuntimeException(sb.toString())
         }
     }

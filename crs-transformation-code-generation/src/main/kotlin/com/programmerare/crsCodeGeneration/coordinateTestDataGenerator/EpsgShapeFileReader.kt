@@ -81,7 +81,7 @@ class EpsgShapeFileReader {
             val epsgShapeFileReader = EpsgShapeFileReader()
             val rowsOfAttributeTableAndCentroid = epsgShapeFileReader.extractAttributeDataFromShapefile(file.canonicalPath)
             for (item in rowsOfAttributeTableAndCentroid) {
-                if(item.AREA_NAME.toUpperCase().contains("SWEDEN")) {
+                if(item.AREA_NAME.uppercase().contains("SWEDEN")) {
                     println("AREA_CODE: " + item.AREA_CODE)
                     println("AREA_NAME: " + item.AREA_NAME)
                     println("LABEL: " + item.LABEL)

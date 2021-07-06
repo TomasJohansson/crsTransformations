@@ -18,8 +18,9 @@ internal class CrsCoordinateKotlinTest {
     fun createFromXEastingLongitudeAndYNorthingLatitude_shouldThrowException_whenYisNull() {
         // val y: Double = null // not possible with Kotlin but need to use "Double?" as below
         val y: Double? = null
-        
-        val exception = assertThrows(
+
+        // val exception = assertThrows(
+        assertThrows(
             Throwable::class.java
         ) {
             createFromXEastingLongitudeAndYNorthingLatitude(

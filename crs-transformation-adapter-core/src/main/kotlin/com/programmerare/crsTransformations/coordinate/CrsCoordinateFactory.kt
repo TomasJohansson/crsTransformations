@@ -420,8 +420,8 @@ fun createFromXEastingLongitudeAndYNorthingLatitude(
         throw IllegalArgumentException("Neither of the two coordinate parameters must be null i.e. neither 'X / Easting / Longitude' nor 'Y / Northing / Latitude'") 
     }
     return CrsCoordinate._internalXYfactory(
-        xEastingLongitude!!,
-        yNorthingLatitude!!,
+        xEastingLongitude,
+        yNorthingLatitude,
         crsIdentifier
     )
 }

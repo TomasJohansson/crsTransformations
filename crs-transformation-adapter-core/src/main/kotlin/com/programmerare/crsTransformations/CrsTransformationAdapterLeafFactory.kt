@@ -49,7 +49,9 @@ object CrsTransformationAdapterLeafFactory {
     fun isCrsTransformationAdapter(crsTransformationAdapterClassName: String?): Boolean {
         try {
             if(crsTransformationAdapterClassName == null) return false;
-            return createCrsTransformationAdapter(crsTransformationAdapterClassName) != null
+            // return createCrsTransformationAdapter(crsTransformationAdapterClassName) != null // compiler warning: createCrsTransformationAdapter(crsTransformationAdapterClassName) != null is always 'true'
+            createCrsTransformationAdapter(crsTransformationAdapterClassName)
+            return true // if not exception then OK
         }
         catch (e: Throwable) {
             return false

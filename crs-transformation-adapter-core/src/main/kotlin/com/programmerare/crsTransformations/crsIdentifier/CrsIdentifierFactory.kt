@@ -47,14 +47,14 @@ fun createFromCrsCode(crsCode: String): CrsIdentifier {
     }
     var crsIdentifierCode = crsCode.trim() // but does not uppercase here (unless EPSG below)
 
-    if(crsIdentifierCode.toUpperCase().startsWith(EPSG_PREFIX_UPPERCASED)) {
+    if(crsIdentifierCode.uppercase().startsWith(EPSG_PREFIX_UPPERCASED)) {
         val nonEpsgPartOfString = crsIdentifierCode.substring(LENGTH_OF_EPSG_PREFIX);
         val epsgNumberOrNull = nonEpsgPartOfString.toIntOrNull()
         if(epsgNumberOrNull != null) {
             epsgNumber = epsgNumberOrNull
             getValidEpsgNumberOrThrowIllegalArgumentExceptionMessageIfNotValid(epsgNumber)
             isEpsgCode = true
-            crsIdentifierCode = crsIdentifierCode.toUpperCase()
+            crsIdentifierCode = crsIdentifierCode.uppercase()
         }
     }
     return CrsIdentifier._internalCrsFactory(crsIdentifierCode, isEpsgCode, epsgNumber)
@@ -82,7 +82,7 @@ private fun getValidEpsgNumberOrThrowIllegalArgumentExceptionMessageIfNotValid(e
     if(epsgNumber == null) {
         throw IllegalArgumentException("EPSG number must not be null")    
     }
-    val epsgNumberNotNull: Int = epsgNumber!! // Never NullPointerException here because of above check
+    val epsgNumberNotNull: Int = epsgNumber
     
     if(epsgNumberNotNull <= 0) {
         throw IllegalArgumentException("EPSG number must not be non-positive but was: " + epsgNumberNotNull)

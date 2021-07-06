@@ -56,7 +56,7 @@ abstract class CodeGeneratorBase {
      * @return a file object for the directory "crs-transformation-code-generation"
      */
     fun getDirectoryForCodeGenerationModule(): File {
-        val pathToRootDirectoryForClassFiles: String? = CodeGeneratorBase.javaClass.getResource("/").path
+        val pathToRootDirectoryForClassFiles: String? = CodeGeneratorBase::class.java.getResource("/").path
         // the path retrieved above is now assumed to be like this:
         // " .../crs-transformation-code-generation/build/classes/kotlin/main/"
         // (and therefore by navigating upwards four directory we should find the directory "crs-transformation-code-generation")

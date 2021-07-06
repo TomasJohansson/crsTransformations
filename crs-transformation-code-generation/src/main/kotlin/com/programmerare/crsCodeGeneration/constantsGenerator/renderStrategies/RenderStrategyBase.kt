@@ -29,5 +29,5 @@ fun String.adjusted(): String {
 
 fun String.getUppercasedWithOnylValidCharacters(): String {
     // the last regexp below just makes sure there are will not be more than two "_" in a row
-    return this.toUpperCase().replace("[^a-zA-Z0-9_]".toRegex(), "_").replace("_{2,}".toRegex(), "__")
+    return this.uppercase().replace("[^a-zA-Z0-9_]".toRegex(), "_").replace("_{2,}".toRegex(), "__")
 }

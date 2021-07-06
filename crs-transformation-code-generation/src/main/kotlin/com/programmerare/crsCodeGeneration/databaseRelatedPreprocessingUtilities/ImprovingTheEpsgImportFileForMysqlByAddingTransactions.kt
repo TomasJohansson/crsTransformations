@@ -72,7 +72,7 @@ class ImprovingTheEpsgImportFileForMysqlByAddingTransactions {
                     println("ANSI / UTF8 problem ? : " + line)
                 }
 
-                if(line.trim().toLowerCase().startsWith("insert into")) {
+                if(line.trim().lowercase().startsWith("insert into")) {
                     insertCounterTotal++
                     insertCounterForOneTransaction++
                     if(insertCounterForOneTransaction > maxNumberOfInsertsForOneTransaction) {

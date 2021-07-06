@@ -22,7 +22,7 @@ final class CrsTransformationAdapterComposite private constructor(
      * Interface for calculating the resulting coordinate in different ways, 
      * e.g. one stratefy implementation calculates the median and another the average.
      */        
-    protected val compositeStrategy: CompositeStrategy
+    private val compositeStrategy: CompositeStrategy
 
 ) : CrsTransformationAdapterBase(), CrsTransformationAdapter {
 

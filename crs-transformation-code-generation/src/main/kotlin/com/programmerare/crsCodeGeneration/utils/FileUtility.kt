@@ -14,7 +14,7 @@ object FileUtility {
         expectedNameOfTargetBaseDirectoryToFind: String
     ): File {
         // File.separator
-        var returnDirectory = subDirectoryWhereTheUpwardsNavigationWillStart
+        var returnDirectory: File
         theLastPartsOfThePathsToTryNavigateUpFrom.forEach { subPath ->
             // examples of the current subPath:
                 // """\build\classes\kotlin\test\"""

@@ -39,7 +39,7 @@ abstract class CrsTransformationAdapterBaseLeaf : CrsTransformationAdapterBase()
                     inputCoordinate,
                     outputCoordinate,
                     exception = null,
-                    isSuccess = outputCoordinate != null,
+                    isSuccess = true, // outputCoordinate != null,  ==> compiler warning: Condition 'outputCoordinate != null' is always 'true'
                     crsTransformationAdapterResultSource = this
                 )
             }

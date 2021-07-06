@@ -174,8 +174,8 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
         return externalForm
     }
 
-    protected fun debug(s: String) {
-        //logger.debug(s) 
-        //logger.info(s)
-    }    
+//    protected fun debug(s: String) {
+//        //logger.debug(s)
+//        //logger.info(s)
+//    }
 }
