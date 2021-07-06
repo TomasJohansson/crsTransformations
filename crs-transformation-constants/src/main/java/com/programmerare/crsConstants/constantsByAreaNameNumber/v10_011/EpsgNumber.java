@@ -16,6 +16,7 @@ package com.programmerare.crsConstants.constantsByAreaNameNumber.v10_011;
 *   Distribution for profit is forbidden ... 
 *   Ownership of the EPSG Dataset by IOGP must be acknowledged... "
 */
+@Deprecated
 public class EpsgNumber {
 
     /**
