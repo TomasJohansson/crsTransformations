@@ -122,58 +122,6 @@ abstract class CrsTransformationAdapterBase : CrsTransformationAdapter {
         return CrsTransformationImplementationType.UNSPECIFIED
     }
 
-    // The below method is protected which means that: Be careful to remove it !
-    // External code might still be using it, i.e. removal could cause incompatibilities 
-    // if mixing core libraries and implementation libraries with different versions
-    // if it is removed.    
-    @Deprecated("Deprecated from version 1.1.1. Replacement: 'getSomeClassFromTheJarFileOfTheImplementationLibrary' and lazy loaded '_version'")
-    /**
-     * This helper method is protected since it is NOT intended for
-     * client code but only for test code purposes.
-     * 
-     * It should be overridden by subclasses.
-     * @return empty string is returned as the default value
-     *      which should also be returned byt the composites (i.e. they should not override).
-     *      
-     *      The 'leaf' adapter implementations should return the
-     *      name of the jar file (potentially including a path)
-     *      for the used adaptee library.
-     *      
-     *      The reason is that the jar files (retrieved through Maven)
-     *      includes the version name and can be asserted in test code
-     *      to help remembering that the value of an enum specifying
-     *      the 'adaptee' (and version) should be updated after an adaptee upgrade.
-     */
-    protected open fun getNameOfJarFileOrEmptyString(): String {
-        return ""
-    }
-
-    // The below method is protected which means that: Be careful to remove it !
-    // External code might still be using it, i.e. removal could cause incompatibilities 
-    // if mixing core libraries and implementation libraries with different versions
-    // if it is removed.
-    @Deprecated("Deprecated from version 1.1.1. Replacement: 'getSomeClassFromTheJarFileOfTheImplementationLibrary' and lazy loaded '_version'")
-    /**
-     * Protected helper method intended to be used from subclasses
-     * when implementing the method that should return the name
-     * of a jar file belonging to an adaptee library.
-     */
-    protected final fun getNameOfJarFileFromProtectionDomain(
-        protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary: ProtectionDomain
-    ): String {
-        // Doing the code in small steps below to figure out where the problem is when it does not work from Jython
-        // (though it does work from Java, Kotlin, Scala, Groovy and JRuby)
-        // Updated comment: The "jython problem" was fixed in git commit 8835e412ea26916d4f9f7c28752d3dadba0d34f3
-        //debug("getNameOfJarFileFromProtectionDomain protectionDomain: " + protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary) // "... protectionDomain: ProtectionDomain  (null <no signer certificates>)"
-        val codeSource = protectionDomainCreatedFromSomeClassInTheThidPartAdapteeLibrary.codeSource
-        //debug("getNameOfJarFileFromProtectionDomain codeSource: " + codeSource) // "... codeSource: (null <no signer certificates>)"
-        val location = codeSource.location
-        //debug("getNameOfJarFileFromProtectionDomain location: " + location) // "... location: null"
-        val externalForm = location.toExternalForm()
-        //debug("getNameOfJarFileFromProtectionDomain externalForm " + externalForm)
-        return externalForm
-    }
-
 //    protected fun debug(s: String) {
 //        //logger.debug(s)
 //        //logger.info(s)

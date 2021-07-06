@@ -145,24 +145,6 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
         return CrsTransformationImplementationType.LEAF_GOOBER
     }
 
-
-    // The purpose of the method below is to use it in test code
-    // for detecting upgrades to a new version (and then update the above method returned enum value)
-    // Future failure will be a reminder to update the above enum value
-    protected override fun getNameOfJarFileOrEmptyString(): String {
-        // Doing the code in small steps below to figure out where the problem is when it does not work from Jython
-        // (though it does work from Java, Kotlin, Scala, Groovy and JRuby)
-        // Updated comment: The "jython problem" was fixed in git commit 8835e412ea26916d4f9f7c28752d3dadba0d34f3
-        val clazz = WGS84Position::class
-        //debug("goober clazz: " + clazz) // "goober clazz: class com.github.goober.coordinatetransformation.positions.WGS84Position (Kotlin reflection is not available)"
-        val javaClazz = clazz.java
-        //debug("goober javaClazz: " + javaClazz) // "goober javaClazz: class com.github.goober.coordinatetransformation.positions.WGS84Position"
-        val protectionDomain = javaClazz.protectionDomain
-        //debug("goober protectionDomain: " + protectionDomain) // "goober protectionDomain: ProtectionDomain  (null <no signer certificates>)"
-        return super.getNameOfJarFileFromProtectionDomain(protectionDomain)
-
-    }
-
     /**
      * @since 1.1.1
      */    

@@ -46,13 +46,6 @@ class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf()
         return CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE
     }
     
-    // The purpose of the method below is to use it in test code
-    // for detecting upgrades to a new version (and then update the above method returned enum value)
-    // Future failure will be a reminder to update the above enum value
-    protected override fun getNameOfJarFileOrEmptyString(): String {
-        return super.getNameOfJarFileFromProtectionDomain(ContentsDao::class.java.protectionDomain)
-    }
-
     /**
      * @since 1.1.1
      */    

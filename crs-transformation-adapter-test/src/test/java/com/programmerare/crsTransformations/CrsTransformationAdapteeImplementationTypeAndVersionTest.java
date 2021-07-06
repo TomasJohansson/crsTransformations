@@ -32,9 +32,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void orbisgisAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
-            "cts-1.5.2.jar",
             CrsTransformationImplementationType.LEAF_ORBISGIS,
-            "1.5.2"
+            "1.5.2" // "cts-1.5.2.jar"
         );
     }
     
@@ -42,9 +41,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void geotoolsAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
-            "gt-main-25.1.jar",
             CrsTransformationImplementationType.LEAF_GEOTOOLS,
-            "25.1"
+            "25.1" // "gt-main-25.1.jar"
         );
     }
 
@@ -52,9 +50,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoPackageNGA(),
-            "geopackage-core-5.0.0.jar",
             CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE,
-            "5.0.0"
+            "5.0.0" // "geopackage-core-5.0.0.jar"
         );
     }
     
@@ -62,9 +59,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void proj4jAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4J(),
-            "proj4j-0.1.0.jar",
             CrsTransformationImplementationType.LEAF_PROJ4J,
-            "0.1.0"
+            "0.1.0" // "proj4j-0.1.0.jar"
         );
     }
 
@@ -72,9 +68,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void proj4jLocationtechAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4jLocationtech(),
-            "proj4j-1.1.3.jar",
             CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH,
-            "1.1.3"
+            "1.1.3" // "proj4j-1.1.3.jar"
         );
     }
 
@@ -82,9 +77,8 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void gooberAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGooberCTL(),
-            "coordinate-transformation-library-1.1.jar",
             CrsTransformationImplementationType.LEAF_GOOBER,
-            "1.1"
+            "1.1" // "coordinate-transformation-library-1.1.jar"
         );
     }
 
@@ -131,7 +125,6 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     ) {
         verifyExpectedEnumAndJarfileVersion(
             crsTransformationAdapter,
-            "",
             expectedCrsTransformationImplementationType,
             VersionOfCrsTransformationLibrary
         );
@@ -139,7 +132,6 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     
     private void verifyExpectedEnumAndJarfileVersion(
         CrsTransformationAdapterBase crsTransformationAdapter,
-        String emptyStringOrExpectedNameOfJarFile,
         CrsTransformationImplementationType expectedCrsTransformationImplementationType,
         String version
     ) {
@@ -150,15 +142,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedAdapteeVersion(
             crsTransformationAdapter,
             version
-        );        
-        
-        String fileNameIncludingPath = crsTransformationAdapter.getNameOfJarFileOrEmptyString();
-        if(!emptyStringOrExpectedNameOfJarFile.equals("")) {
-            assertThat(
-                "Likely failure reason: You have upgraded a version. If so, then upgrade both the enum value and the filename",
-                fileNameIncludingPath, endsWith(emptyStringOrExpectedNameOfJarFile)
-            );
-        }
+        );
     }
 
     private void verifyExpectedAdapteeVersion(
