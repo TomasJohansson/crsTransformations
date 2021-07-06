@@ -77,6 +77,11 @@ final class CrsTransformationAdapterComposite private constructor(
         return compositeStrategy._getImplementationType()
     }
 
+    // the class is final so there can be no subclasses but the method is protected to make it possible to access from Java test code
+    protected fun _getAllTransformationAdaptersInTheOrderTheyShouldBeInvoked(): List<CrsTransformationAdapter> {
+        return compositeStrategy._getAllTransformationAdaptersInTheOrderTheyShouldBeInvoked()
+    }
+
     internal companion object {
         /**
          * This method is not intended for public use,
