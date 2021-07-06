@@ -15,6 +15,7 @@ There is [sample code](https://github.com/TomasJohansson/crsTransformations/tree
 
 The third-part libraries (the adaptee's below) are Java libraries.  
 Versions of Java and Kotlin: **Java 1.8** and **Kotlin 1.3.72**  
+(in the [release](https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core) 1.1.1 but since then the Kotlin version has been upgraded in this git repository)
 
 # Usage
 The methods for transforming coordinates are defined in the interface *CrsTransformationAdapter*.  
