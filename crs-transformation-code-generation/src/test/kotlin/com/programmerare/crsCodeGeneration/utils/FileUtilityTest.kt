@@ -42,6 +42,6 @@ internal class FileUtilityTest {
             expectedNameOfTargetBaseDirectoryToFind = CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION
         )
         assertEquals(CodeGeneratorBase.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, directory.name)
-        assertEquals(CodeGeneratorBase.NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES, directory.parentFile.name)        
+
     }
 }

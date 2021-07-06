@@ -144,13 +144,13 @@ abstract class CodeGeneratorBase {
 
     companion object {
 
-        @JvmField
-        val NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES = "crsTransformations"
-        
-        // The above and below constants mean that there are directories like this:
+        // If you clone the git repository (https://github.com/TomasJohansson/crsTransformations)
+        // without renaming it then the name of the base directory becomes "crsTransformations"
+        // which will mean that there are directories like this:
         //      .../crsTransformations/crs-transformation-code-generation
         //      .../crsTransformations/crs-transformation-constants
         //      .../crsTransformations/crs-transformation-adapter-test
+        // and the below constants represent the names of the above subdirectories
         
         @JvmField
         val NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION = "crs-transformation-code-generation"

@@ -1,7 +1,6 @@
 package com.programmerare.crsCodeGeneration.constantsGenerator
 
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase
-import com.programmerare.crsCodeGeneration.CodeGeneratorBase.Companion.NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES
 import com.programmerare.crsCodeGeneration.CodeGeneratorBase.Companion.NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
@@ -55,6 +54,5 @@ internal class ConstantClassGeneratorTest {
         val constantGenerator: CodeGeneratorBase = ConstantClassGenerator()
         val file = constantGenerator.getDirectoryForCodeGenerationModule()
         assertEquals(NAME_OF_MODULE_DIRECTORY_FOR_CODE_GENERATION, file.name)
-        assertEquals(NAME_OF_BASE_DIRECTORY_CONTAINING_THE_MODULES, file.parentFile.name)
     }
 }
