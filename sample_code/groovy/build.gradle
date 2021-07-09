@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
     // Use the latest Groovy version for building this library
-    implementation 'org.codehaus.groovy:groovy-all:2.5.10'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.8'
     
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.8.9'
     // The above "crs-transformation-constants" is a Java library 
@@ -39,12 +39,20 @@ dependencies {
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:$adapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$adapterVersion"
 
-    // Use the awesome Spock testing and specification framework
-    testImplementation 'org.spockframework:spock-core:1.3-groovy-2.5'
+    // https://github.com/spockframework/spock-example/blob/master/build.gradle
+    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+    testImplementation "org.spockframework:spock-core"
+    testImplementation "org.spockframework:spock-junit4"
+
+    testImplementation 'junit:junit:4.13.2'
 }
 
 application {
     // cd sample_code/groovy
     // gradlew run
     mainClassName = 'groovy_sample.CrsTransformation'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

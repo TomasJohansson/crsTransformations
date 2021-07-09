@@ -6,8 +6,8 @@ import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumbe
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory
 import com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactory
 
-// cd sample_code/groovy
-// gradlew test
+// cd sample_code/groovy 
+// gradlew test 
 class CrsTransformationTest extends Specification {
     
     @Shared expectedOutputCoordinate
