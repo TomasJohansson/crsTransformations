@@ -1,7 +1,7 @@
 package com.programmerare.crsTransformations.compositeTransformations;
 
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
+import com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -162,7 +162,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
         final List<CrsTransformationAdapterWeight> weightedCrsTransformationAdapters =
             Arrays.asList(
                 CrsTransformationAdapterWeight.createFromInstance(
-                    new CrsTransformationAdapterGeoPackageNGA(),
+                    new CrsTransformationAdapterNgaGeoInt(),
                     1 // null is not possible (compiling error) which is good !
                 )
             );
@@ -175,7 +175,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
     @Test    
     void calculateAggregatedResultTest() {
         // TODO refactor this too long test method
-        final CrsTransformationAdapter crsTransformationAdapterResultSource = new CrsTransformationAdapterGeoPackageNGA();
+        final CrsTransformationAdapter crsTransformationAdapterResultSource = new CrsTransformationAdapterNgaGeoInt();
         final List<CrsTransformationAdapterWeight> crsTransformationAdapterWeights = Arrays.asList(
             CrsTransformationAdapterWeight.createFromInstance(
                 crsTransformationAdapterResultSource,

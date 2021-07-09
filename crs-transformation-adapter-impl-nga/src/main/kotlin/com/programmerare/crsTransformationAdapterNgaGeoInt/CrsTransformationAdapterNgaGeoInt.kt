@@ -1,4 +1,4 @@
-package com.programmerare.crsTransformationAdapterGeoPackageNGA
+package com.programmerare.crsTransformationAdapterNgaGeoInt
 
 import com.programmerare.crsTransformations.CrsTransformationAdapter
 import com.programmerare.crsTransformations.CrsTransformationAdapterBaseLeaf

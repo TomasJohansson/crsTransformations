@@ -1,7 +1,7 @@
 package com.programmerare.crsTransformations;
 
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
+import com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
