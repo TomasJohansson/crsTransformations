@@ -62,7 +62,7 @@ class CrsTransformationAdapterNgaGeoInt : CrsTransformationAdapterBaseLeaf(), Cr
 
     // ----------------------------------------------------------
     override fun getImplementationType() : CrsTransformationImplementationType {
-        return CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE
+        return CrsTransformationImplementationType.LEAF_NGA_GEOINT
     }
     
     /**

@@ -25,10 +25,7 @@ enum class CrsTransformationImplementationType {
     
     LEAF_ORBISGIS,
 
-    @Deprecated("Replace with LEAF_NGA_GEOINT")
-    LEAF_NGA_GEOPACKAGE,
-
-    LEAF_NGA_GEOINT, // will replace LEAF_NGA_GEOPACKAGE (after the renaming of the class CrsTransformationAdapterGeoPackageNGA ==> CrsTransformationAdapterNgaGeoInt)
+    LEAF_NGA_GEOINT,
     
     LEAF_PROJ4J,
     
