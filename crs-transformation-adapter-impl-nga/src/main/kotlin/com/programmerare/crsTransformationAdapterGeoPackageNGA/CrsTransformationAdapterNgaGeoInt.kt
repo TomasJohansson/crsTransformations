@@ -25,7 +25,7 @@ import mil.nga.sf.proj.ProjectionFactory
  * The code in the "crs-transformation-adapter-impl-nga" project
  * is also licensed with MIT i.e. the same license as the adaptee library ngageoint/geopackage.
  */
-class CrsTransformationAdapterGeoPackageNGA : CrsTransformationAdapterBaseLeaf(), CrsTransformationAdapter {
+class CrsTransformationAdapterNgaGeoInt : CrsTransformationAdapterBaseLeaf(), CrsTransformationAdapter {
 
     override protected fun transformHook(
         inputCoordinate: CrsCoordinate,

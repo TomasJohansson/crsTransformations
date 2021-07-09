@@ -2,7 +2,7 @@ package com.programmerare.com.programmerare.testData;
 
 import com.google.common.io.Resources; // library "com.google.guava:guava" 
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -122,7 +122,7 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         //    seconds: 122
         //    countOfSuccess: 3918
         //    countOfFailures: 2517
-        TestResult testResultForGeoPackage = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterGeoPackageNGA(), list);
+        TestResult testResultForGeoPackage = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterNgaGeoInt(), list);
         handleTestResults(
             testResultForGeoPackage,
             DELTA_LIMIT_FOR_SUCCESS,

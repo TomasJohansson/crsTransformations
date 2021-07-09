@@ -1,7 +1,6 @@
 package com.programmerare.crsTransformations;
 
-import static org.hamcrest.CoreMatchers.endsWith;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -49,7 +48,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     @Test
     void geopackageNgaAdapter_shouldMatchExpectedEnumAndJarfileNameWithVersion() {
         verifyExpectedEnumAndJarfileVersion(
-            new CrsTransformationAdapterGeoPackageNGA(),
+            new CrsTransformationAdapterNgaGeoInt(),
             CrsTransformationImplementationType.LEAF_NGA_GEOPACKAGE,
             "5.0.0" // "geopackage-core-5.0.0.jar"
         );
@@ -113,7 +112,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
     void testCompositeWeightedAverage() {
         verifyVersionOfCrsTransformationLibraryForComposite(
             CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(
-                Arrays.asList(CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1))
+                Arrays.asList(CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterNgaGeoInt(), 1))
             ),
             CrsTransformationImplementationType.COMPOSITE_WEIGHTED_AVERAGE
         );

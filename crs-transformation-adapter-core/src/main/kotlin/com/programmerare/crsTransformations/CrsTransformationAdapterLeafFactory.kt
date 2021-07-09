@@ -63,7 +63,7 @@ object CrsTransformationAdapterLeafFactory {
     // i.e. if they are renamed, it will detected by the test code
     private val classNamesForAllKnownImplementations = listOf(
         "com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL",
-        "com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA",
+        "com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt",
         "com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools",
         "com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS",
         "com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech",

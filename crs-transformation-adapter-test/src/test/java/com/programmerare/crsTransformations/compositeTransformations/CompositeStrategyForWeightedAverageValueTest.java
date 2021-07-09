@@ -1,7 +1,7 @@
 package com.programmerare.crsTransformations.compositeTransformations;
 
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -51,7 +51,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), weightForOrbis),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), weightForProj4jLocationtech),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), weightForProj4J),
-            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), weightForGeoPackageNGA)
+            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterNgaGeoInt(), weightForGeoPackageNGA)
         );
         final CrsTransformationAdapterComposite adapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationWeightedAverage(weights);
         assertWeightedAverageResult(adapter);
@@ -64,7 +64,7 @@ class CompositeStrategyForWeightedAverageValueTest extends CompositeStrategyTest
         final String classNameOrbis = CrsTransformationAdapterOrbisgisCTS.class.getName() ;
         final String classNameProj4J = CrsTransformationAdapterProj4J.class.getName() ;
         final String classNameProj4jLocationtech = CrsTransformationAdapterProj4jLocationtech.class.getName() ;
-        final String classNameGeoPackageNGA = CrsTransformationAdapterGeoPackageNGA.class.getName() ;
+        final String classNameGeoPackageNGA = CrsTransformationAdapterNgaGeoInt.class.getName() ;
 
         final List<CrsTransformationAdapterWeight> weights = Arrays.asList(
             CrsTransformationAdapterWeight.createFromStringWithFullClassNameForImplementation(classNameGeoTools, weightForGeoTools),

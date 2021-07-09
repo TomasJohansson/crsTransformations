@@ -1,6 +1,6 @@
 package com.programmerare.crsTransformations.compositeTransformations;
 
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -48,7 +48,7 @@ abstract class CompositeStrategyTestBase {
         adapterOrbisgisCTS = new CrsTransformationAdapterOrbisgisCTS();
         adapterProj4J = new CrsTransformationAdapterProj4J();
         adapterProj4jLocationtech = new CrsTransformationAdapterProj4jLocationtech();
-        adapterGeoPackageNGA = new CrsTransformationAdapterGeoPackageNGA();
+        adapterGeoPackageNGA = new CrsTransformationAdapterNgaGeoInt();
 
         allAdapters = Arrays.asList(
             // Regarding the order of the items in the list below:

@@ -1,12 +1,11 @@
 package com.programmerare.crsTransformations;
 
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
 import com.programmerare.crsTransformationAdapterProj4J.CrsTransformationAdapterProj4J;
 import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransformationAdapterProj4jLocationtech;
-import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterComposite;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory;
@@ -227,8 +226,8 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
         );
 
         assertEquals(
-            "GeoPackageNGA",
-            (new CrsTransformationAdapterGeoPackageNGA()).getShortNameOfImplementation()
+            "NgaGeoInt",
+            (new CrsTransformationAdapterNgaGeoInt()).getShortNameOfImplementation()
         );
         // The above tests are for the "Leaf" implementations.
 
@@ -238,7 +237,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
             Arrays.asList(
                 createFromInstance(new CrsTransformationAdapterProj4J(), 1.0),
                 createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 1.0),
-                createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1.0),
+                createFromInstance(new CrsTransformationAdapterNgaGeoInt(), 1.0),
                 createFromInstance(new CrsTransformationAdapterGeoTools(), 1.0),
                 createFromInstance(new CrsTransformationAdapterGooberCTL(), 2.0)
             )

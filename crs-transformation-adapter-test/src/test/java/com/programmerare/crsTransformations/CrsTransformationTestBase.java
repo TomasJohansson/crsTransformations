@@ -1,7 +1,7 @@
 package com.programmerare.crsTransformations;
 
 import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -34,7 +34,7 @@ abstract class CrsTransformationTestBase {
             new CrsTransformationAdapterProj4J(),
             new CrsTransformationAdapterProj4jLocationtech(),
             new CrsTransformationAdapterOrbisgisCTS(),
-            new CrsTransformationAdapterGeoPackageNGA()
+            new CrsTransformationAdapterNgaGeoInt()
         );
 
         crsTransformationAdapterCompositeImplementations = Arrays.asList(
@@ -47,7 +47,7 @@ abstract class CrsTransformationTestBase {
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), 53.0),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), 53.5),
                 CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 54.0),
-                CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 55.0)
+                CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterNgaGeoInt(), 55.0)
             ))
         );
         crsTransformationAdapterImplementations = new ArrayList<>();
