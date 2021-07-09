@@ -161,6 +161,7 @@ final class CrsTransformationAdapterTest extends CrsTransformationTestBase {
                 "org.locationtech.proj4j.UnknownAuthorityCodeException",
                 "org.cts.crs.CRSException",
                 "mil.nga.sf.util.SFException",
+                "mil.nga.proj.ProjectionException",
                 RuntimeException.class.getName() // composite throws this
             );
     

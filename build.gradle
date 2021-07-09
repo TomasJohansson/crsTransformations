@@ -5,10 +5,10 @@ buildscript {
     // https://github.com/junit-team/junit5/releases
     // https://mvnrepository.com/artifact/org.junit.jupiter
 	
-    // NOTE that if you upgrade implementations such as the below geopackage 
+    // NOTE that if you upgrade implementations such as the below ngageoint
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterNgaGeoInt_version_4.0.0.csv"
-    ext.geopackage_version = '5.0.0' // mil.nga.geopackage:geopackage-core:5.0.0 // https://github.com/ngageoint/geopackage-java/releases
+    ext.ngageoint_version = '4.0.0' // https://github.com/ngageoint/simple-features-proj-java/releases/tag/4.0.0
     ext.geotools_version = '25.1' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 
@@ -458,11 +458,9 @@ project(':crs-transformation-adapter-impl-nga') {
     dependencies {
         api project(':crs-transformation-adapter-core')
 
-        // https://mvnrepository.com/artifact/mil.nga.geopackage/geopackage
-        // https://github.com/ngageoint/GeoPackage
-        implementation("mil.nga.geopackage:geopackage:$geopackage_version") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
-        implementation("mil.nga.geopackage:geopackage-core:$geopackage_version")
-        // test code will detect upgrades with the purpose to update an enum if the file name changes from "geopackage-core-3.3.0.jar"
+        // https://mvnrepository.com/artifact/mil.nga.sf/sf-proj
+        // https://github.com/ngageoint/simple-features-proj-java
+        implementation("mil.nga.sf:sf-proj:$ngageoint_version") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
     }
     publishing {
         publications {
@@ -477,13 +475,13 @@ project(':crs-transformation-adapter-impl-nga') {
                     // <name>${project.groupId}:${project.artifactId}</name>
                     name = rootProject.crsTransformationGroupId + ":" + artifactId
 
-                    description = 'Coordinate Reference System Transformations adapter implementation using the adaptee third-part library ngageoint/geopackage-java.'
+                    description = 'Coordinate Reference System Transformations adapter implementation using the adaptee third-part library ngageoint/simple-features-proj-java.'
                     url = rootProject.mavenPomUrl
                     licenses {
                         license {
                             name = 'MIT License'
-                            url = 'https://github.com/ngageoint/geopackage-java/blob/master/LICENSE.txt'
-                            comments = 'MIT License, i.e. the same license as the used adaptee third-part library ngageoint/geopackage-java. The artifact crs-transformation-adapter-impl-nga is using ngageoint/geopackage-java and the same license MIT.'
+                            url = 'https://github.com/ngageoint/simple-features-proj-java/blob/master/LICENSE.txt'
+                            comments = 'MIT License, i.e. the same license as the used adaptee third-part library ngageoint/simple-features-proj-java. The artifact crs-transformation-adapter-impl-nga is using ngageoint/simple-features-proj-java and the same license MIT.'
                         }
                     }
                     developers {
