@@ -104,7 +104,7 @@ allprojects {
             url "https://repo.boundlessgeo.com/release/"
         }
         mavenCentral()
-        jcenter()
+        // jcenter() // jcenter() method has been deprecated. This is scheduled to be removed in Gradle 8.0. , https://docs.gradle.org/7.1.1/userguide/upgrading_version_6.html#jcenter_deprecation
         google()
     }
 	
@@ -533,7 +533,7 @@ project(':crs-transformation-code-generation') {
     // gradle generateClassesWithEpsgConstants --args="v9_8_9 epsg_version_9_8_9 dbUserName dbUserPassword java"
     // gradle generateClassesWithEpsgConstants --args="v9_8_9 epsg_version_9_8_9 dbUserName dbUserPassword csv"
     task generateClassesWithEpsgConstants(type:JavaExec) {
-        main = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator"
+        mainClass = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.programmerare.crsCodeGeneration.constantsGenerator.ConstantClassGenerator"
         classpath = sourceSets.main.runtimeClasspath
     }
 
@@ -542,7 +542,7 @@ project(':crs-transformation-code-generation') {
     // or, if something else than the default/hardcoded class name should be used:
     // gradle generateCsvTestDataFromEpsgDatabaseAndShapefile -PmainClass=com.programmerare.crs-transformation-adapter-impl-code-generation.coordinateTestDataGenerator.CoordinateTestDataGenerator
     task generateCsvTestDataFromEpsgDatabaseAndShapefile(type:JavaExec) {
-        main = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.programmerare.crs-transformation-adapter-impl-code-generation.coordinateTestDataGenerator.CoordinateTestDataGenerator"
+        mainClass = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.programmerare.crs-transformation-adapter-impl-code-generation.coordinateTestDataGenerator.CoordinateTestDataGenerator"
         classpath = sourceSets.main.runtimeClasspath
     }
 
