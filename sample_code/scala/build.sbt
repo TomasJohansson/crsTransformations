@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "3.0.0"
 
-val adapterVersion = "1.1.1"
+val adapterVersion = "2.0.0"
 
 // resolver for geotools (transitive dependency from "crs-transformation-adapter-impl-geotools"): 
 resolvers += "osgeo" at "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
@@ -13,7 +13,7 @@ resolvers += "osgeo" at "https://repo.osgeo.org/repository/release/" // https://
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
-libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "9.8.9"
+libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "10.027"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core
 //libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-adapter-core" % adapterVersion

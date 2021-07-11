@@ -16,7 +16,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
+    // jcenter() // deprecated
     maven {
         url "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
     }
@@ -26,10 +26,10 @@ dependencies {
     // Use the latest Groovy version for building this library
     implementation 'org.codehaus.groovy:groovy-all:3.0.8'
     
-    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:9.8.9'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027'
     // The above "crs-transformation-constants" is a Java library 
     // while the below "crs-transformation-adapter-*" are Kotlin libraries
-    def adapterVersion = "1.1.1"
+    def adapterVersion = "2.0.0"
 
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$adapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$adapterVersion"
@@ -50,7 +50,7 @@ dependencies {
 application {
     // cd sample_code/groovy
     // gradlew run
-    mainClassName = 'groovy_sample.CrsTransformation'
+    mainClass = 'groovy_sample.CrsTransformation'
 }
 
 tasks.named('test') {

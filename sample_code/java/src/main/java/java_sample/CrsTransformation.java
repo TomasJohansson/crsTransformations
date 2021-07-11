@@ -1,6 +1,6 @@
 package java_sample;
 
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber;
 
 import com.programmerare.crsTransformations.CrsTransformationImplementationType;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
@@ -18,7 +18,7 @@ import com.programmerare.crsTransformationAdapterProj4jLocationtech.CrsTransform
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -72,18 +72,18 @@ public class CrsTransformation {
         //    TargetCrsIdentifier: CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006)
         //    Coordinate transformations from EPSG 4326 to EPSG 3006
         //    LEAF_PROJ4J 0.1.0  : X / Y ===> 674032.357326444 / 6580821.991123579
-        //    LEAF_PROJ4J_LOCATIONTECH 1.1.1  : X / Y ===> 674032.357326444 / 6580821.991123579
-        //    LEAF_NGA_GEOPACKAGE 3.5.0  : X / Y ===> 674032.357326444 / 6580821.991123579
+        //    LEAF_PROJ4J_LOCATIONTECH 1.1.3  : X / Y ===> 674032.3573261689 / 6580821.991120384
+        //    LEAF_NGA_GEOINT 4.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120384
         //    LEAF_ORBISGIS 1.5.2  : X / Y ===> 674032.3573261796 / 6580821.991121078
         //    LEAF_GOOBER 1.1  : X / Y ===> 674032.357 / 6580821.991
-        //    LEAF_GEOTOOLS 23.0  : X / Y ===> 674032.3571771547 / 6580821.994371211
-        //    COMPOSITE_MEDIAN 1.1.1  : X / Y ===> 674032.3573263118 / 6580821.991123579
-        //    COMPOSITE_AVERAGE 1.1.1  : X / Y ===> 674032.357247111 / 6580821.991643838
-        //    COMPOSITE_FIRST_SUCCESS 1.1.1  : X / Y ===> 674032.357 / 6580821.991
-        //    COMPOSITE_WEIGHTED_AVERAGE 1.1.1  : X / Y ===> 674032.3572118095 / 6580821.991551861
+        //    LEAF_GEOTOOLS 25.1  : X / Y ===> 674032.3571771549 / 6580821.994371211
+        //    COMPOSITE_MEDIAN 2.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120731
+        //    COMPOSITE_AVERAGE 2.0.0  : X / Y ===> 674032.3572470193 / 6580821.991642772
+        //    COMPOSITE_FIRST_SUCCESS 2.0.0  : X / Y ===> 674032.357 / 6580821.991
+        //    COMPOSITE_WEIGHTED_AVERAGE 2.0.0  : X / Y ===> 674032.3572117308 / 6580821.991550948
         //    Short names of all Leaf implementations:
         //    GooberCTL
-        //    GeoPackageNGA
+        //    NgaGeoInt
         //    GeoTools
         //    OrbisgisCTS
         //    Proj4jLocationtech
@@ -114,7 +114,7 @@ public class CrsTransformation {
             createFromInstance(new CrsTransformationAdapterProj4J(), 1.0),
             createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), 1.0),
             createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 1.0),
-            createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1.0),
+            createFromInstance(new CrsTransformationAdapterNgaGeoInt(), 1.0),
             createFromInstance(new CrsTransformationAdapterGeoTools(), 1.0),
             createFromInstance(new CrsTransformationAdapterGooberCTL(), 2.0)
         );
@@ -125,7 +125,7 @@ public class CrsTransformation {
         allCrsTransformationAdapters = Arrays.asList(
             new CrsTransformationAdapterProj4J(),
             new CrsTransformationAdapterProj4jLocationtech(),
-            new CrsTransformationAdapterGeoPackageNGA(),
+            new CrsTransformationAdapterNgaGeoInt(),
             new CrsTransformationAdapterOrbisgisCTS(),
             new CrsTransformationAdapterGooberCTL(),
             new CrsTransformationAdapterGeoTools(),

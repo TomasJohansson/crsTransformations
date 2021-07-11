@@ -2,7 +2,7 @@ package groovy_sample
 
 import spock.lang.Shared
 import spock.lang.Specification
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber
 import com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory
 import com.programmerare.crsTransformations.CrsTransformationAdapterLeafFactory
 
@@ -45,7 +45,7 @@ class CrsTransformationTest extends Specification {
     // so if you want to learn better spock testing then please check out the above links.
     
     private def assertTransformationResult(crsTransformationResult) {
-        def errorMessageWithInformationAboutFailingImplementation = " Failing implementation: ${crsTransformationResult.crsTransformationAdapterResultSource.adapteeType}"
+        def errorMessageWithInformationAboutFailingImplementation = " Failing implementation: ${crsTransformationResult.crsTransformationAdapterResultSource.implementationType}"
 
         assertWithErrorMessage(crsTransformationResult.isSuccess, "isSuccess", errorMessageWithInformationAboutFailingImplementation)
 

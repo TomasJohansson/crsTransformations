@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 import org.scalatest.funsuite.AnyFunSuite
 
 // the import below is from the Java library "crs-transformation-constants"
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber
 
 // the three imports below are from the core Kotlin library "crs-transformation-adapter-core"
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate
@@ -46,7 +46,7 @@ class CrsTransformationTest extends AnyFunSuite {
   private lazy val expectedOnputCoordinate: CrsCoordinate = CrsCoordinateFactory.yx(6580822.0, 674032.0, EpsgNumber.SWEDEN__SWEREF99_TM__3006)
 
   private def assertTransformationResult(result: CrsTransformationResult) = {
-    val errorMessageWithInformationAboutFailingImplementation = s" Failing implementation: ${result.getCrsTransformationAdapterResultSource.getAdapteeType}"
+    val errorMessageWithInformationAboutFailingImplementation = s" Failing implementation: ${result.getCrsTransformationAdapterResultSource.getImplementationType}"
 
     assertResult(true, errorMessageWithInformationAboutFailingImplementation) {
       result.isSuccess

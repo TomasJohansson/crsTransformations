@@ -3,7 +3,7 @@
 		https://ant.apache.org/ivy/history/2.5.0/settings/property.html
 		https://stackoverflow.com/questions/2996048/can-i-use-properties-in-an-ivy-xml-file-to-avoid-repeating-version-numbers-of-de/3079655#3079655
 	 -->
-	<property name="adapterVersion" value="1.1.1"/> <!-- the property is used in ivy.xml -->
+	<property name="adapterVersion" value="2.0.0"/> <!-- the property is used in ivy.xml -->
 
 	<settings defaultResolver="local-chain"/>
 	<resolvers>

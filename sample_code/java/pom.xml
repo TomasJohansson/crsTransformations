@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-	<adapterVersion>1.1.1</adapterVersion>
+	<adapterVersion>2.0.0</adapterVersion>
   </properties>
 
   <dependencies>
@@ -24,7 +24,7 @@
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-constants</artifactId>
-		<version>9.8.9</version>
+		<version>10.027</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core -->

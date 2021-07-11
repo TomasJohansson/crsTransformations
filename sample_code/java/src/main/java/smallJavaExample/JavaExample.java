@@ -2,7 +2,7 @@
 // This content of this file is published at the above webpage
 package smallJavaExample;
 
-import com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber;
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027 .EpsgNumber;
 import com.programmerare.crsTransformations.*;
 import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory;
 import com.programmerare.crsTransformations.coordinate.CrsCoordinate;

@@ -5,3 +5,5 @@
 .project
 .settings/
 bin/
+
+/.jython_cache/

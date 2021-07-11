@@ -6,7 +6,7 @@
 package smallJavaExample;
 
 import static com.programmerare.crsTransformations.coordinate.CrsCoordinateFactory.*;
-import com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
+import com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt;
 import com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;
 import com.programmerare.crsTransformationAdapterGooberCTL.CrsTransformationAdapterGooberCTL;
 import com.programmerare.crsTransformationAdapterOrbisgisCTS.CrsTransformationAdapterOrbisgisCTS;
@@ -45,8 +45,8 @@ public class CodeSample
         crsTransformationAdapter = new CrsTransformationAdapterOrbisgisCTS();
 
         // Library "crs-transformation-adapter-impl-nga", class:
-        // com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA;
-        crsTransformationAdapter = new CrsTransformationAdapterGeoPackageNGA();
+        // com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt;
+        crsTransformationAdapter = new CrsTransformationAdapterNgaGeoInt();
 
         // Library "crs-transformation-adapter-impl-geotools", class:
         // com.programmerare.crsTransformationAdapterGeoTools.CrsTransformationAdapterGeoTools;        
@@ -80,7 +80,7 @@ public class CodeSample
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4J(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterProj4jLocationtech(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterOrbisgisCTS(), 1.0),
-            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoPackageNGA(), 1.0),
+            CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterNgaGeoInt(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGeoTools(), 1.0),
             CrsTransformationAdapterWeight.createFromInstance(new CrsTransformationAdapterGooberCTL(), 2.0)
         ));
