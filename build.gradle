@@ -271,7 +271,7 @@ project(':crs-transformation-adapter-impl-goober') {
         api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-        implementation("org.slf4j:slf4j-api:1.7.30")
+        implementation("org.slf4j:slf4j-api:1.7.31")
         
         // https://mvnrepository.com/artifact/com.github.goober/coordinate-transformation-library
         implementation("com.github.goober:coordinate-transformation-library:1.1") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
