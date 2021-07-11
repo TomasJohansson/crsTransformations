@@ -37,7 +37,7 @@ plugins {
     // the above configuration enables the tasks "publish" and "publishToMavenLocal"
     // which you can verify by running "gradlew tasks" (i.e. run the command with and without the above 'maven-publish')
     id 'signing'
-    // activate "mavenUser" etc further down in this file when releasing
+    // activate "oss_sonatype_org_username" etc further down in this file when releasing
 }
 
 // https://semver.org
@@ -49,7 +49,7 @@ plugins {
 // The version number below ("ext.crsTransformationVersion") should be the same as in 
 // the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
 
-ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
+ext.snapshotSuffixOrEmpty = "" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org
 
@@ -628,11 +628,13 @@ project(':crs-transformation-adapter-core') {
                 def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
                 url = rootProject.crsTransformationVersion.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
-                // configure and activate the below code when releasing
-                //credentials {
-                    //username mavenUser
-                    //password mavenPassword
-                //}
+                credentials {
+                    // Note that the passwords are different for the sonatype servers e.g.  https://oss.sonatype.org and https://s01.oss.sonatype.org/
+                    // and this project is deployed to the server "oss.sonatype.org" i.e. without the "s01." prefix 
+                    // and the following username/password is used and defined in [HOME]\.gradle\gradle.properties
+                    username oss_sonatype_org_username
+                    password oss_sonatype_org_password
+                }
             }
         }
     }
@@ -649,18 +651,18 @@ project(':crs-transformation-adapter-core') {
 
 project(':crs-transformation-constants') {
 // When publishing a new version of the constants, then use some configuration like below, to only include the latest version:
-//    sourceSets {
-//        main {
-//            java {
-//                include "**/v10_027/*.java"
-//            }
-//        }
-//    }
+   sourceSets {
+       main {
+           java {
+               include "**/v10_027/*.java"
+           }
+       }
+   }
     publishing {
         publications {
             crstransformationsconstants(MavenPublication) {
                 artifactId = 'crs-transformation-constants'
-                version = '9.8.9' + rootProject.snapshotSuffixOrEmpty
+                version = '10.027' + rootProject.snapshotSuffixOrEmpty
                 from components.java
                 artifact sourcesJar
                 artifact javadocJar // Only Java code in this project. No Kotlin. Therefore not using dokkadoc here
@@ -709,7 +711,7 @@ tasks.withType(Sign) {
 }
 // https://docs.gradle.org/current/userguide/signing_plugin.html
 signing {
-    // required { isReleaseVersion }
+    required { isReleaseVersion }
     sign publishing.publications.crstransformationsconstants    
     sign publishing.publications.crstransformationscore
     sign publishing.publications.crstransformationsgeotools
@@ -721,15 +723,15 @@ signing {
 }
 
 // https://stackoverflow.com/questions/35143514/publishing-of-a-modular-library-to-maven-using-gradle
-//subprojects{
-//    publishing {
-//        publications {
-//            "$project.name"(MavenPublication) {
-//                groupId project.group
-//                artifactId project.name
-//                version project.version
-//                from components.java
-//            }
-//        }
-//    }
-//}
+subprojects{
+   publishing {
+       publications {
+           "$project.name"(MavenPublication) {
+               groupId project.group
+               artifactId project.name
+               version project.version
+               from components.java
+           }
+       }
+   }
+}
