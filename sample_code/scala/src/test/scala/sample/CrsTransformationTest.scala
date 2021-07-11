@@ -45,7 +45,7 @@ class CrsTransformationTest extends AnyFunSuite {
 
   private lazy val expectedOnputCoordinate: CrsCoordinate = CrsCoordinateFactory.yx(6580822.0, 674032.0, EpsgNumber.SWEDEN__SWEREF99_TM__3006)
 
-  private def assertTransformationResult(result: CrsTransformationResult) {
+  private def assertTransformationResult(result: CrsTransformationResult) = {
     val errorMessageWithInformationAboutFailingImplementation = s" Failing implementation: ${result.getCrsTransformationAdapterResultSource.getAdapteeType}"
 
     assertResult(true, errorMessageWithInformationAboutFailingImplementation) {

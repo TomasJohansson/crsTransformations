@@ -2,7 +2,7 @@ name := "scala"
 
 version := "0.1"
 
-scalaVersion := "2.13.1"
+scalaVersion := "3.0.0"
 
 val adapterVersion = "1.1.1"
 
@@ -10,7 +10,7 @@ val adapterVersion = "1.1.1"
 resolvers += "osgeo" at "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 
 // https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants
 libraryDependencies += "com.programmerare.crs-transformation" % "crs-transformation-constants" % "9.8.9"
