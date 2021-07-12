@@ -49,7 +49,7 @@ plugins {
 // The version number below ("ext.crsTransformationVersion") should be the same as in 
 // the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
 
-ext.snapshotSuffixOrEmpty = "" // this value should be equal to "-SNAPSHOT" or "" (for a release)
+ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org
 
@@ -57,7 +57,7 @@ ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
     // removed the type CrsTransformationAdapteeType which has been deprecated since version 1.1.0 , https://github.com/TomasJohansson/crsTransformations/releases/tag/v1.1.0
     // removed deprecated 'CrsTransformationAdapterBase' method open fun  getNameOfJarFileOrEmptyString (deprecated since 1.1.1)
     // removed deprecated 'CrsTransformationAdapterBase' method protected final fun getNameOfJarFileFromProtectionDomain (deprecated since 1.1.1)
-ext.crsTransformationVersion = '2.0.0' + rootProject.snapshotSuffixOrEmpty
+ext.crsTransformationVersion = '2.0.1' + rootProject.snapshotSuffixOrEmpty
 // currently the above crsTransformationVersion number should be used in the method CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()
 // TODO: try to avoid the above mentioned duplication in CrsTransformationAdapterComposite
 // for example as below:
