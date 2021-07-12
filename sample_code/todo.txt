@@ -1,6 +1,0 @@
-When upgrading to using version 2.0 :
-Need to update a changed package/class name:
-
-com.programmerare.crsTransformationAdapterGeoPackageNGA.CrsTransformationAdapterGeoPackageNGA
- ===>
-com.programmerare.crsTransformationAdapterNgaGeoInt.CrsTransformationAdapterNgaGeoInt
