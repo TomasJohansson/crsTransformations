@@ -16,65 +16,69 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-	<adapterVersion>2.0.0</adapterVersion>
+	<crsTransformationAdapterVersion>2.0.0</crsTransformationAdapterVersion>
   </properties>
 
   <dependencies>
-	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants -->
-	<dependency>
-		<groupId>com.programmerare.crs-transformation</groupId>
-		<artifactId>crs-transformation-constants</artifactId>
-		<version>10.027</version>
-	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-core</artifactId>
-		<version>${adapterVersion}</version>
+		<version>${crsTransformationAdapterVersion}</version>
 	</dependency>	
 	
-	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
-	<dependency>
-		<groupId>com.programmerare.crs-transformation</groupId>
-		<artifactId>crs-transformation-adapter-impl-nga</artifactId>
-		<version>${adapterVersion}</version>
-	</dependency>
-
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4j -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-proj4j</artifactId>
-		<version>${adapterVersion}</version>
+		<version>${crsTransformationAdapterVersion}</version>
 	</dependency>
 
-      <!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4jlocationtech -->
-      <dependency>
-          <groupId>com.programmerare.crs-transformation</groupId>
-          <artifactId>crs-transformation-adapter-impl-proj4jlocationtech</artifactId>
-          <version>${adapterVersion}</version>
-      </dependency>
-      
-	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools -->
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-proj4jlocationtech -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
-		<artifactId>crs-transformation-adapter-impl-geotools</artifactId>
-		<version>${adapterVersion}</version>
+		<artifactId>crs-transformation-adapter-impl-proj4jlocationtech</artifactId>
+		<version>${crsTransformationAdapterVersion}</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-orbisgis -->
 	<dependency>
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-orbisgis</artifactId>
-		<version>${adapterVersion}</version>
+		<version>${crsTransformationAdapterVersion}</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-nga -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-nga</artifactId>
+		<version>${crsTransformationAdapterVersion}</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-geotools -->
+	<dependency>
+		<!--  if using geotools you should also add a repository (repo.osgeo.org) as shown further down in this example configuration -->	
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-adapter-impl-geotools</artifactId>
+		<version>${crsTransformationAdapterVersion}</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-impl-goober -->
 	<dependency>
+		<!-- this is a small library only supporting the global CRS WGS84 and the Swedish coordinate reference systems SWEREF99 and RT90  -->
 		<groupId>com.programmerare.crs-transformation</groupId>
 		<artifactId>crs-transformation-adapter-impl-goober</artifactId>
-		<version>${adapterVersion}</version>
+		<version>${crsTransformationAdapterVersion}</version>
 	</dependency>
+
+	<!-- optional INDEPENDENT artifact with only one class with lots of Java integer constants -->
+	<!-- https://mvnrepository.com/artifact/com.programmerare.crs-transformation/crs-transformation-constants -->
+	<dependency>
+		<groupId>com.programmerare.crs-transformation</groupId>
+		<artifactId>crs-transformation-constants</artifactId>
+		<version>10.027</version>
+	</dependency>	
 
     <!-- <dependency>
       <groupId>junit</groupId>
@@ -157,8 +161,7 @@
   
 	<repositories>
 		<!-- 
-			"osgeo" below is added because of this error message when trying without:
-			Could not find artifact org.geotools:gt-main:jar:20.0 in central (https://repo.maven.apache.org/maven2)
+			"osgeo" below is added because of the geotools implementation
 		 -->
 		<repository>
 			<id>osgeo</id>

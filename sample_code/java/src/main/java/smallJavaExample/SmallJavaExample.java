@@ -14,7 +14,7 @@ public class SmallJavaExample {
         final int epsgSweRef = 3006;
         // alternative to the above hardcoding: use the library "crs-transformation-constants"
         // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
-        // from the class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
+        // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber
 
         CrsCoordinate centralStockholmWgs84 = CrsCoordinateFactory.latLon(59.330231, 18.059196, epsgWgs84);
 
@@ -27,7 +27,7 @@ public class SmallJavaExample {
         if(centralStockholmResultSweRef.isSuccess()) {
             System.out.println(centralStockholmResultSweRef.getOutputCoordinate());
             // Console output from the above code row: 
-            // Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+            // Coordinate(xEastingLongitude=674032.3573261689, yNorthingLatitude=6580821.991120731, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
         }
     }
 }

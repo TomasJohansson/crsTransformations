@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
     val epsgSweRef = 3006
     // alternative to the above hardcoding: use the library "crs-transformation-constants"
     // and constants EpsgNumber.WORLD__WGS_84__4326 and EpsgNumber.SWEDEN__SWEREF99_TM__3006
-    // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v9_8_9.EpsgNumber
+    // from the Java class com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber
     
     val centralStockholmWgs84 = latLon(59.330231, 18.059196, epsgWgs84)
 
@@ -22,6 +22,6 @@ fun main(args: Array<String>) {
     if (centralStockholmResultSweRef99TM.isSuccess) {
         println(centralStockholmResultSweRef99TM.outputCoordinate)
         // Console output from the above code row: 
-        // Coordinate(xEastingLongitude=674032.3573263118, yNorthingLatitude=6580821.991123579, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
+        // Coordinate(xEastingLongitude=674032.3573261689, yNorthingLatitude=6580821.991120731, crsIdentifier=CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006))
     }
 }

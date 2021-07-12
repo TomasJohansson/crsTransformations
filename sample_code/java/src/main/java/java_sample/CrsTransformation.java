@@ -88,6 +88,9 @@ public class CrsTransformation {
         //    OrbisgisCTS
         //    Proj4jLocationtech
         //    Proj4J
+
+
+        System.out.println(com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber.class.getFields().length);
     }
 
     private List<CrsTransformationResult> transform(

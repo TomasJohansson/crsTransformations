@@ -145,4 +145,10 @@ public class CodeSample
         CrsTransformationResult crsTransformationResult = crsTransformationAdapter.transform(crsCoordinate, targetCrs);
         // see also more example code further down in this webpage
     }
+
+    public static void main(String[] args) {
+        CodeSample codeSample = new CodeSample();
+        codeSample.sample1();
+        codeSample.sample2();
+    }
 }

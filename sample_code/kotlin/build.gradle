@@ -27,17 +27,18 @@ dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 
-    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027'
+    implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027' // only one class with constants 
     // The above "crs-transformation-constants" is a Java library 
-    // while the below "crs-transformation-adapter-*" are Kotlin libraries
-    def adapterVersion = "2.0.0"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:$adapterVersion"
-    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$adapterVersion"
+    def crsTransformationAdapterVersion = "2.0.0"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$crsTransformationAdapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$crsTransformationAdapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$crsTransformationAdapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-orbisgis:$crsTransformationAdapterVersion"
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-nga:$crsTransformationAdapterVersion"
+    
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-goober:$crsTransformationAdapterVersion" // only swedish CRS
+
+    implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$crsTransformationAdapterVersion" // you should also include the above geotools (repo.osgeo.org) repository
 
     // Use the Kotlin test library.
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
@@ -48,5 +49,6 @@ dependencies {
 
 application {
     // gradlew run
-    mainClass = 'kotlin_sample.CrsTransformationKt'
+    // mainClass = 'kotlin_sample.CrsTransformationKt'
+    mainClass = 'smallKotlinExample.SmallKotlinExampleKt'
 }
