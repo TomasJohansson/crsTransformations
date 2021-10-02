@@ -59,7 +59,7 @@ import java.io.File
  *              but with the difference that in the new file, there will also be
  *              "start transaction" and "commit" statements at around each 50th insert statement.
  *              (currently 50 is used, but it might change later without remembering to mention it here)
- * 5. Create the MariaDB/MySql database to become populated with the above two files
+ * 5. Create the MariaDB/MySql database (with charset and collation utf8) to become populated with the above two files
  *      i.e. the file that creates the tables and then the file (modified with transaction)
  *      which inserts the data.
  *    Note that the creation of a database (and user rights) is currently not described here in detail.
