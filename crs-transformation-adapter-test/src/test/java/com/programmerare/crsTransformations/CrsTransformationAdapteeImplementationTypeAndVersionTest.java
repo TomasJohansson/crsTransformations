@@ -32,7 +32,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
             CrsTransformationImplementationType.LEAF_ORBISGIS,
-            "1.5.2" // "cts-1.5.2.jar"
+            "1.6.0" // "cts-1.6.0.jar"
         );
     }
     
@@ -41,7 +41,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
             CrsTransformationImplementationType.LEAF_GEOTOOLS,
-            "25.1" // "gt-main-25.1.jar"
+            "26.2" // "gt-main-26.2.jar"
         );
     }
 
@@ -50,7 +50,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterNgaGeoInt(),
             CrsTransformationImplementationType.LEAF_NGA_GEOINT,
-            "4.0.0" // "sf-proj-4.0.0.jar"
+            "4.1.0" // "sf-proj-4.1.0.jar"
         );
     }
     
@@ -68,7 +68,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterProj4jLocationtech(),
             CrsTransformationImplementationType.LEAF_PROJ4J_LOCATIONTECH,
-            "1.1.3" // "proj4j-1.1.3.jar"
+            "1.1.4" // "proj4j-1.1.4.jar"
         );
     }
 

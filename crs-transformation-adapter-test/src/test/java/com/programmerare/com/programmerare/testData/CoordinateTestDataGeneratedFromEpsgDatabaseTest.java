@@ -40,8 +40,15 @@ import static org.junit.jupiter.api.Assertions.*;
  * Thus the file defines a list of appropriate WGS84 coordinates which can be transformed back and forth
  * to/from the coordinate system in the first EPSG column.
  */
+
 @Disabled // you may want to temporary change this line if you want to run the "tests" 
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
+// TODO modify the code in the below methods to make them only generate 
+// csv files if not already existing.
+// Then this class will no longer be necessary to touch above 
+// with the @Disabled annotation, since it should be fast to run
+// if the methods are checking if the file exists before doing the (slow) executions.    
+    
 class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
 
     private final static String OUTPUT_DIRECTORY_FOR_REGRESSION_RESULTS = "src/test/resources/regression_results";
@@ -78,12 +85,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
     // @Tag("SlowTest") // actually not at all slow but very fast since very few coordinate systems are supported
     @Tag(TestCategory.SideEffectFileCreation) // test/resources/regression_results/
     void testAllTransformationsInGeneratedCsvFileWithGoober() {
-        TestResult testResultForGoober = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterGooberCTL(), list);
+        // TODO refactor this method with duplicated code in six methods 
+        CrsTransformationAdapterGooberCTL adapter = new CrsTransformationAdapterGooberCTL();
+        TestResult testResultForGoober = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForGoober,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_1.1" // build.gradle: implementation("com.github.goober:coordinate-transformation-library:1.1")
+            //"_version_1.1" // build.gradle: implementation("com.github.goober:coordinate-transformation-library:1.1")
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods 
         );
     }
 
@@ -95,12 +105,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         //    seconds: 224
         //    countOfSuccess: 4036
         //    countOfFailures: 2399
-        TestResult testResultForGeoTools = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterGeoTools(), list);
+        // TODO refactor this method with duplicated code in six methods        
+        CrsTransformationAdapterGeoTools adapter = new CrsTransformationAdapterGeoTools();
+        TestResult testResultForGeoTools = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForGeoTools,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_25.1"  // build.gradle: implementation("org.geotools:gt-main:25.1")
+//            "_version_25.1"  // build.gradle: implementation("org.geotools:gt-main:25.1")
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods
             // file created: "test/resources/regression_results/CrsTransformationAdapterGeoTools_version_25.1.csv
         );
         // There are differences in the GeoTools generated files (e.g. when using version 21.0 instead of 19.1)
@@ -122,12 +135,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         //    seconds: 122
         //    countOfSuccess: 3918
         //    countOfFailures: 2517
-        TestResult testResultForGeoPackage = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterNgaGeoInt(), list);
+        // TODO refactor this method with duplicated code in six methods
+        CrsTransformationAdapterNgaGeoInt adapter = new CrsTransformationAdapterNgaGeoInt();
+        TestResult testResultForGeoPackage = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForGeoPackage,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_4.0.0" // build.gradle: 'mil.nga.sf:sf-proj:4.0.0'
+            //"_version_4.0.0" // build.gradle: 'mil.nga.sf:sf-proj:4.0.0'
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods
             // file created: "test/resources/regression_results/CrsTransformationAdapterNgaGeoInt_version_4.0.0.csv
         );
     }
@@ -139,12 +155,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         //    seconds: 201
         //    countOfSuccess: 3916
         //    countOfFailures: 2519
-        TestResult testResultForProj4J = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterProj4J(), list);
+        // TODO refactor this method with duplicated code in six methods
+        CrsTransformationAdapterProj4J adapter = new CrsTransformationAdapterProj4J();
+        TestResult testResultForProj4J = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForProj4J,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_0.1.0" // build.gradle: implementation("org.osgeo:proj4j:0.1.0")
+            // "_version_0.1.0" // build.gradle: implementation("org.osgeo:proj4j:0.1.0")
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods
         );
     }
 
@@ -155,12 +174,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         // seconds: 245
         // countOfSuccess: 5320
         // countOfFailures: 1115
-        TestResult testResultForProj4jLocationtech = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterProj4jLocationtech(), list);
+        // TODO refactor this method with duplicated code in six methods
+        CrsTransformationAdapterProj4jLocationtech adapter = new CrsTransformationAdapterProj4jLocationtech();
+        TestResult testResultForProj4jLocationtech = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForProj4jLocationtech,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_1.1.3" // build.gradle: implementation("org.locationtech.proj4j:proj4j:1.1.3")
+//            "_version_1.1.3" // build.gradle: implementation("org.locationtech.proj4j:proj4j:1.1.3")
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods
         );
     }    
 
@@ -171,12 +193,15 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         //    seconds: 384
         //    countOfSuccess: 3799
         //    countOfFailures: 2636
-        TestResult testResultForOrbisgis = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(new CrsTransformationAdapterOrbisgisCTS(), list);
+        // TODO refactor this method with duplicated code in six methods
+        CrsTransformationAdapterOrbisgisCTS adapter = new CrsTransformationAdapterOrbisgisCTS();
+        TestResult testResultForOrbisgis = runAllTransformationsOfTheCoordinatesInTheGeneratedCsvFile(adapter, list);
         handleTestResults(
             testResultForOrbisgis,
             DELTA_LIMIT_FOR_SUCCESS,
             createNewRegressionFile,
-            "_version_1.5.2" // build.gradle: implementation("org.orbisgis:cts:1.5.2")
+//            "_version_1.5.2" // build.gradle: implementation("org.orbisgis:cts:1.5.2")
+            "_version_" + adapter.getVersionOfImplementationAdapteeLibrary() // TODO refactor e.g. this row is duplicated in many methods
         );
     }
 
@@ -424,6 +449,12 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         boolean createNewRegressionFile,
         String fileNameSuffixExcludingExtension
     ) {
+        final File file = getFileForRegressionResults(testResult.adapter, fileNameSuffixExcludingExtension);
+        if(createNewRegressionFile && file.exists()) {
+            System.out.println("File already existing, will not be overwritten. But you can rerun after having deleted it manually: " + file.getAbsolutePath());
+            return;
+        }
+        
         System.out.println("-------------------------------");
         System.out.println("testResults for " + testResult.adapter.getClass().getSimpleName());
         System.out.println("seconds: " + testResult.totalNumberOfSecondsForAllTransformations);
@@ -457,10 +488,9 @@ class CoordinateTestDataGeneratedFromEpsgDatabaseTest {
         System.out.println("countOfFailures: " + countOfFailures);
         System.out.println("-------------------------------");
 
-        final File file = getFileForRegressionResults(testResult.adapter, fileNameSuffixExcludingExtension);
         if (createNewRegressionFile) {
             createNewRegressionFile(file, linesWithCurrentResults);
-        }
+        }        
     }
 
     private File getFileForRegressionResults(CrsTransformationAdapter adapter, String fileNameSuffixExcludingExtension) {

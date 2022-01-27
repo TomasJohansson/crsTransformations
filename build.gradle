@@ -8,8 +8,8 @@ buildscript {
     // NOTE that if you upgrade implementations such as the below ngageoint
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterNgaGeoInt_version_4.0.0.csv"
-    ext.ngageoint_version = '4.0.0' // https://github.com/ngageoint/simple-features-proj-java/releases/tag/4.0.0
-    ext.geotools_version = '25.1' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
+    ext.ngageoint_version = '4.1.0' // https://github.com/ngageoint/simple-features-proj-java/releases/tag/4.1.0
+    ext.geotools_version = '26.2' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 
 
@@ -318,7 +318,7 @@ project(':crs-transformation-adapter-impl-orbisgis') {
         api project(':crs-transformation-adapter-core')
 
         // https://mvnrepository.com/artifact/org.orbisgis/cts
-        implementation("org.orbisgis:cts:1.5.2") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
+        implementation("org.orbisgis:cts:1.6.0") // NOTE that if you upgrade then use file CoordinateTestDataGeneratedFromEpsgDatabaseTest
         // test code will detect upgrades with the purpose to update an enum if the file name changes from "cts-1.5.2.jar"
     }
     publishing {
@@ -364,7 +364,7 @@ project(':crs-transformation-adapter-impl-proj4jlocationtech') {
     dependencies {
         api project(':crs-transformation-adapter-core')
         // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j/
-        implementation("org.locationtech.proj4j:proj4j:1.1.3")
+        implementation("org.locationtech.proj4j:proj4j:1.1.4")
     }
     publishing {
         publications {
