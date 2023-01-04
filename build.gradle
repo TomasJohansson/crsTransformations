@@ -1,7 +1,7 @@
 buildscript {
-    ext.kotlin_version = '1.6.10' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+    ext.kotlin_version = '1.8.0' // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
 
-    ext.junit_version = '5.8.2'
+    ext.junit_version = '5.9.1'
     // https://github.com/junit-team/junit5/releases
     // https://mvnrepository.com/artifact/org.junit.jupiter
 	
@@ -13,7 +13,7 @@ buildscript {
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 
 
-    ext.slf4j_version = '1.7.35'
+    ext.slf4j_version = '1.7.36'
 
     repositories {
         mavenCentral()
@@ -27,8 +27,8 @@ buildscript {
         // https://github.com/JetBrains/kotlin-examples/blob/master/gradle/dokka-gradle-example/build.gradle
         // gradlew dokkaJavadoc
         // gradlew :crs-transformation-adapter-core:dokkaJavadoc
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.6.10" // The plugin adds dokkaHtml, dokkaJavadoc, dokkaGfm and dokkaJekyll tasks to the project. https://github.com/Kotlin/dokka
-        classpath "org.jetbrains.dokka:kotlin-as-java-plugin:1.6.10"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20" // The plugin adds dokkaHtml, dokkaJavadoc, dokkaGfm and dokkaJekyll tasks to the project. https://github.com/Kotlin/dokka
+        classpath "org.jetbrains.dokka:kotlin-as-java-plugin:1.7.20"
     }
 }
 
@@ -508,7 +508,7 @@ project(':crs-transformation-adapter-test') {
 // https://mvnrepository.com/artifact/org.geotools/gt-shapefile
 //        implementation group: 'org.geotools', name: 'gt-shapefile', version: '19.1'
         // https://mvnrepository.com/artifact/org.mockito/mockito-core
-        testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.11.2'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.11.0'
 
         // https://mvnrepository.com/artifact/org.junit.jupiter
         // https://github.com/junit-team/junit5/releases
@@ -521,7 +521,7 @@ project(':crs-transformation-adapter-test') {
 
         // https://mvnrepository.com/artifact/com.google.guava/guava
         // https://github.com/google/guava/releases
-        testImplementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre' // com.google.common.io
+        testImplementation group: 'com.google.guava', name: 'guava', version: '31.1-jre' // com.google.common.io
     }
 }
 
