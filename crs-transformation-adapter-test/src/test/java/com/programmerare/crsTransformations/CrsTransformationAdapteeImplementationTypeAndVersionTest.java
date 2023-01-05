@@ -50,7 +50,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterNgaGeoInt(),
             CrsTransformationImplementationType.LEAF_NGA_GEOINT,
-            "4.1.0" // "sf-proj-4.1.0.jar"
+            "4.3.0" // "sf-proj-4.3.0.jar"
         );
     }
     

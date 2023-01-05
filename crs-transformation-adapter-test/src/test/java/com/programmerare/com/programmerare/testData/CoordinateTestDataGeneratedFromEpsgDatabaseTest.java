@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * to/from the coordinate system in the first EPSG column.
  */
 
-@Disabled // you may want to temporary change this line if you want to run the "tests"  
+@Disabled // you may want to temporary change this line if you want to run the "tests" 
 // (and also see comments in the class TestCategory regarding that this "test" file creates files and produces output to the console)
 // TODO modify the code in the below methods to make them only generate 
 // csv files if not already existing.
