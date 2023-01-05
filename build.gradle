@@ -364,7 +364,9 @@ project(':crs-transformation-adapter-impl-proj4jlocationtech') {
     dependencies {
         api project(':crs-transformation-adapter-core')
         // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j/
-        implementation("org.locationtech.proj4j:proj4j:1.1.4")
+        implementation("org.locationtech.proj4j:proj4j:1.2.2")
+        // https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j-epsg
+        implementation("org.locationtech.proj4j:proj4j-epsg:1.2.2")
     }
     publishing {
         publications {
