@@ -9,7 +9,7 @@ buildscript {
     // then also run CoordinateTestDataGeneratedFromEpsgDatabaseTest
     // to generate a file such as "/crs-transformation-adapter-test/src/test/resources/regression_results/CrsTransformationAdapterNgaGeoInt_version_4.0.0.csv"
     ext.ngageoint_version = '4.3.0' // https://github.com/ngageoint/simple-features-proj-java/releases/tag/4.1.0
-    ext.geotools_version = '26.2' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
+    ext.geotools_version = '28.0' // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/
     // Note that the latest versions above and below are different (since "gt-data" tends to be some version number(s) behind) // https://mvnrepository.com/artifact/org.geotools/gt-data?repo=boundless
     ext.geotools_data_version = '20.5' // "org.geotools:gt-data:$geotools_data_version" // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-data/ 
 

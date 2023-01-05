@@ -41,7 +41,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterGeoTools(),
             CrsTransformationImplementationType.LEAF_GEOTOOLS,
-            "26.2" // "gt-main-26.2.jar"
+            "28.0" // "gt-main-28.0.jar"
         );
     }
 
