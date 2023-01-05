@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JarFileFinderTest {
 
-    private final String expectedNameOfTestedJarFile = "junit-jupiter-api-5.8.2.jar";
+    private final String expectedNameOfTestedJarFile = "junit-jupiter-api-5.9.1.jar";
     private final Class theTestedClass = Test.class;
 
     @Test

@@ -52,7 +52,7 @@ plugins {
 // The version number below ("ext.crsTransformationVersion") should be the same as in 
 // the method 'CrsTransformationAdapterComposite.getVersionOfImplementationAdapteeLibrary()'
 
-ext.snapshotSuffixOrEmpty = "-SNAPSHOT" // this value should be equal to "-SNAPSHOT" or "" (for a release)
+ext.snapshotSuffixOrEmpty = "" // this value should be equal to "-SNAPSHOT" or "" (for a release)
 ext.crsTransformationGroupId = 'com.programmerare.crs-transformation'
 // The below version number is used for all artifacts EXCEPT "crs-transformation-constants" which has a release number corresponding to the version number used by EPSG at http://www.epsg-registry.org
 
