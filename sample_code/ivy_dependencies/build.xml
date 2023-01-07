@@ -2,7 +2,7 @@
 <!--
 Ant and Ivy are assumed to be installed, to be able to run this script.
 This ant script has been tested with:
-* Ant 1.10.10 and Ivy 2.5.0 (with the Operating system Windows 10 64bit).
+* Ant 1.10.12 and Ivy 2.5.1 (with the Operating system Windows 10 64bit).
 * Ant 1.10.10 and Ivy 2.5.0 (with the Operating system Linux Ubuntu 20.04).
 
 The installation of Ant and Ivy are simple.
@@ -16,7 +16,7 @@ $ cd sample_code/ivy_dependencies
 $ ant
 
 When the above "ant" command is executed, it should download all needed jar files defined in "ivy.xml" including the transitive dependencies 
-into a subdirectory "lib". Totally around 20 MB and 55 jar files.
+into a subdirectory "lib". Totally around 20 MB and 60 jar files.
 Then the files in the lib directory can be referred to with relative paths e.g. from jython and jruby directories.
 -->
     <target name="resolve" description=" retrieve dependencies with Ivy">

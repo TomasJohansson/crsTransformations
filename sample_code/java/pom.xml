@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-	<crsTransformationAdapterVersion>2.0.0</crsTransformationAdapterVersion>
+	<crsTransformationAdapterVersion>2.0.1</crsTransformationAdapterVersion>
   </properties>
 
   <dependencies>
@@ -86,6 +86,13 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency> -->
+
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.5</version>
+      <scope>test</scope>
+    </dependency>	
 
   </dependencies>
 
@@ -162,10 +169,24 @@
 	<repositories>
 		<!-- 
 			"osgeo" below is added because of the geotools implementation
+			https://repo.osgeo.org/repository/geotools-releases/
+				according to:
+				https://github.com/geotools/geotools/blob/main/pom.xml
+				https://mvnrepository.com/repos/geotools-releases			
+
+			https://repo.osgeo.org/repository/release/
+				according to:
+				https://docs.geotools.org/latest/userguide/build/maven/repositories.html
+
+			The above three URL's github.com/mvnrepository.com/geotools.org, were checked 2023-01-07
 		 -->
 		<repository>
 			<id>osgeo</id>
 			<url>https://repo.osgeo.org/repository/release/</url>
 		</repository>
+		<repository>
+			<id>osgeo-releases</id>
+			<url>https://repo.osgeo.org/repository/geotools-releases/</url>
+		</repository>		
 	</repositories>	  
 </project>

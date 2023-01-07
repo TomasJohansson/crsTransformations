@@ -24,12 +24,14 @@ repositories {
 
 dependencies {
     // Use the latest Groovy version for building this library
-    implementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    // https://mvnrepository.com/artifact/org.apache.groovy/groovy
+    implementation 'org.apache.groovy:groovy:4.0.7'
+
     
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027'
     // The above "crs-transformation-constants" is a Java library 
     // while the below "crs-transformation-adapter-*" are Kotlin libraries
-    def adapterVersion = "2.0.0"
+    def adapterVersion = "2.0.1"
 
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$adapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$adapterVersion"
@@ -40,7 +42,9 @@ dependencies {
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$adapterVersion"
 
     // https://github.com/spockframework/spock-example/blob/master/build.gradle
-    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+    // https://mvnrepository.com/artifact/org.spockframework/spock-bom/2.3-groovy-4.0
+    // implementation platform('org.apache.groovy:groovy-bom:4.0.7')
+    testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
     testImplementation "org.spockframework:spock-core"
     testImplementation "org.spockframework:spock-junit4"
 

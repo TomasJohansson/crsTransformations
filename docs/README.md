@@ -5,17 +5,48 @@ However, the adapter implementations libraries are licensed in the same way as t
 # Information about this Coordinate Reference System Transformations library
 This Kotlin/Java/JVM project is intended for transforming coordinates between different coordinate reference systems (CRS).  
 The code has been implemented with Kotlin but the tests (and the generated constants in the subproject "crs-transformation-constants") are implemented with Java.  
-There is [sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code) for the following JVM languages (tested with Windows 10 and the language version within parenthesis):  
-* [Scala](https://www.scala-lang.org) (3.0.0)
-* [Groovy](https://groovy-lang.org) (3.0.8)
-* [Jython](https://www.jython.org) (2.7.2)
-* [JRuby](https://www.jruby.org) (9.2.19)
-* [Kotlin](https://kotlinlang.org) (1.5.20)
-* [Java](https://www.java.com/) ([Java 8](https://en.wikipedia.org/wiki/Java_version_history#Java_8) and [Java 16](https://jdk.java.net/16/))
+There is [sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code) for the following JVM languages (tested with Windows 10 and the language versions specified below):  
+* [Scala](https://www.scala-lang.org) (the [Scala sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/scala) is tested with Scala 3.2.1, "sbt run" and "sbt test", [SBT](https://www.scala-sbt.org) version 1.8.2)
+* [Groovy](https://groovy-lang.org) (the [Groovy sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/groovy) is tested with Groovy 4.0.7, "gradlew run" and "gradlew test", [Gradle](https://gradle.org) version 7.6)
+* [Jython](https://www.jython.org) (the [Jython sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/jython) is tested with Jython 2.7.3, "jython CrsTransformation.py", using [Ant](https://ant.apache.org/) 1.10.12 and [Ivy](https://ant.apache.org/ivy/) 2.5.1 for dependencies)
+* [JRuby](https://www.jruby.org) (the [JRuby sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/jruby) is tested with JRuby 9.4.0.0, "jruby CrsTransformation.rb", using [Ant](https://ant.apache.org/) 1.10.12 and [Ivy](https://ant.apache.org/ivy/) 2.5.1 for dependencies)
+* [Kotlin](https://kotlinlang.org) (the [Kotlin sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/kotlin) is tested with Kotlin 1.8.0, "gradlew run" and "gradlew test", [Gradle](https://gradle.org) version 7.6)
+* [Java](https://www.java.com/) (the [Java sample code](https://github.com/TomasJohansson/crsTransformations/tree/master/sample_code/java) is tested with [Java 8](https://en.wikipedia.org/wiki/Java_version_history#Java_8) and [Java 19](https://jdk.java.net/19/), "gradlew run" and "gradlew test" with [Gradle](https://gradle.org) version 7.6, "mvn test" and "mvn exec:java" with [Maven](https://maven.apache.org/) 3.8.7)
 
 The third-part libraries (the adaptee's below) are Java libraries.  
-Versions of Java and Kotlin: **Java 8** and **Kotlin 1.5.20**  
-(in the [release](https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core) 2.0.0 but since then the Kotlin version might have been upgraded in this git repository)
+Versions of Java and Kotlin: **Java 8** and **Kotlin 1.8.0**  
+(in the [release](https://search.maven.org/artifact/com.programmerare.crs-transformation/crs-transformation-adapter-core) 2.0.1 but since then the Kotlin version might have been upgraded in this git repository)
+
+# Known problems
+
+## Android/GeoTools problem
+The GeoTools adapter [CrsTransformationAdapterGeoTools](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-geotools/src/main/kotlin/com/programmerare/crsTransformationAdapterGeoTools/CrsTransformationAdapterGeoTools.kt) i.e. the implementation using [GeoTools](https://github.com/geotools/geotools) does not work for Android.  
+As you can see in the implementation, it uses the methods "CRS.decode" and "CRS.findMathTransform"
+in the class [org.geotools.referencing.CRS](https://github.com/geotools/geotools/blob/main/modules/library/referencing/src/main/java/org/geotools/referencing/CRS.java)
+which is currently coupled with dependencies to the Java GUI libraries "awt" and "swing"
+(java.awt.geom.Point2D , java.awt.geom.Rectangle2D, javax.swing.event.ChangeEvent , javax.swing.event.ChangeListener)
+
+## Jython/GeoTools problem
+The GeoTools adapter does not work when using Jython, as mentioned in the comments in the Jython sample file [sample_code/jython/CrsTransformation.py](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/jython/CrsTransformation.py)
+
+
+## GeoTools and the Maven Central repository
+GeoTools does not seem to release all needed artifacts to "Maven Central" and therefore you should add another repository in your gradle or maven configuration file.  
+The currently documented repository URL for GeoTools is:  
+https://repo.osgeo.org/repository/geotools-releases/  
+(according to https://github.com/geotools/geotools/blob/main/pom.xml and https://mvnrepository.com/repos/geotools-releases)  
+but also this URL:  
+https://repo.osgeo.org/repository/release/  
+(according to https://docs.geotools.org/latest/userguide/build/maven/repositories.html)  
+("currently" = 2023-01-07 when the above three URL's github.com/mvnrepository.com/geotools.org, were checked)
+
+See the below sections [Gradle configuration](#gradle-configuration) and [Maven configuration](#maven-configuration) regarding how to configure the above GeoTools  repository.  
+
+If you are using Scala/SBT you can see the resolvers configuration in the file [sample_code/scala/build.sbt](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/scala/build.sbt).  
+If you are using Ant/Ivy you can see the resolvers configuration in the file [sample_code/ivy_dependencies/ivysettings.xml](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/ivy_dependencies/ivysettings.xml)
+
+
+
 
 # Usage
 The methods for transforming coordinates are defined in the interface *CrsTransformationAdapter*.  
@@ -166,22 +197,23 @@ Java:
 ```
     
 
-# Adaptee libraries used by the adapter libraries in the release 2.0.0
+# Adaptee libraries used by the adapter libraries in the release 2.0.1
 * https://github.com/Proj4J/proj4j
     (version 0.1.0) [CrsTransformationAdapterProj4J](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-proj4j/src/main/kotlin/com/programmerare/crsTransformationAdapterProj4J/CrsTransformationAdapterProj4J.kt)
 * https://github.com/locationtech/proj4j
-    (version 1.1.3) [CrsTransformationAdapterProj4jLocationtech](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-proj4jlocationtech/src/main/kotlin/com/programmerare/crsTransformationAdapterProj4jLocationtech/CrsTransformationAdapterProj4jLocationtech.kt)
+    (version 1.2.2) [CrsTransformationAdapterProj4jLocationtech](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-proj4jlocationtech/src/main/kotlin/com/programmerare/crsTransformationAdapterProj4jLocationtech/CrsTransformationAdapterProj4jLocationtech.kt)
 * https://github.com/orbisgis/cts/
-    (version 1.5.2) [CrsTransformationAdapterOrbisgisCTS](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-orbisgis/src/main/kotlin/com/programmerare/crsTransformationAdapterOrbisgisCTS/CrsTransformationAdapterOrbisgisCTS.kt)
+    (version 1.6.0) [CrsTransformationAdapterOrbisgisCTS](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-orbisgis/src/main/kotlin/com/programmerare/crsTransformationAdapterOrbisgisCTS/CrsTransformationAdapterOrbisgisCTS.kt)
 * https://github.com/ngageoint/simple-features-proj-java
-    (version 4.0.0) [CrsTransformationAdapterNgaGeoInt](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-nga/src/main/kotlin/com/programmerare/crsTransformationAdapterNgaGeoInt/CrsTransformationAdapterNgaGeoInt.kt)
+    (version 4.3.0) [CrsTransformationAdapterNgaGeoInt](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-nga/src/main/kotlin/com/programmerare/crsTransformationAdapterNgaGeoInt/CrsTransformationAdapterNgaGeoInt.kt)
 * https://github.com/geotools/geotools
-    (version 25.1) [CrsTransformationAdapterGeoTools](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-geotools/src/main/kotlin/com/programmerare/crsTransformationAdapterGeoTools/CrsTransformationAdapterGeoTools.kt)
+    (version 28.0) [CrsTransformationAdapterGeoTools](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-geotools/src/main/kotlin/com/programmerare/crsTransformationAdapterGeoTools/CrsTransformationAdapterGeoTools.kt)
+    Note: [Known GeoTools problems](#known-problems)
 * https://github.com/goober/coordinate-transformation-library
     (version 1.1) [CrsTransformationAdapterGooberCTL](https://github.com/TomasJohansson/crsTransformations/blob/master/crs-transformation-adapter-impl-goober/src/main/kotlin/com/programmerare/crsTransformationAdapterGooberCTL/CrsTransformationAdapterGooberCTL.kt)
 
 # Released library versions
-The following eight artifacts (version 2.0.0, "except crs-transformation-constants") from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
+The following eight artifacts (version 2.0.1, "except crs-transformation-constants") from this code project have been released/distributed to the Maven "Central Repository" ([Sonatype OSSRH](https://central.sonatype.org/pages/ossrh-guide.html) "Open Source Software Repository Hosting Service"):
 
 * crs-transformation-adapter-**core**
 * crs-transformation-adapter-*impl*-**proj4j** (CrsTransformationAdapterProj4J)
@@ -189,7 +221,8 @@ The following eight artifacts (version 2.0.0, "except crs-transformation-constan
 * crs-transformation-adapter-*impl*-**orbisgis** (CrsTransformationAdapterOrbisgisCTS)
 * crs-transformation-adapter-*impl*-**nga** (CrsTransformationAdapterNgaGeoInt)
 * crs-transformation-adapter-*impl*-**geotools** (CrsTransformationAdapterGeoTools)
-    (the adaptee library currently does not seem to be deployed to Maven Central, see comment below)
+    (the adaptee library currently does not seem to be deployed to Maven Central, see comment below)  
+    Note: [Known GeoTools problems](#known-problems)
 * crs-transformation-adapter-*impl*-**goober** (CrsTransformationAdapterGooberCTL)
     (only used for Swedish CRS, see comment below)
 * crs-transformation-*constants*
@@ -200,7 +233,8 @@ Those six adapters are using the six adaptee libraries for the coordinate transf
 
 The above '*goober*' library is only useful for transformation between WGS84 (which is a very common global CRS) and the Swedish coordinate reference systems (CRS) SWEREF99 (13 versions e.g. "SWEREF99 TM") and RT90 (6 versions e.g. "RT90 2.5 gon V").   
 
-The above '*geotools*' library is using geotools which currently seems to not be distributed to "Maven Central" but can be used by adding an additional repository (https://repo.osgeo.org/repository/release/) as in the Gradle and Maven sections of this webpage.  
+The above '*geotools*' library is using GeoTools which currently seems to not be distributed to "Maven Central" but can be used by adding an additional repository as described in the [Known problems](#known-problems) sections of this webpage.  
+(but currently can GeoTools not be used from Android or Jython as mentioned within that same section of known problems)
 
 The above artifact "crs-transformation-*constants*" is actually totally independent from the others.  
 It is not depending on anything and nothing depends on it.  
@@ -213,6 +247,7 @@ The constant class has been generated from the [EPSG database](http://www.epsg.o
 The "constants" library is not needed but might be interesting if you want to use constants 
 for the EPSG numbers rather than hardcoding them or define your own integer constants.  
 The "repository" for geotools is only needed if you want to use the library for geotools.  
+Below you can see one URL for geotools repository but might find more potential URL's in the section [Known problems](#known-problems)  
 
 build.gradle
 ```Groovy
@@ -221,7 +256,7 @@ repositories {
     maven {
         // this repository can be added if you want to use the implementation 
         // "crs-transformation-adapter-impl-geotools" which uses the "geotools" library     
-        url "https://repo.osgeo.org/repository/release/" // https://docs.geotools.org/latest/userguide/build/maven/repositories.html
+        url "https://repo.osgeo.org/repository/geotools-releases/"
     }    
     mavenCentral()
 }
@@ -231,7 +266,7 @@ dependencies {
     ...
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027' // only one class with constants 
     // The above "crs-transformation-constants" is a Java library 
-    def crsTransformationAdapterVersion = "2.0.0"
+    def crsTransformationAdapterVersion = "2.0.1"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$crsTransformationAdapterVersion"
@@ -252,7 +287,7 @@ pom.xml
     ...
     <properties>
         ...
-        <crsTransformationAdapterVersion>2.0.0</crsTransformationAdapterVersion>
+        <crsTransformationAdapterVersion>2.0.1</crsTransformationAdapterVersion>
     </properties>
     ...
     <dependencies>
@@ -324,19 +359,20 @@ pom.xml
 		 -->
 		<repository>
 			<id>osgeo</id>
-			<url>https://repo.osgeo.org/repository/release/</url>
+			<url>https://repo.osgeo.org/repository/geotools-releases/</url>
 		</repository>
     </repositories>
     ...
 ```
+Above you can see one URL for geotools repository but might find more potential URL's in the section [Known problems](#known-problems)  
 
 # Kotlin example
 
-Below is a small Kotlin example code working with the current version 2.0.0.  
+Below is a small Kotlin example code working with the current version 2.0.1.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).
 
-SmallKotlinExample.kt
+[SmallKotlinExample.kt](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/kotlin/src/main/kotlin/smallKotlinExample/SmallKotlinExample.kt)
 ```kotlin
 package smallKotlinExample
 
@@ -366,9 +402,11 @@ fun main(args: Array<String>) {
 ```
 
 # Java examples
-Below is a small Java example code working with the current version 2.0.0.  
+Below is a small Java example code working with the current version 2.0.1.  
 The example code transforms a coordinate from a global CRS WGS84 (EPSG code 4326) latitude/longitude to
 the Swedish CRS SWEREF99TM (EPSG code 3006).  
+
+[SmallJavaExample.java](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/java/src/main/java/smallJavaExample/SmallJavaExample.java)
 ```java
 package smallJavaExample;
 
@@ -404,6 +442,7 @@ public class SmallJavaExample {
 ```
 
 Another Java example with some more code and comments: 
+[JavaExample.java](https://github.com/TomasJohansson/crsTransformations/blob/master/sample_code/java/src/main/java/smallJavaExample/JavaExample.java)
 ```java
 package smallJavaExample;
 

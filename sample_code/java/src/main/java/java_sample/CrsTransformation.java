@@ -72,11 +72,11 @@ public class CrsTransformation {
         //    TargetCrsIdentifier: CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006)
         //    Coordinate transformations from EPSG 4326 to EPSG 3006
         //    LEAF_PROJ4J 0.1.0  : X / Y ===> 674032.357326444 / 6580821.991123579
-        //    LEAF_PROJ4J_LOCATIONTECH 1.1.3  : X / Y ===> 674032.3573261689 / 6580821.991120384
-        //    LEAF_NGA_GEOINT 4.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120384
-        //    LEAF_ORBISGIS 1.5.2  : X / Y ===> 674032.3573261796 / 6580821.991121078
+        //    LEAF_PROJ4J_LOCATIONTECH 1.2.2  : X / Y ===> 674032.3573261689 / 6580821.991120384
+        //    LEAF_NGA_GEOINT 4.3.0  : X / Y ===> 674032.3573261689 / 6580821.991120384
+        //    LEAF_ORBISGIS 1.6.0  : X / Y ===> 674032.3573261796 / 6580821.991121078
         //    LEAF_GOOBER 1.1  : X / Y ===> 674032.357 / 6580821.991
-        //    LEAF_GEOTOOLS 25.1  : X / Y ===> 674032.3571771549 / 6580821.994371211
+        //    LEAF_GEOTOOLS 28.0  : X / Y ===> 674032.3571771549 / 6580821.994371211
         //    COMPOSITE_MEDIAN 2.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120731
         //    COMPOSITE_AVERAGE 2.0.0  : X / Y ===> 674032.3572470193 / 6580821.991642772
         //    COMPOSITE_FIRST_SUCCESS 2.0.0  : X / Y ===> 674032.357 / 6580821.991
@@ -88,7 +88,6 @@ public class CrsTransformation {
         //    OrbisgisCTS
         //    Proj4jLocationtech
         //    Proj4J
-
 
         System.out.println(com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber.class.getFields().length);
     }

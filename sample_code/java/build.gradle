@@ -33,7 +33,7 @@ dependencies {
 
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027' // only one class with constants 
     // The above "crs-transformation-constants" is a Java library 
-    def crsTransformationAdapterVersion = "2.0.0"
+    def crsTransformationAdapterVersion = "2.0.1"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$crsTransformationAdapterVersion"
@@ -45,20 +45,27 @@ dependencies {
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-geotools:$crsTransformationAdapterVersion" // you should also include the above geotools (repo.osgeo.org) repository
 
 
+
     // Use TestNG framework, also requires calling test.useTestNG() below
-    testImplementation 'org.testng:testng:7.0.0'
+    testImplementation 'org.testng:testng:7.5'
+    // https://testng.org/doc/index.html
+    // > TestNG Upto v7.5: JDK 8 or higher.
+    // > TestNG v7.6.0 and above: JDK 11 or higher.    
+    // https://mvnrepository.com/artifact/org.testng/testng
 }
 
 application {
     // cd sample_code/java
     // gradlew run
-    // mainClass = 'java_sample.CrsTransformation'
+    mainClass = 'java_sample.CrsTransformation'
     // mainClass = 'smallJavaExample.CodeSample'
     // mainClass = 'smallJavaExample.SmallJavaExample'
-    mainClass = 'smallJavaExample.JavaExample'
+    // mainClass = 'smallJavaExample.JavaExample'
 }
 
 test {
     // Use TestNG for unit tests
     useTestNG()
+    
+    // JUnit is used in the test project "crs-transformation-adapter-test" (https://github.com/TomasJohansson/crsTransformations/blob/master/build.gradle)
 }

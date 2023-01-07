@@ -3,8 +3,22 @@
  */
 package kotlin_sample
 
+// https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/
+// https://kotlinlang.org/docs/multiplatform-run-tests.html#test-shared-code
+
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
+import kotlin.test.assertEquals
+
+// the package below is from the Java library "crs-transformation-constants"
+import com.programmerare.crsConstants.constantsByAreaNameNumber.v10_027.EpsgNumber
+
+import com.programmerare.crsTransformations.coordinate.CrsCoordinate
+import com.programmerare.crsTransformations.coordinate.latLon
+import com.programmerare.crsTransformations.CrsTransformationAdapter
+import com.programmerare.crsTransformations.CrsTransformationResult
+import com.programmerare.crsTransformations.compositeTransformations.CrsTransformationAdapterCompositeFactory.createCrsTransformationMedian
 
 class CrsTransformationTest {
 
@@ -12,10 +26,26 @@ class CrsTransformationTest {
     // But if you want to see tests then there are many Java tests of the Kotlin code 
     // in the module "crs-transformation-adapter-test" 
 
+    @Test
+    fun coordinateTransformationTest() {
+        val epsgWgs84  = EpsgNumber.WORLD__WGS_84__4326
+        val epsgSweRef = EpsgNumber.SWEDEN__SWEREF99_TM__3006
 
+        val centralStockholmWgs84: CrsCoordinate = latLon(59.330231, 18.059196, epsgWgs84)
 
-//    @Test fun testAppHasAGreeting() {
-//        val classUnderTest = CrsTransformation()
-//        assertNotNull(classUnderTest.greeting, "app should have a greeting")
-//    }
+        val crsTransformationAdapter = createCrsTransformationMedian()
+        // If the Gradle/Maven configuration includes all six adapter implementations, then the 
+        // above created 'Composite' implementation will below use all six 'leaf' implementations 
+        // and when transforming below, will return a resulting coordinate with a median longitude and a median latitude
+        val centralStockholmResultSweRef: CrsTransformationResult = crsTransformationAdapter.transform(centralStockholmWgs84, epsgSweRef)
+        assertTrue(centralStockholmResultSweRef.isSuccess)
+        val resultCoordinate: CrsCoordinate = centralStockholmResultSweRef.outputCoordinate // median result
+        assertNotNull(resultCoordinate)
+        
+        // https://javadoc.io/static/org.testng/testng/7.5/org/testng/Assert.html#assertEquals(double%5B%5D,double%5B%5D,double)
+        // public static void assertEquals​(double[] actual, double[] expected, double delta)
+        val delta = 0.001
+        assertEquals(resultCoordinate.getX(), 674032.357, delta)
+        assertEquals(resultCoordinate.getY(), 6580821.991, delta)
+    }
 }

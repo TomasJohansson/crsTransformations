@@ -6,7 +6,7 @@
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id 'org.jetbrains.kotlin.jvm' version '1.5.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
 
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
@@ -29,7 +29,7 @@ dependencies {
 
     implementation 'com.programmerare.crs-transformation:crs-transformation-constants:10.027' // only one class with constants 
     // The above "crs-transformation-constants" is a Java library 
-    def crsTransformationAdapterVersion = "2.0.0"
+    def crsTransformationAdapterVersion = "2.0.1"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-core:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4jlocationtech:$crsTransformationAdapterVersion"
     implementation "com.programmerare.crs-transformation:crs-transformation-adapter-impl-proj4j:$crsTransformationAdapterVersion"
@@ -49,6 +49,6 @@ dependencies {
 
 application {
     // gradlew run
-    // mainClass = 'kotlin_sample.CrsTransformationKt'
-    mainClass = 'smallKotlinExample.SmallKotlinExampleKt'
+    mainClass = 'kotlin_sample.CrsTransformationKt'
+    // mainClass = 'smallKotlinExample.SmallKotlinExampleKt'
 }

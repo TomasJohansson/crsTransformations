@@ -2,10 +2,12 @@ require 'java'
 Dir["../ivy_dependencies/lib/*.jar"].each { |jar| 
     require jar
 }
+# 
 
-# The JRuby code in this file is tested with JRuby 9.2.19.0 (for Windows 10 64 bit) and JRuby 9.2.13.0 (for Linux Ubuntu 20.04).
+# The JRuby code in this file is tested with JRuby 9.4.0.0 (for Windows 10 64 bit, using adapterVersion 2.0.1 in sample_code\ivy_dependencies\ivysettings.xml)
+# (and has previously been tested with JRuby 9.2.13.0 for Linux Ubuntu 20.04, using adapterVersion 2.0.0 in sample_code\ivy_dependencies\ivysettings.xml).
 # Note that it is assumed that the needed jar files has been retrieved into the above directory "../ivy_dependencies/lib/".
-# Those jar files (55 files and totally around 20 MB) can be retrieved from the internet with these command prompt commands from the root directory of this git repository:
+# Those jar files (60 files and totally around 20 MB) can be retrieved from the internet with these command prompt commands from the root directory of this git repository:
 # (assuming that Ant and Ivy are installed, and for further details, read comments in the file "ivy_dependencies/build.xml")
 #   cd sample_code/ivy_dependencies
 #   ant
@@ -67,12 +69,13 @@ class CrsTransformation
         #    InputCoordinate: Coordinate(xEastingLongitude=18.059196, yNorthingLatitude=59.330231, crsIdentifier=CrsIdentifier(crsCode='EPSG:4326', isEpsgCode=true, epsgNumber=4326))
         #    TargetCrsIdentifier: CrsIdentifier(crsCode='EPSG:3006', isEpsgCode=true, epsgNumber=3006)
         #    Coordinate transformations from EPSG 4326 to EPSG 3006
+        #    Jan 07, 2023 1:32:42 PM org.hsqldb.persist.Logger logInfoEvent
         #    LEAF_PROJ4J 0.1.0  : X / Y ===> 674032.357326444 / 6580821.991123579
-        #    LEAF_PROJ4J_LOCATIONTECH 1.1.3  : X / Y ===> 674032.3573261689 / 6580821.991120384
-        #    LEAF_NGA_GEOINT 4.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120384
-        #    LEAF_ORBISGIS 1.5.2  : X / Y ===> 674032.3573261796 / 6580821.991121078
+        #    LEAF_PROJ4J_LOCATIONTECH 1.2.2  : X / Y ===> 674032.3573261689 / 6580821.991120384
+        #    LEAF_NGA_GEOINT 4.3.0  : X / Y ===> 674032.3573261689 / 6580821.991120384
+        #    LEAF_ORBISGIS 1.6.0  : X / Y ===> 674032.3573261796 / 6580821.991121078
         #    LEAF_GOOBER 1.1  : X / Y ===> 674032.357 / 6580821.991
-        #    LEAF_GEOTOOLS 25.1  : X / Y ===> 674032.3571771549 / 6580821.994371211
+        #    LEAF_GEOTOOLS 28.0  : X / Y ===> 674032.3571771549 / 6580821.994371211
         #    COMPOSITE_MEDIAN 2.0.0  : X / Y ===> 674032.3573261689 / 6580821.991120731
         #    COMPOSITE_AVERAGE 2.0.0  : X / Y ===> 674032.3572470193 / 6580821.991642772
         #    COMPOSITE_FIRST_SUCCESS 2.0.0  : X / Y ===> 674032.357 / 6580821.991
