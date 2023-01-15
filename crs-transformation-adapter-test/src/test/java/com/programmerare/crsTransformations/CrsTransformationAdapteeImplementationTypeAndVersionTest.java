@@ -32,7 +32,7 @@ class CrsTransformationAdapteeImplementationTypeAndVersionTest
         verifyExpectedEnumAndJarfileVersion(
             new CrsTransformationAdapterOrbisgisCTS(),
             CrsTransformationImplementationType.LEAF_ORBISGIS,
-            "1.6.0" // "cts-1.6.0.jar"
+            "1.7.0" // "cts-1.7.0.jar"
         );
     }
     
