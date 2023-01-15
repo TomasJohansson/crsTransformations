@@ -8,6 +8,7 @@ import com.programmerare.crsTransformations.crsIdentifier.CrsIdentifier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -162,7 +163,7 @@ public class CrsTransformationAdapterParameterizedTests extends CrsTransformatio
 
         CrsCoordinate outputCoordinateForTransformTargetCRS = crsTransformationAdapter.transformToCoordinate(inputCoordinateOriginalCRS, epsgNumberForTransformTargetCRS);
         CrsCoordinate outputCoordinateOriginalCRS = crsTransformationAdapter.transformToCoordinate(outputCoordinateForTransformTargetCRS, inputCoordinateOriginalCRS.getCrsIdentifier().getEpsgNumber());
-
+        
         assertEquals(inputCoordinateOriginalCRS.getXEastingLongitude(), outputCoordinateOriginalCRS.getXEastingLongitude(), delta);
         assertEquals(inputCoordinateOriginalCRS.getYNorthingLatitude(), outputCoordinateOriginalCRS.getYNorthingLatitude(), delta);
         assertEquals(inputCoordinateOriginalCRS.getCrsIdentifier().getEpsgNumber(), outputCoordinateOriginalCRS.getCrsIdentifier().getEpsgNumber());
@@ -187,6 +188,37 @@ public class CrsTransformationAdapterParameterizedTests extends CrsTransformatio
         assertEquals(outputCoordinate1.getCrsIdentifier().getEpsgNumber(), outputCoordinate2.getCrsIdentifier().getEpsgNumber());
     }
 
+    // this test method below is NOT 'Parameterized' (as the class name claims)
+    // but it is currently put here anyway since it uses the Swedish CRS 
+    // through the variable 'epsgNumbersForSwedishProjectionsUsingMeterAsUnit' 
+    // which is defined in this class
+    @Test
+    void transformToTheSameCrs_shouldNotThrowExceptionAndShouldReturnTheSameCoordinate() {
+        // Örebro Centralstation;59.278643;15.211837;6573229;1466175;6571099;512072;https://kartor.eniro.se/m/pCvRt
+        // (the above Örebro coordinates is used for all swedish regional CRS below, since it is fairly central, i.e. in the middle of Sweden, regarding longitude)
+        final double longitude = 15.211837;
+        final double latitude = 59.278643;
+        
+        // max delta difference in the below assertions with 'double' typed values
+        final double deltaForWgs84 = 0.000000001;
+        final double delta = 0.007;
+        
+        final CrsCoordinate inputCoordinateWgs84 = CrsCoordinateFactory.latLon(latitude, longitude);
+        for (CrsTransformationAdapter crsTransformationAdapter: crsTransformationAdapterImplementations) {
+            // first also testing that WGS84 can "transform" to itself i.e. from WGS84 to WGS84
+            final CrsCoordinate outputCoordinateWgs84 = crsTransformationAdapter.transformToCoordinate(inputCoordinateWgs84, inputCoordinateWgs84.getCrsIdentifier());
+            assertEquals(inputCoordinateWgs84.getX(), outputCoordinateWgs84.getX(), deltaForWgs84, crsTransformationAdapter.getShortNameOfImplementation());
+            assertEquals(inputCoordinateWgs84.getY(), outputCoordinateWgs84.getY(), deltaForWgs84, crsTransformationAdapter.getShortNameOfImplementation());
+            
+            for (Integer epsgNumber : epsgNumbersForSwedishProjectionsUsingMeterAsUnit) {
+                final CrsCoordinate inputCoordinate = crsTransformationAdapter.transformToCoordinate(inputCoordinateWgs84, epsgNumber);
+                final CrsCoordinate outputCoordinate = crsTransformationAdapter.transformToCoordinate(inputCoordinate, epsgNumber);
+                String errorMessage = crsTransformationAdapter.getShortNameOfImplementation() + " , EPSG: " + epsgNumber;
+                assertEquals(inputCoordinate.getX(), outputCoordinate.getX(), delta, errorMessage);
+                assertEquals(inputCoordinate.getY(), outputCoordinate.getY(), delta, errorMessage);
+            }
+        }
+    }
 
     private double getDeltaValueForComparisons(
         CrsIdentifier crsIdentifier

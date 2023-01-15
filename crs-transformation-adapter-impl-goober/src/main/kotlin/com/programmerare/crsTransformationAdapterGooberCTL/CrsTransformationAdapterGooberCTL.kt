@@ -41,24 +41,37 @@ class CrsTransformationAdapterGooberCTL : CrsTransformationAdapterBaseLeaf(), Cr
         val input = epsgNumberForInputCoordinateSystem
         val output = crsIdentifierForOutputCoordinateSystem.epsgNumber
         // "Int" is the data type for the above input and output
-        // and below in the if statements they are used with extension functions
+        // and further down below in many of the if statements,
+        // those integers are used with extension functions
         // for semantic reasons i.e. readability.
-        if(input.isRT90() && output.isWgs84()) { // procedural alternative: "if(isRT90(input) && isWgs84(output))"
+
+        if(input == output) {
+            // the same output CRS so no transformation, and therefore return an instance with the same coordinate values as the input
+            if(input.isWgs84()) {
+                positionToReturn = WGS84Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude)
+            }
+            else if(input.isRT90()) {
+                positionToReturn = RT90Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude, rt90Projections[input])
+            }
+            else if(input.isSweref99()) {
+                positionToReturn = SWEREF99Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude, sweREFProjections[input])
+            }
+            else {
+                throw RuntimeException("EPSG not supported: " + input)    
+            }
+        }
+        else if(input.isRT90() && output.isWgs84()) { // procedural alternative: "if(isRT90(input) && isWgs84(output))"
             val rt90Position = RT90Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude, rt90Projections[input])
             positionToReturn = rt90Position.toWGS84()
-
         } else if(input.isWgs84() && output.isRT90()) {
             val wgs84Position = WGS84Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude)
             positionToReturn = RT90Position(wgs84Position, rt90Projections[output])
-
         } else if(input.isSweref99() && output.isWgs84()) {
             val sweREF99Position = SWEREF99Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude, sweREFProjections[input])
             positionToReturn = sweREF99Position.toWGS84()
-
         } else if(input.isWgs84() && output.isSweref99()) {
             val wgs84Position = WGS84Position(inputCoordinate.yNorthingLatitude, inputCoordinate.xEastingLongitude)
             positionToReturn = SWEREF99Position(wgs84Position, sweREFProjections[output])
-
         }
 
         if (positionToReturn != null) {
