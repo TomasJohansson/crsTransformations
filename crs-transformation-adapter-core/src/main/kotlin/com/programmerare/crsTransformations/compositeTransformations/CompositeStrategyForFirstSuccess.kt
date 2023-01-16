@@ -25,12 +25,15 @@ internal class CompositeStrategyForFirstSuccess private constructor(
             crsIdentifierForOutputCoordinateSystem: CrsIdentifier,
             crsTransformationAdapterThatCreatedTheResult: CrsTransformationAdapter
     ): CrsTransformationResult {
-        if(allResults.size == 1 && allResults.get(0).isSuccess) {
-            // there should never be more than one result with the FirstSuccess implementation
-            // since the calculation is interrupted at the first succeful result
+        val indexForSuccess = allResults.size - 1;
+        if(indexForSuccess >= 0 && allResults.get(indexForSuccess).isSuccess) {
+            // the last result (if any result at all, of course) 
+            // should always be success, so in theory the second part in the above "if statement" i.e. the 'isSuccess'
+            // should not be necessary (but it still there just to make it easier to find bugs, if it for some reason would not be success)
+            // since the calculation is interrupted when a successful result is found (i.e. the last result, when the iteration was interrupted, should be a success) 
             return CrsTransformationResult._createCrsTransformationResult(
                 inputCoordinate,
-                outputCoordinate = allResults.get(0).outputCoordinate,
+                outputCoordinate = allResults.get(indexForSuccess).outputCoordinate,
                 exception = null,
                 isSuccess = true,
                 crsTransformationAdapterResultSource = crsTransformationAdapterThatCreatedTheResult,
