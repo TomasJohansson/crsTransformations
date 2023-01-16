@@ -5,6 +5,7 @@ import com.programmerare.crsTransformations.coordinate.CrsCoordinate;
 import com.programmerare.crsTransformations.CrsTransformationAdapter;
 import com.programmerare.crsTransformations.CrsTransformationResult;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,21 +15,49 @@ public class CompositeStrategyForFirstSuccessTest extends CompositeStrategyTestB
 
     @Test
     void transform_shouldReturnFirstResult_whenUsingFirstSuccessCompositeAdapter() {
-        CrsTransformationAdapter firstSuccessCompositeAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess(
+        CrsTransformationAdapterComposite firstSuccessCompositeAdapter = CrsTransformationAdapterCompositeFactory.createCrsTransformationFirstSuccess(
             // note that geotools should be the first item in the below list defined in the baseclass,
             // and therefore geotools should be the implementation providing the result
             super.allAdapters
         );
-        CrsTransformationResult firstSuccessResult = firstSuccessCompositeAdapter.transform(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
+        // The result of the composite should be equal to the result of GeoTools since it
+        // is first in the list of parameters to the constructor and it should produce a result for
+        // the input coordinates ... so therefore below it is set to the adapter expected to provide the result
+
+        transform_shouldReturnFirstResult_whenUsingFirstSuccessCompositeAdapter_helper(
+            firstSuccessCompositeAdapter,
+            EpsgNumber.SWEDEN__SWEREF99_TM__3006, // epsgNumberForTransformTarget
+            1, // expectedNumberOfResults
+            adapterGeoTools // expectedLeafAdapterForTheResult
+        );
+    }
+
+    private void transform_shouldReturnFirstResult_whenUsingFirstSuccessCompositeAdapter_helper(
+        CrsTransformationAdapterComposite firstSuccessCompositeAdapter,
+        int epsgNumberForTransformTarget,
+        int expectedNumberOfResults,
+        CrsTransformationAdapter expectedLeafAdapterWithTheResult
+    ) {
+        final CrsTransformationResult firstSuccessResult = firstSuccessCompositeAdapter.transform(wgs84coordinate, epsgNumberForTransformTarget);
         assertNotNull(firstSuccessResult);
         assertTrue(firstSuccessResult.isSuccess());
-        assertEquals(1, firstSuccessResult.getTransformationResultChildren().size());
+        assertEquals(expectedNumberOfResults, firstSuccessResult.getTransformationResultChildren().size());
 
+        final List<CrsTransformationResult> children = firstSuccessResult.getTransformationResultChildren();
+        // the last should have the result (for this tested 'CompositeStrategyForFirstSuccess')
+        final CrsTransformationResult leafResult = children.get(children.size() - 1);
+            
+        assertEquals(
+            expectedLeafAdapterWithTheResult.getImplementationType(),
+            leafResult.getCrsTransformationAdapterResultSource().getImplementationType()
+        );
+        
         CrsCoordinate coordinateReturnedByCompositeAdapterFirstSuccess = firstSuccessResult.getOutputCoordinate();
-        // The above result of the composite should be equal to the result of GeoTools since it
-        // is first in the list of parameters to the constructor and it should produce a result for
-        // the input coordinates ... so therefore below assert against the direct result of geotools
-        CrsCoordinate coordinateResultWhenUsingGeoTools = adapterGeoTools.transformToCoordinate(wgs84coordinate, EpsgNumber.SWEDEN__SWEREF99_TM__3006);
-        assertEquals(coordinateResultWhenUsingGeoTools, coordinateReturnedByCompositeAdapterFirstSuccess);
+        CrsCoordinate coordinateResultWhenUsingTheExpectedLeafAdapter = expectedLeafAdapterWithTheResult.transformToCoordinate(wgs84coordinate, epsgNumberForTransformTarget);
+        assertEquals(
+            coordinateResultWhenUsingTheExpectedLeafAdapter,
+            coordinateReturnedByCompositeAdapterFirstSuccess
+        );
     }
+    
 }
